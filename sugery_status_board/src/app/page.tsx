@@ -4,36 +4,40 @@ import HomeCard from "./components/homeCard";
 
 export default function HomePage() {
   return (
-    <main>
-      {/* intro capture head */}
-      <section className="flex flex-col justify-center items-center mt-6">
-        <div className="flex flex-col sm:w-[40%] w-[80%] justify-center items-center">
-          <div className="w-[13dvh] h-[13dvh] bg-accentMain2 rounded-sm" />
-          <h1 className="text-2xl font-black font-sans">Live Orbit</h1>
-          <h3 className="text-gray-600 text-center">
-            Keeping families, loved ones informed and surgical teams coordinated
-            with real time patient progress tracking{" "}
-          </h3>
-        </div>
-      </section>
-      {/* card section  */}
-      <section className="grid mt-4  gap-y-4 sm:gap-x-4 gap-x-2 grid-cols-2 sm:grid-cols-4">
-        {cardData.map((card) => {
-          return (
-            <HomeCard
-              key={card.desc}
-              Icon={card.Icon}
-              header={card.header}
-              desc={card.desc}
-            />
-          );
-        })}
-      </section>
-      {/* auth module */}
-      <section className="mx-auto mt-10">
-        <AuthModule />
-      </section>
-    </main>
+    <main className="container mx-auto px-4 py-8">
+  {/* Hero Section */}
+  <section className="text-center py-16">
+    <div className="w-24 h-24 bg-accentMain2 rounded-lg mx-auto mb-6"></div>
+    <h1 className="text-5xl font-bold text-steel-blue-900 mb-4">
+      Welcome to Live Orbit
+    </h1>
+    <p className="text-lg text-steel-blue-700 max-w-2xl mx-auto">
+      Keeping families and loved ones informed with real-time patient
+      progress tracking, ensuring seamless coordination among surgical teams.
+    </p>
+  </section>
+
+  {/* Features Section */}
+  <section className="py-16">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {cardData.map((card) => (
+        <HomeCard
+          key={card.desc}
+          Icon={card.Icon}
+          header={card.header}
+          desc={card.desc}
+        />
+      ))}
+    </div>
+  </section>
+
+  {/* Auth Section */}
+  <section className="py-16 bg-steel-blue-50 rounded-lg">
+    <div className="max-w-lg mx-auto">
+      <AuthModule />
+    </div>
+  </section>
+</main>
   );
 }
 // land page

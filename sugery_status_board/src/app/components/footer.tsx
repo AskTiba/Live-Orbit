@@ -36,7 +36,7 @@ export default function Footer() {
                 href={dev.git}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
+                className="hover:text-steel-blue-100 transition-colors"
               >
                 {dev.name}
               </Link>
