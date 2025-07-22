@@ -13,7 +13,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-accentSub brightness-75 shadow  text-gray-800 px-4 py-4 text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+    <footer className="w-full text-white bg-steel-blue-950 brightness-75 shadow px-4 py-4 text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
       {/* GitHub Link */}
       <Link
         href="/"
@@ -49,7 +49,7 @@ export default function Footer() {
       </div>
 
       {/* Copyright */}
-      <div className="text-xs sm:text-sm text-gray-800">
+      <div className="text-xs sm:text-sm">
         &copy; {year} Surgery Status Board. All rights reserved.
       </div>
     </footer>
