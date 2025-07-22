@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaRegCalendar, FaBars, FaTimes } from "react-icons/fa";
 import clsx from "clsx";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,9 @@ export default function Navbar() {
               className="flex flex-col text-steel-blue-800 items-center justify-center"
             >
               <Logo color="blue" width={150} height={40} />
-              <p className="text-xs sm:text-sm text-steel-blue-700 mt-1">Patient Progress Tracking</p>
+              <p className="text-xs sm:text-sm text-steel-blue-700 mt-1">
+                Patient Progress Tracking
+              </p>
             </Link>
           </div>
         </Link>
@@ -77,7 +80,9 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
           />
           <div className="fixed top-0 right-0 w-3/4 sm:hidden h-full bg-steel-blue-950 text-white p-6 z-30 shadow-lg transform transition-transform duration-300 ease-in-out translate-x-0">
-            <p className="text-sm text-center mb-6 text-steel-blue-300 md:text-base">{date}</p>
+            <p className="text-sm text-center mb-6 text-steel-blue-300 md:text-base">
+              {date}
+            </p>
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-xl text-steel-blue-100 font-bold tracking-wide">
                 Menu
