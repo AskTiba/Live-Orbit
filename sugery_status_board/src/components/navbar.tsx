@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaRegCalendar, FaBars, FaTimes } from "react-icons/fa";
 import clsx from "clsx";
-import Logo from "./Logo";
+import Logo from "./icons/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,9 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Status Board", href: "/status" },
+    { label: "Patient Information", href: "/Dashboard/admin" },
+    { label: "Status Update", href: "/Dashboard/doctor" },
+    { label: "Status Board", href: "/Dashboard/visitor" },
   ];
 
   return (
@@ -29,15 +31,10 @@ export default function Navbar() {
         {/* Logo and Title */}
         <Link href="/" className="flex items-center space-x-3">
           <div className="flex flex-col leading-tight">
-            <Link
-              href="/"
-              className="flex flex-col text-steel-blue-800 items-center justify-center"
-            >
-              <Logo color="blue" width={150} height={40} />
-              <p className="text-xs sm:text-sm text-steel-blue-700 mt-1">
-                Patient Progress Tracking
-              </p>
-            </Link>
+            <Logo color="blue" width={150} height={40} />
+            <p className="text-xs sm:text-sm text-steel-blue-700 mt-1">
+              Patient Progress Tracking
+            </p>
           </div>
         </Link>
 
@@ -54,7 +51,7 @@ export default function Navbar() {
               key={href}
               href={href}
               className={clsx(
-                "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ease-in-out",
+                "rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 ease-in-out",
                 pathname === href
                   ? "bg-steel-blue-600 text-white shadow-lg"
                   : "text-steel-blue-800 hover:bg-steel-blue-100 hover:text-steel-blue-900"

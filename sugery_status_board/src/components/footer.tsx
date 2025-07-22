@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FiGithub } from "react-icons/fi";
-import Logo from "./Logo";
+import Logo from "./icons/Logo";
 
 export default function Footer() {
   const developers = [

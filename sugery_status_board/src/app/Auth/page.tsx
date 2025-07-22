@@ -1,6 +1,6 @@
+import { SvgMonitor } from "@/components/icons";
 import Link from "next/link";
 import { LuLogIn } from "react-icons/lu";
-import Monitor from "../components/Monitor";
 
 // auth module
 export default function AuthModule() {
@@ -64,7 +64,7 @@ export default function AuthModule() {
         className="w-full bg-steel-blue-100 text-steel-blue-800 py-3 rounded-lg flex justify-center items-center space-x-2 hover:bg-steel-blue-200 transition-colors"
       >
         <span>Continue as visitor</span>
-        <Monitor />
+        <SvgMonitor />
       </Link>
     </article>
   );
