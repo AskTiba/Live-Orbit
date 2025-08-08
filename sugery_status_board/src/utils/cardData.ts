@@ -1,26 +1,23 @@
-import { TbWaveSawTool } from "react-icons/tb";
-import { FiShield } from "react-icons/fi";
-import { LuUsersRound } from "react-icons/lu";
-import { FaDisplay } from "react-icons/fa6";
+import { SvgActivity, SvgShield, SvgUsers, SvgMonitor } from "@/components/icons";
 
 export const cardData = [
   {
-    Icon: TbWaveSawTool,
+    Icon: SvgActivity,
     header: "Real-time status tracking",
     desc: "Monitor ptient status through each surgical state with live updates",
   },
   {
-    Icon: FiShield,
+    Icon: SvgShield,
     header: "Secure access control",
     desc: "Role-based access ensures that information is in right hands",
   },
   {
-    Icon: LuUsersRound,
+    Icon: SvgUsers,
     header: "Muti-user support",
     desc: "Designed for admins, surgical teams and waiting room displays.",
   },
   {
-    Icon: FaDisplay,
+    Icon: SvgMonitor,
     header: "Real-time status tracking",
     desc: "Clean color-coded status board with live updates, perfect for waiting areas",
   },
