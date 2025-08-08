@@ -26,6 +26,7 @@ export interface Patient {
   phoneNumber: string;
   contactEmail: string;
   status: Status;
+  createdAt: string; // New field
 }
 
 interface PatientState {
@@ -96,6 +97,7 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
       id: new Date().toISOString(),
       patientNumber: generatePatientNumber(),
       status: "Checked In" as Status,
+      createdAt: new Date().toISOString(), // Set creation timestamp
     };
 
     const response = await fetch("/api/patients", {

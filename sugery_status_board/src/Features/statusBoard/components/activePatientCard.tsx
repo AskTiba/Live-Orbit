@@ -1,25 +1,43 @@
-import { usePatientStore } from "@/store/patientStore";
+import { Patient } from "@/store/patientStore";
 import { statusColors } from "@/utils/statusColors";
+import { User, Tag, Clock } from "lucide-react"; // Importing icons
 
-export default function ActivePatientCard() {
-  const patients = usePatientStore((state) => state.patients);
+interface ActivePatientCardProps {
+  patients: Patient[];
+}
 
+export default function ActivePatientCard({ patients }: ActivePatientCardProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
       {patients.map((patient) => (
         <article
           key={patient.patientNumber}
-          className="border-l-4 border-accentMain p-4 flex flex-col justify-center items-center rounded-2xl shadow-md bg-white"
+          className="relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border border-gray-200"
         >
-          <p className="font-semibold text-lg sm:text-xl text-center">
-            {patient.patientNumber}
-          </p>
-          <p className="text-gray-600 text-sm sm:text-base text-center">
-            {patient.lastName} {patient.firstName}
-          </p>
+          {/* Status Badge */}
           <div
-            className={`mt-2 rounded-xl px-3 py-1 text-xs sm:text-sm ${statusColors[patient.status]}`}>
+            className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold ${statusColors[patient.status]}`}>
             {patient.status}
+          </div>
+
+          <div className="p-5 pt-10 space-y-3">
+            {/* Patient Name */}
+            <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+              <User className="w-5 h-5 text-gray-500" />
+              {patient.firstName} {patient.lastName}
+            </h3>
+
+            {/* Patient ID */}
+            <p className="text-sm text-gray-600 flex items-center gap-2">
+              <Tag className="w-4 h-4 text-gray-400" />
+              <span className="font-medium">ID:</span> {patient.patientNumber}
+            </p>
+
+            {/* Last Updated (Placeholder for now) */}
+            <p className="text-xs text-gray-500 flex items-center gap-2">
+              <Clock className="w-4 h-4 text-gray-400" />
+              Last Updated: Just now
+            </p>
           </div>
         </article>
       ))}

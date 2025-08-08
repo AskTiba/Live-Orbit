@@ -311,6 +311,19 @@
       "phoneNumber": "+1 344-344-3445",
       "contactEmail": "karen.gutierrez@example.com",
       "status": "In Progress"
+    },
+    {
+      "firstName": "Anthony",
+      "lastName": "Tibamwenda",
+      "streetAddress": "Kawempe Tula",
+      "city": "Kampala",
+      "state": "Central",
+      "country": "Uganda",
+      "phoneNumber": "+256751251043",
+      "contactEmail": "anthonyngisiro@gmail.com",
+      "id": "2025-08-08T17:57:10.212Z",
+      "patientNumber": "R2D87Z",
+      "status": "Checked In"
     }
   ]
 }

@@ -1,11 +1,11 @@
 import { Status } from "@/store/patientStore";
 
 export const statusColors: Record<Status, string> = {
-  "Checked In": "bg-blue-100 text-blue-800",
-  "Pre-Procedure": "bg-yellow-100 text-yellow-800",
-  "In Progress": "bg-orange-100 text-orange-800",
-  Closing: "bg-purple-100 text-purple-800",
-  Recovery: "bg-sky-100 text-sky-800",
-  Complete: "bg-green-100 text-green-800",
-  Dismissal: "bg-gray-100 text-gray-800",
+  "Checked In": "bg-blue-50 text-blue-700 ring-blue-600/20",
+  "Pre-Procedure": "bg-yellow-50 text-yellow-700 ring-yellow-600/20",
+  "In Progress": "bg-orange-50 text-orange-700 ring-orange-600/20",
+  Closing: "bg-purple-50 text-purple-700 ring-purple-600/20",
+  Recovery: "bg-teal-50 text-teal-700 ring-teal-600/20",
+  Complete: "bg-green-50 text-green-700 ring-green-600/20",
+  Dismissal: "bg-gray-50 text-gray-700 ring-gray-600/20",
 };

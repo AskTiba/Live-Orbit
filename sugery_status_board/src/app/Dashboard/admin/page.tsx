@@ -4,10 +4,16 @@ import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { usePatientStore, Patient } from "@/store/patientStore";
 
-import { LuUserPlus, LuClipboardPlus } from "react-icons/lu";
-import { CiSearch, CiSquareRemove } from "react-icons/ci";
-import { MdCancel } from "react-icons/md";
+
+
 import ProtectedRoute from "@/components/guards/withAuthRedirect";
+import {
+  SvgCancel,
+  SvgClipboard,
+  SvgSearch,
+  SvgUserplus,
+  SvgUsers,
+} from "@/components/icons";
 
 interface IFormInput {
   firstName: string;
@@ -33,13 +39,15 @@ function PatientInformation() {
     text: string;
   } | null>(null);
 
+  
+
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<IFormInput>({
-    mode: "onChange",
+    mode: "all",
   });
 
   const fetchPatients = usePatientStore((state) => state.fetchPatients);
@@ -49,14 +57,25 @@ function PatientInformation() {
   }, [fetchPatients]);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const result = await addPatient(data);
-    if (result.success) {
-      setFormMessage({ type: "success", text: result.message });
-      reset();
-    } else {
-      setFormMessage({ type: "error", text: result.message });
-    }
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+    const [result] = await Promise.all([addPatient(data), delay(2000)]);
+    setFormMessage({
+      type: result.success ? "success" : "error",
+      text: result.message,
+    });
   };
+
+  useEffect(() => {
+    if (formMessage) {
+      if (formMessage.type === "success") {
+        reset();
+      }
+      const timer = setTimeout(() => {
+        setFormMessage(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [formMessage, reset]);
 
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const {
@@ -67,18 +86,14 @@ function PatientInformation() {
   const searchQuery = watch("searchQuery");
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      if (searchQuery) {
-        const filteredPatients = patients.filter((patient) =>
-          patient.lastName.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setSearchResults(filteredPatients);
-      } else {
-        setSearchResults([]);
-      }
-    }, 300);
-
-    return () => clearTimeout(handler);
+    if (searchQuery) {
+      const filtered = patients.filter((patient) =>
+        patient.lastName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setSearchResults(filtered);
+    } else {
+      setSearchResults([]);
+    }
   }, [searchQuery, patients]);
 
   const handleClearSearch = () => {
@@ -91,7 +106,7 @@ function PatientInformation() {
       <div className="container mx-auto lg:px-4 px-2 py-8">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <LuUserPlus className="size-5 lg:size-6 text-accentMain" />
+            <SvgUserplus className="size-5 lg:size-6 text-accentMain" />
             <h1 className="md:text-2xl font-bold text-viking-950">
               Patient Information Management
             </h1>
@@ -100,7 +115,7 @@ function PatientInformation() {
             className="bg-viking-700 p-2 rounded-lg lg:hidden text-viking-50 shadow-md hover:bg-viking-800 transition-colors flex justify-center items-center"
             onClick={() => setShowMobileSearch(true)}
           >
-            <CiSearch className="stroke-2" />
+            <SvgSearch className="stroke-2" />
           </button>
         </div>
 
@@ -283,10 +298,39 @@ function PatientInformation() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="bg-accentMain text-white py-2 rounded-md flex justify-center items-center gap-2 hover:bg-viking-800 transition-colors w-full font-semibold"
+                disabled={isSubmitting || !isValid}
+                className="bg-accentMain text-white py-2 rounded-md flex justify-center items-center gap-2 hover:bg-viking-800 transition-colors w-full font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                <LuClipboardPlus className="size-6" />
-                <span>Add Patient</span>
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    <span>Adding Patient...</span>
+                  </>
+                ) : (
+                  <>
+                    <SvgClipboard className="size-6" />
+                    <span>Add Patient</span>
+                  </>
+                )}
               </button>
             </form>
           </main>
@@ -301,31 +345,34 @@ function PatientInformation() {
                 Find existing patients by last name.
               </p>
             </div>
-            <form className="flex items-center gap-2">
+            <form className="flex flex-col gap-4">
               <input
                 className="outline flex-1 rounded-sm px-2 py-1 border border-viking-300 focus:ring-2 focus:ring-viking-500 focus:border-transparent transition-all duration-200"
                 placeholder="Enter last name to search"
                 {...registerSearch("searchQuery")}
               />
-              <button
-                type="button"
-                className="bg-accentSub rounded-full p-2 hover:bg-viking-500 transition-colors"
-              >
-                <CiSearch className="size-6 text-accentMain" />
-              </button>
-              <button
-                type="button"
-                onClick={handleClearSearch}
-                className="bg-accentSub hover:bg-viking-400 text-sm font-semibold text-viking-950 px-2 py-1.5 rounded-sm"
-              >
-                Clear
-              </button>
+              
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  className="bg-accentSub rounded-full p-2 hover:bg-viking-500 transition-colors"
+                >
+                  <SvgSearch className="size-6 text-accentMain" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClearSearch}
+                  className="bg-accentSub hover:bg-viking-400 text-sm font-semibold text-viking-950 px-2 py-1.5 rounded-sm"
+                >
+                  Clear
+                </button>
+              </div>
             </form>
 
             {searchResults.length > 0 ? (
               <div className="mt-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <LuUserPlus className="size-5 text-accentMain" />
+                  <SvgUsers className="size-5 text-accentMain" />
                   <p className="text-viking-950 font-semibold">
                     Found {searchResults.length} patient(s)
                   </p>
@@ -361,6 +408,8 @@ function PatientInformation() {
               )
             )}
           </div>
+
+          
         </div>
 
         {/* Mobile Overlay */}
@@ -370,7 +419,7 @@ function PatientInformation() {
               className="absolute top-4 right-4 text-viking-50 text-3xl"
               onClick={() => setShowMobileSearch(false)}
             >
-              <CiSquareRemove />
+              
             </button>
             <h2 className="text-2xl font-bold text-viking-50 mb-6">
               Search Patients
@@ -389,7 +438,7 @@ function PatientInformation() {
                     onClick={handleClearSearch}
                     className="absolute right-3 rounded-full text-viking-50 hover:text-viking-900"
                   >
-                    <MdCancel className="text-accentMain size-7" />
+                    <SvgCancel className="text-accentMain size-7" />
                   </button>
                 )}
               </div>
@@ -398,7 +447,7 @@ function PatientInformation() {
             {searchResults.length > 0 ? (
               <div className="mt-6 w-full max-w-md">
                 <div className="flex items-center gap-2 mb-4 text-viking-50">
-                  <LuUserPlus className="size-6" />
+                  <SvgUsers className="size-6" />
                   <p className="font-semibold">
                     Found {searchResults.length} patient(s)
                   </p>

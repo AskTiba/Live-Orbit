@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import { MdOutlineMonitorHeart } from "react-icons/md";
-import { LuLogIn } from "react-icons/lu";
 import { handleLogin } from "@/Features/auth/utils/authHandler";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import SvgUser from "@/components/icons/User";
+import { SvgMonitor } from "@/components/icons";
 
 // auth module
 export default function AuthModule() {
@@ -64,7 +64,7 @@ export default function AuthModule() {
           className="bg-accentMain w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-white hover:bg-accentSub"
         >
           <p>Sign In</p>
-          <LuLogIn />
+          <SvgUser />
         </button>
         <p className="text-sm text-center text-red-400"> {error}</p>
 
@@ -80,7 +80,7 @@ export default function AuthModule() {
         <button type="submit" className=" ">
           Continue as visitor
         </button>
-        <MdOutlineMonitorHeart size="16" />
+        <SvgMonitor className="size-4" />
       </Link>
     </article>
   );

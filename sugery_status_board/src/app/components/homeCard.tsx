@@ -6,20 +6,17 @@ export default function HomeCard({
   Icon: React.ComponentType<{ className?: string }>;
   header: string;
   desc: string;
-  key: string;
 }) {
   return (
-    <article className="flex mx-auto flex-col rounded-lg space-y-1 shadow justify-center sm:w-[20vw] w-[45vw] px-4 sm:px-6 py-2 items-center">
-      <div className="bg-accentSub w-8 h-8  flex justify-center items-center rounded-full">
-        <Icon className="p-2 text-accentMain sm:size-16 size-12 stroke-accentMain stroke-2 " />
+    <article className="flex mx-auto flex-col rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 bg-white border border-gray-100 sm:w-[20vw] w-[45vw] items-center text-center space-y-4 cursor-pointer">
+      <div className="bg-accentSub/20 w-16 h-16 flex justify-center items-center rounded-full shadow-inner">
+        <Icon className="text-accentMain size-8 sm:size-10 stroke-2" />
       </div>
-      <div className="grid grid-cols-1 gap-y-2">
-        <h2 className="sm:font-semibold font-medium capitalise text-center">
-          {/* Real-time status tracking */}
+      <div className="space-y-2">
+        <h2 className="text-xl sm:text-2xl font-bold text-viking-950 capitalize">
           {header}
         </h2>
-        <p className=" text-center text-gray-600">
-          {/* Monitor ptient status through each surgical state with live updates{" "} */}
+        <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
           {desc}
         </p>
       </div>

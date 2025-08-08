@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaRegCalendar, FaBars, FaTimes } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
-import { FiUser } from "react-icons/fi";
+import { SvgUserplus } from "@/components/icons";
 import { RxDividerVertical } from "react-icons/rx";
 import clsx from "clsx";
 import Image from "next/image";
@@ -34,7 +34,7 @@ export default function Navbar() {
     <>
       <nav className="w-full py-4 px-4 shadow-md bg-white flex justify-between items-center relative z-30">
         {/* Logo and Title */}
-        <Link href="/" className="flex space-x-3">
+        <Link href="/" className="flex space-x-3 cursor-pointer">
           <section>
             <Image
               src="/assets/logo.svg"
@@ -62,7 +62,7 @@ export default function Navbar() {
               key={path}
               href={path}
               className={clsx(
-                "rounded px-3 py-1 text-sm transition",
+                "rounded px-3 py-1 text-sm transition cursor-pointer",
                 pathname === path
                   ? "bg-accentMain text-white font-semibold"
                   : "bg-gray-100 text-gray-800 hover:bg-gray-200"
@@ -74,11 +74,11 @@ export default function Navbar() {
           {isLoggedIn && (
             <section className="flex justify-center items-center space-x-2">
               <RxDividerVertical className="size-6" />
-              <FiUser />
+              <SvgUserplus />
               <p className="text-accentMain ">
                 {fullName} ({role}){" "}
               </p>
-              <IoLogOutOutline className="size-6" onClick={() => logout()} />
+              <IoLogOutOutline className="size-6 cursor-pointer" onClick={() => logout()} />
             </section>
           )}
         </div>
