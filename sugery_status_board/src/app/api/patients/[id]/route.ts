@@ -29,7 +29,20 @@ export async function PUT(
   const patientIndex = data.patients.findIndex(
     (p: { id: string }) => p.id === id
   );
-  data.patients[patientIndex] = body;
+
+  if (patientIndex === -1) {
+    return NextResponse.json({ message: "Patient not found" }, { status: 404 });
+  }
+
+  const originalPatient = data.patients[patientIndex];
+
+  const updatedPatient = body;
+
+  if (updatedPatient.status !== originalPatient.status) {
+    updatedPatient.statusUpdatedAt = new Date().toISOString();
+  }
+
+  data.patients[patientIndex] = updatedPatient;
   fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
   return NextResponse.json({ message: "Patient updated successfully" });
 }

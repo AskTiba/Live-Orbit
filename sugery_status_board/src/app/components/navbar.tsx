@@ -138,7 +138,7 @@ export default function Navbar() {
               {isLoggedIn && (
                 <button
                   onClick={() => logout()}
-                  className="bg-viking-400 text-white px-4 py-2 rounded hover:bg-viking-700 transition"
+                  className="bg-viking-400 text-white px-4 py-2 rounded hover:bg-viking-700 transition cursor-pointer"
                 >
                   Logout
                 </button>

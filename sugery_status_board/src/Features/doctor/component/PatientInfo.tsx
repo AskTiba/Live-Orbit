@@ -4,7 +4,7 @@ import { usePatientStore } from "@/store/patientStore";
 
 import { statusColors } from "@/utils/statusColors";
 import { SvgFileText, SvgMail, SvgPhone, SvgUser } from "@/components/icons";
-import SvgHome from "@/components/icons/Home";
+import { SvgMapPinHouse } from "@/components/icons";
 
 const statusDescriptions: Record<string, string> = {
   "Checked In": "In the facility awaiting their procedure",
@@ -62,7 +62,7 @@ export default function PatientDetailsCard() {
         </div>
 
         <div className="flex items-center gap-2">
-          <SvgHome className="w-4 h-4 text-viking-600" />
+          <SvgMapPinHouse className="w-6 h-6 text-viking-600" />
           <span className="font-medium">Address:</span>
           {selectedPatient.streetAddress}, {selectedPatient.city},
           {selectedPatient.state}, {selectedPatient.country}

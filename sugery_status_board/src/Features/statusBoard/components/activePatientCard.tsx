@@ -12,7 +12,7 @@ export default function ActivePatientCard({ patients }: ActivePatientCardProps) 
       {patients.map((patient) => (
         <article
           key={patient.patientNumber}
-          className="relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border border-gray-200"
+          className="relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border border-gray-200 cursor-pointer"
         >
           {/* Status Badge */}
           <div
@@ -27,7 +27,7 @@ export default function ActivePatientCard({ patients }: ActivePatientCardProps) 
               {patient.firstName} {patient.lastName}
             </h3>
 
-            {/* Patient ID */}
+            {/* Patient Number */}
             <p className="text-sm text-gray-600 flex items-center gap-2">
               <Tag className="w-4 h-4 text-gray-400" />
               <span className="font-medium">ID:</span> {patient.patientNumber}

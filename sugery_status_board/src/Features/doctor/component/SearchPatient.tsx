@@ -20,7 +20,7 @@ export default function SearchPatient() {
     if (trimmedId.length === 6) {
       await findPatientByPatientNumber(trimmedId);
     } else {
-      alert("Please enter a valid 6-character Patient ID.");
+      alert("Please enter a valid 6-character Patient Number.");
     }
   };
 
@@ -45,7 +45,7 @@ export default function SearchPatient() {
           value={inputId}
           onChange={(e) => setInputId(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          placeholder="Enter 6-character Patient ID"
+          placeholder="Enter 6-character Patient Number"
           className="w-full sm:w-auto flex-1 px-4 py-2 text-sm border border-viking-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-viking-500"
         />
         <div className="flex gap-2">

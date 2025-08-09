@@ -60,7 +60,7 @@ export default function AuthModule() {
 
         <button
           type="submit"
-          className="bg-viking-400 w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-white hover:bg-viking-200"
+          className="bg-viking-400 w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-white hover:bg-viking-200 cursor-pointer"
         >
           <p>Sign In</p>
           <SvgUser />
@@ -74,11 +74,9 @@ export default function AuthModule() {
 
       <Link
         href={"/"}
-        className="bg-gray-100 w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-viking-950 hover:bg-gray-400"
+        className="bg-gray-100 w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-viking-950 hover:bg-gray-400 cursor-pointer"
       >
-        <button type="submit" className=" ">
-          Continue as visitor
-        </button>
+        Continue as visitor
         <SvgMonitor className="size-4" />
       </Link>
     </article>

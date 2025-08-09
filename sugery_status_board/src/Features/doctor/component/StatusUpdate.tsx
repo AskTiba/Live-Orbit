@@ -171,12 +171,12 @@ export default function StatusUpdateForm() {
                     className={`text-viking-900 cursor-pointer select-none relative py-2 pl-4 pr-9 text-sm
                       ${isSelected ? "bg-viking-100 font-semibold" : "hover:bg-viking-50"}
                       ${isDisabledOption ? "text-gray-400 cursor-not-allowed" : ""}`}
-                    onClick={() => !isDisabledOption && handleOptionSelect(step)}
+                    onClick={() => !isDisabledOption && handleOptionSelect(step as Status)}
                     role="option"
                     aria-selected={isSelected}
                   >
                     <div className="flex items-center justify-between">
-                      <span className={`px-3 py-1 rounded-full text-sm font-semibold ${statusColors[step]}`}>
+                      <span className={`px-3 py-1 rounded-full text-sm font-semibold ${statusColors[step as Status]}`}>
                         {step}
                       </span>
                       {isCurrent && (
@@ -194,7 +194,7 @@ export default function StatusUpdateForm() {
       <button
         onClick={handleUpdateSubmit}
         disabled={isUpdateDisabled}
-        className="w-full bg-viking-600 text-white py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-viking-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full bg-viking-600 text-white py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-viking-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
       >
         {isUpdating ? (
           <>

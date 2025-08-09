@@ -5,13 +5,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { usePatientStore, Patient } from "@/store/patientStore";
 
 import ProtectedRoute from "@/components/guards/withAuthRedirect";
-import {
-  SvgCancel,
-  SvgClipboard,
-  SvgSearch,
-  SvgUserplus,
-  SvgUsers,
-} from "@/components/icons";
+import { SvgCancel, SvgClipboard, SvgSearch, SvgUserplus, SvgUsers, SvgFileText } from "@/components/icons";
+import Link from "next/link";
 
 interface IFormInput {
   firstName: string;
@@ -101,18 +96,28 @@ function PatientInformation() {
     <ProtectedRoute>
       <div className="container mx-auto lg:px-4 px-2 py-4">
         <div className="flex items-center justify-between mx-4 md:mx-0 mb-6">
-          <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3">
             <SvgUserplus className="size-8 lg:size-6 text-viking-400" />
             <h1 className="md:text-2xl text-2xl font-bold text-viking-950">
               Patient Information Management
             </h1>
           </div>
-          <button
-            className="bg-viking-700 p-1 rounded-lg lg:hidden text-viking-50 shadow-md hover:bg-viking-800 transition-colors flex justify-center items-center"
-            onClick={() => setShowMobileSearch(true)}
-          >
-            <SvgSearch className="stroke-2" />
-          </button>
+          <div className="flex items-center gap-3"> {/* New div to group buttons */}
+            <Link href="/Dashboard/reports" passHref>
+              <button
+                className="flex items-center gap-2 px-4 py-2 bg-viking-600 text-white rounded-md text-sm font-semibold shadow-md hover:bg-viking-700 transition-colors cursor-pointer"
+              >
+                <SvgFileText className="size-5" />
+                View Reports
+              </button>
+            </Link>
+            <button
+              className="bg-viking-700 p-1 rounded-lg lg:hidden text-viking-50 shadow-md hover:bg-viking-800 transition-colors flex justify-center items-center cursor-pointer"
+              onClick={() => setShowMobileSearch(true)}
+            >
+              <SvgSearch className="stroke-2" />
+            </button>
+          </div>
         </div>
 
         <div className="lg:grid lg:grid-cols-2 lg:gap-8">
@@ -295,7 +300,7 @@ function PatientInformation() {
               <button
                 type="submit"
                 disabled={isSubmitting || !isValid}
-                className="bg-viking-400 text-white py-2 rounded-md flex justify-center items-center gap-2 hover:bg-viking-800 transition-colors w-full font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="bg-viking-400 text-white py-2 rounded-md flex justify-center items-center gap-2 hover:bg-viking-800 transition-colors w-full font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isSubmitting ? (
                   <>
@@ -351,14 +356,14 @@ function PatientInformation() {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  className="bg-viking-200 rounded-full p-2 hover:bg-viking-500 transition-colors"
+                  className="bg-viking-200 rounded-full p-2 hover:bg-viking-500 transition-colors cursor-pointer"
                 >
                   <SvgSearch className="size-6 text-viking-400" />
                 </button>
                 <button
                   type="button"
                   onClick={handleClearSearch}
-                  className="bg-viking-200 hover:bg-viking-400 text-sm font-semibold text-viking-950 px-2 py-1.5 rounded-sm"
+                  className="bg-viking-200 hover:bg-viking-400 text-sm font-semibold text-viking-950 px-2 py-1.5 rounded-sm cursor-pointer"
                 >
                   Clear
                 </button>
@@ -410,7 +415,7 @@ function PatientInformation() {
         {showMobileSearch && (
           <div className="fixed inset-0 bg-viking-950/70 backdrop-blur-lg z-50 flex flex-col items-center justify-start p-4 pt-20">
             <button
-              className="absolute top-4 right-4 p-2 rounded-full text-viking-50 hover:bg-viking-800/50 transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full text-viking-50 hover:bg-viking-800/50 transition-colors cursor-pointer"
               onClick={() => setShowMobileSearch(false)}
               aria-label="Close search"
             >
@@ -431,7 +436,7 @@ function PatientInformation() {
                   <button
                     type="button"
                     onClick={handleClearSearch}
-                    className="absolute right-3 rounded-full text-viking-50 hover:text-viking-900"
+                    className="absolute right-3 rounded-full text-viking-50 hover:text-viking-900 cursor-pointer"
                   >
                     <SvgCancel className="text-viking-400 size-7" />
                   </button>

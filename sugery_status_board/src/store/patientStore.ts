@@ -27,6 +27,7 @@ export interface Patient {
   contactEmail: string;
   status: Status;
   createdAt: string; // New field
+  statusUpdatedAt?: string;
 }
 
 interface PatientState {
