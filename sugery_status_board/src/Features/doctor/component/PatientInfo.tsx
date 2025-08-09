@@ -53,26 +53,26 @@ export default function PatientDetailsCard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-viking-800">
         <div className="flex items-center gap-2">
           <SvgUser className="w-4 h-4 text-viking-600" />
-          <span className="font-medium">Name:</span> {selectedPatient.firstName}{" "}
+          <span className="font-medium">Name:</span> {selectedPatient.firstName}
           {selectedPatient.lastName}
         </div>
 
         <div className="flex items-center gap-2">
           <SvgMail className="w-4 h-4 text-viking-600" />
-          <span className="font-medium">Email:</span>{" "}
+          <span className="font-medium">Email:</span>
           {selectedPatient.contactEmail}
         </div>
 
         <div className="flex items-center gap-2">
           <SvgPhone className="w-4 h-4 text-viking-600" />
-          <span className="font-medium">Phone:</span>{" "}
+          <span className="font-medium">Phone:</span>
           {selectedPatient.phoneNumber}
         </div>
 
         <div className="flex items-center gap-2">
           <SvgMapPin className="w-4 h-4 text-viking-600" />
-          <span className="font-medium">Address:</span>{" "}
-          {selectedPatient.streetAddress}, {selectedPatient.city},{" "}
+          <span className="font-medium">Address:</span>
+          {selectedPatient.streetAddress}, {selectedPatient.city},
           {selectedPatient.state}, {selectedPatient.country}
         </div>
       </div>
