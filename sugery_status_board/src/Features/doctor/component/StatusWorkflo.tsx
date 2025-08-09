@@ -1,5 +1,8 @@
 'use client';
 
+import { statusColors } from "@/utils/statusColors";
+import { Status } from "@/store/patientStore";
+
 const workflowSteps = [
   'Checked In',
   'Pre-Procedure',
@@ -23,11 +26,8 @@ export default function StatusWorkflowReference() {
           <div key={step} className="flex items-center sm:gap-3">
             <span
               className={`
-                px-4 py-1 text-sm rounded-full border transition whitespace-nowrap
-                ${idx === 0 
-                  ? 'bg-blue-50 text-blue-600 border-blue-300 font-semibold' 
-                  : 'bg-white text-gray-800 border-gray-300'
-                }
+                px-4 py-1 text-sm rounded-md border transition whitespace-nowrap
+                ${statusColors[step as Status]}
               `}
             >
               {step}

@@ -16,3 +16,4 @@ export * from "./Mail";
 export * from "./MapPin";
 export * from "./Phone";
 export * from "./User";
+export * from "./Home";

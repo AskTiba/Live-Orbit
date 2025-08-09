@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { usePatientStore, Patient } from "@/store/patientStore";
 
-
-
 import ProtectedRoute from "@/components/guards/withAuthRedirect";
 import {
   SvgCancel,
@@ -38,8 +36,6 @@ function PatientInformation() {
     type: "success" | "error";
     text: string;
   } | null>(null);
-
-  
 
   const {
     register,
@@ -103,16 +99,16 @@ function PatientInformation() {
 
   return (
     <ProtectedRoute>
-      <div className="container mx-auto lg:px-4 px-2 py-8">
-        <div className="flex items-center justify-between mb-6">
+      <div className="container mx-auto lg:px-4 px-2 py-4">
+        <div className="flex items-center justify-between mx-4 md:mx-0 mb-6">
           <div className="flex items-center gap-3">
-            <SvgUserplus className="size-5 lg:size-6 text-viking-400" />
-            <h1 className="md:text-2xl font-bold text-viking-950">
+            <SvgUserplus className="size-8 lg:size-6 text-viking-400" />
+            <h1 className="md:text-2xl text-2xl font-bold text-viking-950">
               Patient Information Management
             </h1>
           </div>
           <button
-            className="bg-viking-700 p-2 rounded-lg lg:hidden text-viking-50 shadow-md hover:bg-viking-800 transition-colors flex justify-center items-center"
+            className="bg-viking-700 p-1 rounded-lg lg:hidden text-viking-50 shadow-md hover:bg-viking-800 transition-colors flex justify-center items-center"
             onClick={() => setShowMobileSearch(true)}
           >
             <SvgSearch className="stroke-2" />
@@ -156,7 +152,7 @@ function PatientInformation() {
                   </label>
                   <input
                     id="firstName"
-                                      className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
+                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
                     {...register("firstName", {
                       required: "First name is required",
                     })}
@@ -178,7 +174,7 @@ function PatientInformation() {
                   </label>
                   <input
                     id="lastName"
-                                      className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
+                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
                     {...register("lastName", {
                       required: "Last name is required",
                     })}
@@ -201,7 +197,7 @@ function PatientInformation() {
                 </label>
                 <input
                   id="streetAddress"
-                                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
+                  className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
                   {...register("streetAddress", {
                     required: "Street address is required",
                   })}
@@ -226,7 +222,7 @@ function PatientInformation() {
                     </label>
                     <input
                       id={id}
-                                        className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
+                      className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
                       {...register(id as keyof IFormInput, {
                         required: `${label} is required`,
                       })}
@@ -251,7 +247,7 @@ function PatientInformation() {
                 <input
                   id="phoneNumber"
                   placeholder="+XXX XXXXXXXXXX"
-                                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
+                  className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
                   {...register("phoneNumber", {
                     required: "Phone number is required",
                     pattern: {
@@ -279,7 +275,7 @@ function PatientInformation() {
                 <input
                   id="contactEmail"
                   placeholder="family@kfc.com"
-                                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
+                  className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
                   {...register("contactEmail", {
                     required: "Contact email is required",
                     pattern: {
@@ -351,7 +347,7 @@ function PatientInformation() {
                 placeholder="Enter last name to search"
                 {...registerSearch("searchQuery")}
               />
-              
+
               <div className="flex items-center gap-2">
                 <button
                   type="button"
@@ -408,18 +404,17 @@ function PatientInformation() {
               )
             )}
           </div>
-
-          
         </div>
 
         {/* Mobile Overlay */}
         {showMobileSearch && (
           <div className="fixed inset-0 bg-viking-950/70 backdrop-blur-lg z-50 flex flex-col items-center justify-start p-4 pt-20">
             <button
-              className="absolute top-4 right-4 text-viking-50 text-3xl"
+              className="absolute top-4 right-4 p-2 rounded-full text-viking-50 hover:bg-viking-800/50 transition-colors"
               onClick={() => setShowMobileSearch(false)}
+              aria-label="Close search"
             >
-              
+              <SvgCancel className="size-8" />
             </button>
             <h2 className="text-2xl font-bold text-viking-50 mb-6">
               Search Patients

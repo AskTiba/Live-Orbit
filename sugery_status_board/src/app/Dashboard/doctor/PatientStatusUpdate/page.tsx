@@ -15,26 +15,35 @@ export default function PatientStatusUpdatePage() {
 
   return (
     <ProtectedRoute>
-      <main className="min-h-screen bg-viking-50 py-10 px-6 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto space-y-8">
+      <main className="min-h-screen bg-viking-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto space-y-8 lg:space-y-10">
           {/* Page Heading */}
-          <h1 className="text-3xl font-bold text-center text-viking-950 flex justify-center items-center gap-2">
-            <SvgActivity className="size-8 text-viking-400" />
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-viking-950 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3">
+            <SvgActivity className="size-9 sm:size-10 text-viking-400" />
             <span>Patient Status Update</span>
           </h1>
 
-          {/* Search Input */}
-          <SearchPatient />
+          {/* Search Input - Wrapped in a card for better visual separation */}
+          <div className="bg-white p-6 rounded-2xl shadow-lg">
+            <SearchPatient />
+          </div>
 
           {/* Conditional Display */}
           {selectedPatient?.patientNumber ? (
-            <section className="bg-viking-50 rounded-2xl shadow-md px-6 space-y-6 transition-all duration-200">
-              <PatientInfo />
-              <hr className="border-viking-200" />
-              <StatusUpdateForm />
-            </section>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+              {/* Patient Information Card */}
+              <div className="bg-white p-6 rounded-2xl shadow-lg">
+                <PatientInfo />
+              </div>
+              {/* Status Update Form Card */}
+              <div className="bg-white p-6 rounded-2xl shadow-lg">
+                <StatusUpdateForm />
+              </div>
+            </div>
           ) : (
-            <StatusWorkflow />
+            <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+              <StatusWorkflow />
+            </div>
           )}
         </div>
       </main>
