@@ -1,0 +1,3850 @@
+diff --git a/README.md b/README.md
+index d5369b5..3a03434 100644
+--- a/README.md
++++ b/README.md
+@@ -1,168 +1,97 @@
+-# Live Orbit: Surgery Status Board
+-
+-## Real-time Patient Progress Tracking
+-
+-Live Orbit is a modern web application designed to keep families, loved ones, and surgical teams coordinated with real-time patient progress tracking. It provides a clear, color-coded status board and robust patient information management, ensuring transparency and efficiency in surgical environments.
+-
+-## Table of Contents
+-
+-- [Features](#features)
+-- [Technologies Used](#technologies-used)
+-- [Getting Started](#getting-started)
+-  - [Prerequisites](#prerequisites)
+-  - [Installation](#installation)
+-  - [Running the Development Server](#running-the-development-server)
+-  - [Building for Production](#building-for-production)
+-- [Project Structure](#project-structure)
+-- [API Endpoints](#api-endpoints)
+-- [UI/UX Design Principles](#uiux-design-principles)
+-- [Contributing](#contributing)
+-- [License](#license)
+-- [Contact](#contact)
+-
+-## Features
+-
+--   **Real-time Status Tracking:** Monitor patient status through each surgical stage with live updates.
+--   **Secure Access Control:** Role-based access ensures information is in the right hands (Admin, Doctor, Visitor).
+--   **Multi-user Support:** Designed for administrators, surgical teams, and waiting room displays.
+--   **Intuitive Status Board:** Clean, color-coded status board with live updates, perfect for waiting areas.
+--   **Patient Information Management:** Add, view, update, and delete patient records.
+--   **Dynamic Search & Filtering:** Easily find patients by last name with dynamic search.
+--   **Responsive Design:** Optimized for various screen sizes, from mobile to desktop.
+--   **Modern UI:** Beautiful and easily visible interface using a consistent color palette.
+-
+-## Technologies Used
+-
+--   **Next.js 15.4.1:** React framework for production.
+--   **React 19.1.0:** JavaScript library for building user interfaces.
+--   **TypeScript:** Strongly typed superset of JavaScript.
+--   **Tailwind CSS 4:** Utility-first CSS framework for rapid UI development.
+--   **Zustand:** Small, fast, and scalable bearbones state-management solution.
+--   **Lucide React:** Beautifully simple and customizable open-source icons.
+--   **React Hook Form:** Performant, flexible and extensible forms with easy-to-use validation.
+--   **PDFKit:** PDF generation library (for API routes).
+--   **clsx:** A tiny (229B) utility for constructing `className` strings conditionally.
+-
+-## Getting Started
+-
+-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+-
+-### Prerequisites
+-
+--   Node.js (v18.x or higher recommended)
+--   npm (v8.x or higher) or Yarn (v1.x or higher)
+-
+-### Installation
+-
+-1.  **Clone the repository:**
+-    ```bash
+-    git clone https://github.com/AskTiba/Live-Orbit.git
+-    cd sugery_status_board # Navigate into the project directory
+-    ```
+-2.  **Install dependencies:**
+-    ```bash
+-    npm install
+-    # or
+-    yarn install
+-    ```
+-
+-### Running the Development Server
+-
+-To run the application in development mode:
++# 🏥 Surgery Status Board — MVP
++
++_A React/next.js‑based dashboard for tracking surgical patient information and progress._
++
++---
++
++## 🚀 Overview
++
++Surgery Status Board is a frontend-only application built with **React**, **Zustand**, and **Next.js**, aimed at medical facilities managing surgical patients. It supports:
++
++- ✅ Admin and Doctor access control
++- ✅ Patient creation and management
++- ✅ Real‑time search and lookup
++- ✅ Live status updates and workflow charts
++- ✅ Exportable summaries (planned in next sprint)
++- ✅ Fully client‑side with Zustand as the source of truth
++
++> 🎯 **Note:** User Story 7 (multi‑patient export by date/month/year) is pending implementation in the next MVP iteration.
++
++---
++
++## 🧱 Tech Stack
++
++| Feature                  | Technology Stack                    |
++|--------------------------|-------------------------------------|
++| **Frontend Framework**   | Next.js (React)                     |
++| **State Management**     | Zustand                             |
++| **Routing**              | Next.js `useRouter`, client‑only auth|
++| **Icons**                | `react-icons`                       |
++| **Forms & Validation**   | `react-hook-form`                   |
++| **UI Utility**           | Tailwind CSS                        |
++| **Date Parsing**         | `date-fns` (prepping for exports)  |
++
++---
++
++## 🎯 User Flows & Features
++
++### 1. Authentication Guard  
++- All protected pages are wrapped in `<ProtectedRoute>` to ensure only authenticated users see them.
++- Based on admin or doctor roles to control access.
++
++### 2. Add New Patient  
++- Admins can add patient information via a form.
++- Data is stored in Zustand and surfaces immediately.
++
++### 3. Patient Search (Live)  
++- Real-time searching of patients by last name using debounced input.
++- Works responsive for both desktop and mobile screens.
++
++### 4. Patient Status Workflow  
++- Doctors can locate a patient and submit status updates.
++- UI displays workflow of current statuses, and shows relevant forms.
++
++---
++
++
++---
++
++## ⚙️ Installation & Setup
+ 
+ ```bash
++git clone <repo-url>
++cd surgery-status-board
++npm install
+ npm run dev
+-# or
+-yarn dev
+-```
+ 
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
++---
+ 
+-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
++## 📌 Next Steps & Roadmap
++User Story 7: Export patient data by date/month/year (PDF, Excel, Word)
+ 
+-### Building for Production
++Add role-based dashboard (e.g. admin vs doctor views)
++
++Improve styling and responsiveness (mobile-first)
++
++Add notification/toast system for feedback
++
++Add unit tests and type-check coverage
++
++🧪 MVP Status Summary
++Feature	Status
++Auth guard with client-side auth checks	✅ Done
++Add patient form and validation	✅ Done
++Search patient live by last name	✅ Done
++Doctor status update workflow	✅ Done
++Export feature (multi‑patient + filters)	❌ Coming Up
++
++🤝 Contribute
++Contributions are welcome! Please submit a PR or open issues for improvements or bug fixes.
++
++Thank you for using the Surgery Status Board MVP! Let’s build the next features together. 💪
++
++yaml
++Copy
++Edit
+ 
+-To build the application for production:
+ 
+-```bash
+-npm run build
+-# or
+-yarn build
+-```
+-
+-This command optimizes the application for the best performance.
+-
+-## Project Structure
+-
+-```
+-sugery_status_board/
+-├── public/                 # Static assets (images, fonts, etc.)
+-│   └── assets/
+-│       └── logo.svg
+-├── src/
+-│   ├── app/                # Next.js App Router (pages, layouts, API routes)
+-│   │   ├── Auth/           # Authentication related pages
+-│   │   ├── Dashboard/      # Dashboard pages (admin, doctor, statusboard)
+-│   │   ├── api/            # API routes (export, patients)
+-│   │   ├── components/     # Shared UI components (footer, navbar, homeCard)
+-│   │   └── globals.css     # Global styles
+-│   ├── components/         # Reusable components (guards, custom icons)
+-│   │   └── icons/          # Custom SVG icons
+-│   ├── db/                 # Local JSON database (db.json)
+-│   ├── Features/           # Feature-specific modules (auth, doctor, statusBoard)
+-│   │   ├── auth/
+-│   │   ├── doctor/
+-│   │   └── statusBoard/
+-│   ├── store/              # Zustand global state management
+-│   └── utils/              # Utility functions and data (cardData, statusColors)
+-├── .gitignore              # Specifies intentionally untracked files to ignore
+-├── next.config.ts          # Next.js configuration
+-├── package.json            # Project dependencies and scripts
+-├── package-lock.json       # Records the exact versions of dependencies
+-├── postcss.config.mjs      # PostCSS configuration for Tailwind CSS
+-├── README.md               # Project README file
+-└── tsconfig.json           # TypeScript configuration
+-```
+-
+-## API Endpoints
+-
+-The application exposes the following API endpoints:
+-
+--   **`GET /api/patients`**: Retrieves a list of all patients.
+--   **`GET /api/patients/[id]`**: Retrieves a single patient by ID.
+--   **`PUT /api/patients/[id]`**: Updates a patient's record by ID.
+--   **`DELETE /api/patients/[id]`**: Deletes a patient's record by ID.
+--   **`GET /api/export/pdf?id=[patientId]`**: Generates and downloads a PDF report for a specific patient.
+-
+-## UI/UX Design Principles
+-
+-The project adheres to modern UI/UX principles, focusing on:
+-
+--   **Clarity & Readability:** Ensuring all text and elements are easily discernible.
+--   **Visual Hierarchy:** Guiding user attention to important information through size, weight, and color.
+--   **Consistency:** Maintaining a uniform look and feel across all components.
+--   **Responsiveness:** Providing an optimal viewing and interaction experience across a wide range of devices.
+--   **Color Palette:** Utilizing the custom "Viking" color palette for a cohesive, beautiful, and easily visible interface.
+-
+-## Contributing
+-
+-Contributions are welcome! Please follow these steps:
+-
+-1.  Fork the repository.
+-2.  Create a new branch (`git checkout -b feature/your-feature-name`).
+-3.  Make your changes.
+-4.  Commit your changes (`git commit -m 'feat: Add new feature'`).
+-5.  Push to the branch (`git push origin feature/your-feature-name`).
+-6.  Open a Pull Request.
+-
+-## License
+-
+-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+-
+-## Contact
+-
+--   **Shamuran:** [GitHub Profile](https://github.com/Ahmad-nba)
+--   **Shubham:** [GitHub Profile](https://github.com/1)
+--   **Anthony:** [GitHub Profile](https://github.com/])
+-
+-Feel free to reach out with any questions or feedback!
+diff --git a/sugery_status_board/README.md b/sugery_status_board/README.md
+deleted file mode 100644
+index d5369b5..0000000
+--- a/sugery_status_board/README.md
++++ /dev/null
+@@ -1,168 +0,0 @@
+-# Live Orbit: Surgery Status Board
+-
+-## Real-time Patient Progress Tracking
+-
+-Live Orbit is a modern web application designed to keep families, loved ones, and surgical teams coordinated with real-time patient progress tracking. It provides a clear, color-coded status board and robust patient information management, ensuring transparency and efficiency in surgical environments.
+-
+-## Table of Contents
+-
+-- [Features](#features)
+-- [Technologies Used](#technologies-used)
+-- [Getting Started](#getting-started)
+-  - [Prerequisites](#prerequisites)
+-  - [Installation](#installation)
+-  - [Running the Development Server](#running-the-development-server)
+-  - [Building for Production](#building-for-production)
+-- [Project Structure](#project-structure)
+-- [API Endpoints](#api-endpoints)
+-- [UI/UX Design Principles](#uiux-design-principles)
+-- [Contributing](#contributing)
+-- [License](#license)
+-- [Contact](#contact)
+-
+-## Features
+-
+--   **Real-time Status Tracking:** Monitor patient status through each surgical stage with live updates.
+--   **Secure Access Control:** Role-based access ensures information is in the right hands (Admin, Doctor, Visitor).
+--   **Multi-user Support:** Designed for administrators, surgical teams, and waiting room displays.
+--   **Intuitive Status Board:** Clean, color-coded status board with live updates, perfect for waiting areas.
+--   **Patient Information Management:** Add, view, update, and delete patient records.
+--   **Dynamic Search & Filtering:** Easily find patients by last name with dynamic search.
+--   **Responsive Design:** Optimized for various screen sizes, from mobile to desktop.
+--   **Modern UI:** Beautiful and easily visible interface using a consistent color palette.
+-
+-## Technologies Used
+-
+--   **Next.js 15.4.1:** React framework for production.
+--   **React 19.1.0:** JavaScript library for building user interfaces.
+--   **TypeScript:** Strongly typed superset of JavaScript.
+--   **Tailwind CSS 4:** Utility-first CSS framework for rapid UI development.
+--   **Zustand:** Small, fast, and scalable bearbones state-management solution.
+--   **Lucide React:** Beautifully simple and customizable open-source icons.
+--   **React Hook Form:** Performant, flexible and extensible forms with easy-to-use validation.
+--   **PDFKit:** PDF generation library (for API routes).
+--   **clsx:** A tiny (229B) utility for constructing `className` strings conditionally.
+-
+-## Getting Started
+-
+-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+-
+-### Prerequisites
+-
+--   Node.js (v18.x or higher recommended)
+--   npm (v8.x or higher) or Yarn (v1.x or higher)
+-
+-### Installation
+-
+-1.  **Clone the repository:**
+-    ```bash
+-    git clone https://github.com/AskTiba/Live-Orbit.git
+-    cd sugery_status_board # Navigate into the project directory
+-    ```
+-2.  **Install dependencies:**
+-    ```bash
+-    npm install
+-    # or
+-    yarn install
+-    ```
+-
+-### Running the Development Server
+-
+-To run the application in development mode:
+-
+-```bash
+-npm run dev
+-# or
+-yarn dev
+-```
+-
+-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-
+-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+-
+-### Building for Production
+-
+-To build the application for production:
+-
+-```bash
+-npm run build
+-# or
+-yarn build
+-```
+-
+-This command optimizes the application for the best performance.
+-
+-## Project Structure
+-
+-```
+-sugery_status_board/
+-├── public/                 # Static assets (images, fonts, etc.)
+-│   └── assets/
+-│       └── logo.svg
+-├── src/
+-│   ├── app/                # Next.js App Router (pages, layouts, API routes)
+-│   │   ├── Auth/           # Authentication related pages
+-│   │   ├── Dashboard/      # Dashboard pages (admin, doctor, statusboard)
+-│   │   ├── api/            # API routes (export, patients)
+-│   │   ├── components/     # Shared UI components (footer, navbar, homeCard)
+-│   │   └── globals.css     # Global styles
+-│   ├── components/         # Reusable components (guards, custom icons)
+-│   │   └── icons/          # Custom SVG icons
+-│   ├── db/                 # Local JSON database (db.json)
+-│   ├── Features/           # Feature-specific modules (auth, doctor, statusBoard)
+-│   │   ├── auth/
+-│   │   ├── doctor/
+-│   │   └── statusBoard/
+-│   ├── store/              # Zustand global state management
+-│   └── utils/              # Utility functions and data (cardData, statusColors)
+-├── .gitignore              # Specifies intentionally untracked files to ignore
+-├── next.config.ts          # Next.js configuration
+-├── package.json            # Project dependencies and scripts
+-├── package-lock.json       # Records the exact versions of dependencies
+-├── postcss.config.mjs      # PostCSS configuration for Tailwind CSS
+-├── README.md               # Project README file
+-└── tsconfig.json           # TypeScript configuration
+-```
+-
+-## API Endpoints
+-
+-The application exposes the following API endpoints:
+-
+--   **`GET /api/patients`**: Retrieves a list of all patients.
+--   **`GET /api/patients/[id]`**: Retrieves a single patient by ID.
+--   **`PUT /api/patients/[id]`**: Updates a patient's record by ID.
+--   **`DELETE /api/patients/[id]`**: Deletes a patient's record by ID.
+--   **`GET /api/export/pdf?id=[patientId]`**: Generates and downloads a PDF report for a specific patient.
+-
+-## UI/UX Design Principles
+-
+-The project adheres to modern UI/UX principles, focusing on:
+-
+--   **Clarity & Readability:** Ensuring all text and elements are easily discernible.
+--   **Visual Hierarchy:** Guiding user attention to important information through size, weight, and color.
+--   **Consistency:** Maintaining a uniform look and feel across all components.
+--   **Responsiveness:** Providing an optimal viewing and interaction experience across a wide range of devices.
+--   **Color Palette:** Utilizing the custom "Viking" color palette for a cohesive, beautiful, and easily visible interface.
+-
+-## Contributing
+-
+-Contributions are welcome! Please follow these steps:
+-
+-1.  Fork the repository.
+-2.  Create a new branch (`git checkout -b feature/your-feature-name`).
+-3.  Make your changes.
+-4.  Commit your changes (`git commit -m 'feat: Add new feature'`).
+-5.  Push to the branch (`git push origin feature/your-feature-name`).
+-6.  Open a Pull Request.
+-
+-## License
+-
+-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+-
+-## Contact
+-
+--   **Shamuran:** [GitHub Profile](https://github.com/Ahmad-nba)
+--   **Shubham:** [GitHub Profile](https://github.com/1)
+--   **Anthony:** [GitHub Profile](https://github.com/])
+-
+-Feel free to reach out with any questions or feedback!
+diff --git a/sugery_status_board/package-lock.json b/sugery_status_board/package-lock.json
+index f056d83..ec97a11 100644
+--- a/sugery_status_board/package-lock.json
++++ b/sugery_status_board/package-lock.json
+@@ -11,7 +11,6 @@
+         "clsx": "^2.1.1",
+         "lucide-react": "^0.526.0",
+         "next": "15.4.1",
+-        "pdfkit": "^0.17.1",
+         "react": "19.1.0",
+         "react-dom": "19.1.0",
+         "react-hook-form": "^7.62.0",
+@@ -58,21 +57,21 @@
+       }
+     },
+     "node_modules/@emnapi/core": {
+-      "version": "1.4.4",
+-      "resolved": "https://registry.npmjs.org/@emnapi/core/-/core-1.4.4.tgz",
+-      "integrity": "sha512-A9CnAbC6ARNMKcIcrQwq6HeHCjpcBZ5wSx4U01WXCqEKlrzB9F9315WDNHkrs2xbx7YjjSxbUYxuN6EQzpcY2g==",
++      "version": "1.4.5",
++      "resolved": "https://registry.npmjs.org/@emnapi/core/-/core-1.4.5.tgz",
++      "integrity": "sha512-XsLw1dEOpkSX/WucdqUhPWP7hDxSvZiY+fsUC14h+FtQ2Ifni4znbBt8punRX+Uj2JG/uDb8nEHVKvrVlvdZ5Q==",
+       "dev": true,
+       "license": "MIT",
+       "optional": true,
+       "dependencies": {
+-        "@emnapi/wasi-threads": "1.0.3",
++        "@emnapi/wasi-threads": "1.0.4",
+         "tslib": "^2.4.0"
+       }
+     },
+     "node_modules/@emnapi/runtime": {
+-      "version": "1.4.4",
+-      "resolved": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.4.4.tgz",
+-      "integrity": "sha512-hHyapA4A3gPaDCNfiqyZUStTMqIkKRshqPIuDOXv1hcBnD4U3l8cP0T1HMCfGRxQ6V64TGCcoswChANyOAwbQg==",
++      "version": "1.4.5",
++      "resolved": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.4.5.tgz",
++      "integrity": "sha512-++LApOtY0pEEz1zrd9vy1/zXVaVJJ/EbAF3u0fXIzPJEDtnITsBGbbK0EkM72amhl/R5b+5xx0Y/QhcVOpuulg==",
+       "license": "MIT",
+       "optional": true,
+       "dependencies": {
+@@ -80,9 +79,9 @@
+       }
+     },
+     "node_modules/@emnapi/wasi-threads": {
+-      "version": "1.0.3",
+-      "resolved": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.0.3.tgz",
+-      "integrity": "sha512-8K5IFFsQqF9wQNJptGbS6FNKgUTsSRYnTqNCG1vPP8jFdjSv18n2mQfJpkt2Oibo9iBEzcDnDxNwKTzC7svlJw==",
++      "version": "1.0.4",
++      "resolved": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.0.4.tgz",
++      "integrity": "sha512-PJR+bOmMOPH8AtcTGAyYNiuJ3/Fcoj2XN/gBEWzDIKh254XO+mM9XoXHk5GNEhodxeMznbg7BlRojVbKN+gC6g==",
+       "dev": true,
+       "license": "MIT",
+       "optional": true,
+@@ -195,9 +194,9 @@
+       }
+     },
+     "node_modules/@eslint/js": {
+-      "version": "9.31.0",
+-      "resolved": "https://registry.npmjs.org/@eslint/js/-/js-9.31.0.tgz",
+-      "integrity": "sha512-LOm5OVt7D4qiKCqoiPbA7LWmI+tbw1VbTUowBcUMgQSuM6poJufkFkYDcQpo5KfgD39TnNySV26QjOh7VFpSyw==",
++      "version": "9.32.0",
++      "resolved": "https://registry.npmjs.org/@eslint/js/-/js-9.32.0.tgz",
++      "integrity": "sha512-BBpRFZK3eX6uMLKz8WxFOBIFFcGFJ/g8XuwjTHCqHROSIsopI+ddn/d5Cfh36+7+e5edVS8dbSHnBNhrLEX0zg==",
+       "dev": true,
+       "license": "MIT",
+       "engines": {
+@@ -218,9 +217,9 @@
+       }
+     },
+     "node_modules/@eslint/plugin-kit": {
+-      "version": "0.3.3",
+-      "resolved": "https://registry.npmjs.org/@eslint/plugin-kit/-/plugin-kit-0.3.3.tgz",
+-      "integrity": "sha512-1+WqvgNMhmlAambTvT3KPtCl/Ibr68VldY2XY40SL1CE0ZXiakFR/cbTspaF5HsnpDMvcYYoJHfl4980NBjGag==",
++      "version": "0.3.4",
++      "resolved": "https://registry.npmjs.org/@eslint/plugin-kit/-/plugin-kit-0.3.4.tgz",
++      "integrity": "sha512-Ul5l+lHEcw3L5+k8POx6r74mxEYKG5kOb6Xpy2gCRW6zweT6TEhAf8vhxGgjhqrd/VO/Dirhsb+1hNpD1ue9hw==",
+       "dev": true,
+       "license": "Apache-2.0",
+       "dependencies": {
+@@ -1304,9 +1303,9 @@
+       "license": "MIT"
+     },
+     "node_modules/@types/node": {
+-      "version": "20.19.8",
+-      "resolved": "https://registry.npmjs.org/@types/node/-/node-20.19.8.tgz",
+-      "integrity": "sha512-HzbgCY53T6bfu4tT7Aq3TvViJyHjLjPNaAS3HOuMc9pw97KHsUtXNX4L+wu59g1WnjsZSko35MbEqnO58rihhw==",
++      "version": "20.19.9",
++      "resolved": "https://registry.npmjs.org/@types/node/-/node-20.19.9.tgz",
++      "integrity": "sha512-cuVNgarYWZqxRJDQHEB58GEONhOK79QVR/qYx4S7kcUObQvUwvFnYxJuuHUKm2aieN9X3yZB4LZsuYNU1Qphsw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -1334,17 +1333,17 @@
+       }
+     },
+     "node_modules/@typescript-eslint/eslint-plugin": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.37.0.tgz",
+-      "integrity": "sha512-jsuVWeIkb6ggzB+wPCsR4e6loj+rM72ohW6IBn2C+5NCvfUVY8s33iFPySSVXqtm5Hu29Ne/9bnA0JmyLmgenA==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.38.0.tgz",
++      "integrity": "sha512-CPoznzpuAnIOl4nhj4tRr4gIPj5AfKgkiJmGQDaq+fQnRJTYlcBjbX3wbciGmpoPf8DREufuPRe1tNMZnGdanA==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@eslint-community/regexpp": "^4.10.0",
+-        "@typescript-eslint/scope-manager": "8.37.0",
+-        "@typescript-eslint/type-utils": "8.37.0",
+-        "@typescript-eslint/utils": "8.37.0",
+-        "@typescript-eslint/visitor-keys": "8.37.0",
++        "@typescript-eslint/scope-manager": "8.38.0",
++        "@typescript-eslint/type-utils": "8.38.0",
++        "@typescript-eslint/utils": "8.38.0",
++        "@typescript-eslint/visitor-keys": "8.38.0",
+         "graphemer": "^1.4.0",
+         "ignore": "^7.0.0",
+         "natural-compare": "^1.4.0",
+@@ -1358,7 +1357,7 @@
+         "url": "https://opencollective.com/typescript-eslint"
+       },
+       "peerDependencies": {
+-        "@typescript-eslint/parser": "^8.37.0",
++        "@typescript-eslint/parser": "^8.38.0",
+         "eslint": "^8.57.0 || ^9.0.0",
+         "typescript": ">=4.8.4 <5.9.0"
+       }
+@@ -1374,16 +1373,16 @@
+       }
+     },
+     "node_modules/@typescript-eslint/parser": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.37.0.tgz",
+-      "integrity": "sha512-kVIaQE9vrN9RLCQMQ3iyRlVJpTiDUY6woHGb30JDkfJErqrQEmtdWH3gV0PBAfGZgQXoqzXOO0T3K6ioApbbAA==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.38.0.tgz",
++      "integrity": "sha512-Zhy8HCvBUEfBECzIl1PKqF4p11+d0aUJS1GeUiuqK9WmOug8YCmC4h4bjyBvMyAMI9sbRczmrYL5lKg/YMbrcQ==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/scope-manager": "8.37.0",
+-        "@typescript-eslint/types": "8.37.0",
+-        "@typescript-eslint/typescript-estree": "8.37.0",
+-        "@typescript-eslint/visitor-keys": "8.37.0",
++        "@typescript-eslint/scope-manager": "8.38.0",
++        "@typescript-eslint/types": "8.38.0",
++        "@typescript-eslint/typescript-estree": "8.38.0",
++        "@typescript-eslint/visitor-keys": "8.38.0",
+         "debug": "^4.3.4"
+       },
+       "engines": {
+@@ -1399,14 +1398,14 @@
+       }
+     },
+     "node_modules/@typescript-eslint/project-service": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.37.0.tgz",
+-      "integrity": "sha512-BIUXYsbkl5A1aJDdYJCBAo8rCEbAvdquQ8AnLb6z5Lp1u3x5PNgSSx9A/zqYc++Xnr/0DVpls8iQ2cJs/izTXA==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.38.0.tgz",
++      "integrity": "sha512-dbK7Jvqcb8c9QfH01YB6pORpqX1mn5gDZc9n63Ak/+jD67oWXn3Gs0M6vddAN+eDXBCS5EmNWzbSxsn9SzFWWg==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/tsconfig-utils": "^8.37.0",
+-        "@typescript-eslint/types": "^8.37.0",
++        "@typescript-eslint/tsconfig-utils": "^8.38.0",
++        "@typescript-eslint/types": "^8.38.0",
+         "debug": "^4.3.4"
+       },
+       "engines": {
+@@ -1421,14 +1420,14 @@
+       }
+     },
+     "node_modules/@typescript-eslint/scope-manager": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.37.0.tgz",
+-      "integrity": "sha512-0vGq0yiU1gbjKob2q691ybTg9JX6ShiVXAAfm2jGf3q0hdP6/BruaFjL/ManAR/lj05AvYCH+5bbVo0VtzmjOA==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.38.0.tgz",
++      "integrity": "sha512-WJw3AVlFFcdT9Ri1xs/lg8LwDqgekWXWhH3iAF+1ZM+QPd7oxQ6jvtW/JPwzAScxitILUIFs0/AnQ/UWHzbATQ==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/types": "8.37.0",
+-        "@typescript-eslint/visitor-keys": "8.37.0"
++        "@typescript-eslint/types": "8.38.0",
++        "@typescript-eslint/visitor-keys": "8.38.0"
+       },
+       "engines": {
+         "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+@@ -1439,9 +1438,9 @@
+       }
+     },
+     "node_modules/@typescript-eslint/tsconfig-utils": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.37.0.tgz",
+-      "integrity": "sha512-1/YHvAVTimMM9mmlPvTec9NP4bobA1RkDbMydxG8omqwJJLEW/Iy2C4adsAESIXU3WGLXFHSZUU+C9EoFWl4Zg==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.38.0.tgz",
++      "integrity": "sha512-Lum9RtSE3EroKk/bYns+sPOodqb2Fv50XOl/gMviMKNvanETUuUcC9ObRbzrJ4VSd2JalPqgSAavwrPiPvnAiQ==",
+       "dev": true,
+       "license": "MIT",
+       "engines": {
+@@ -1456,15 +1455,15 @@
+       }
+     },
+     "node_modules/@typescript-eslint/type-utils": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.37.0.tgz",
+-      "integrity": "sha512-SPkXWIkVZxhgwSwVq9rqj/4VFo7MnWwVaRNznfQDc/xPYHjXnPfLWn+4L6FF1cAz6e7dsqBeMawgl7QjUMj4Ow==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.38.0.tgz",
++      "integrity": "sha512-c7jAvGEZVf0ao2z+nnz8BUaHZD09Agbh+DY7qvBQqLiz8uJzRgVPj5YvOh8I8uEiH8oIUGIfHzMwUcGVco/SJg==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/types": "8.37.0",
+-        "@typescript-eslint/typescript-estree": "8.37.0",
+-        "@typescript-eslint/utils": "8.37.0",
++        "@typescript-eslint/types": "8.38.0",
++        "@typescript-eslint/typescript-estree": "8.38.0",
++        "@typescript-eslint/utils": "8.38.0",
+         "debug": "^4.3.4",
+         "ts-api-utils": "^2.1.0"
+       },
+@@ -1481,9 +1480,9 @@
+       }
+     },
+     "node_modules/@typescript-eslint/types": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.37.0.tgz",
+-      "integrity": "sha512-ax0nv7PUF9NOVPs+lmQ7yIE7IQmAf8LGcXbMvHX5Gm+YJUYNAl340XkGnrimxZ0elXyoQJuN5sbg6C4evKA4SQ==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.38.0.tgz",
++      "integrity": "sha512-wzkUfX3plUqij4YwWaJyqhiPE5UCRVlFpKn1oCRn2O1bJ592XxWJj8ROQ3JD5MYXLORW84063z3tZTb/cs4Tyw==",
+       "dev": true,
+       "license": "MIT",
+       "engines": {
+@@ -1495,16 +1494,16 @@
+       }
+     },
+     "node_modules/@typescript-eslint/typescript-estree": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.37.0.tgz",
+-      "integrity": "sha512-zuWDMDuzMRbQOM+bHyU4/slw27bAUEcKSKKs3hcv2aNnc/tvE/h7w60dwVw8vnal2Pub6RT1T7BI8tFZ1fE+yg==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.38.0.tgz",
++      "integrity": "sha512-fooELKcAKzxux6fA6pxOflpNS0jc+nOQEEOipXFNjSlBS6fqrJOVY/whSn70SScHrcJ2LDsxWrneFoWYSVfqhQ==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/project-service": "8.37.0",
+-        "@typescript-eslint/tsconfig-utils": "8.37.0",
+-        "@typescript-eslint/types": "8.37.0",
+-        "@typescript-eslint/visitor-keys": "8.37.0",
++        "@typescript-eslint/project-service": "8.38.0",
++        "@typescript-eslint/tsconfig-utils": "8.38.0",
++        "@typescript-eslint/types": "8.38.0",
++        "@typescript-eslint/visitor-keys": "8.38.0",
+         "debug": "^4.3.4",
+         "fast-glob": "^3.3.2",
+         "is-glob": "^4.0.3",
+@@ -1580,16 +1579,16 @@
+       }
+     },
+     "node_modules/@typescript-eslint/utils": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.37.0.tgz",
+-      "integrity": "sha512-TSFvkIW6gGjN2p6zbXo20FzCABbyUAuq6tBvNRGsKdsSQ6a7rnV6ADfZ7f4iI3lIiXc4F4WWvtUfDw9CJ9pO5A==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.38.0.tgz",
++      "integrity": "sha512-hHcMA86Hgt+ijJlrD8fX0j1j8w4C92zue/8LOPAFioIno+W0+L7KqE8QZKCcPGc/92Vs9x36w/4MPTJhqXdyvg==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@eslint-community/eslint-utils": "^4.7.0",
+-        "@typescript-eslint/scope-manager": "8.37.0",
+-        "@typescript-eslint/types": "8.37.0",
+-        "@typescript-eslint/typescript-estree": "8.37.0"
++        "@typescript-eslint/scope-manager": "8.38.0",
++        "@typescript-eslint/types": "8.38.0",
++        "@typescript-eslint/typescript-estree": "8.38.0"
+       },
+       "engines": {
+         "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+@@ -1604,13 +1603,13 @@
+       }
+     },
+     "node_modules/@typescript-eslint/visitor-keys": {
+-      "version": "8.37.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.37.0.tgz",
+-      "integrity": "sha512-YzfhzcTnZVPiLfP/oeKtDp2evwvHLMe0LOy7oe+hb9KKIumLNohYS9Hgp1ifwpu42YWxhZE8yieggz6JpqO/1w==",
++      "version": "8.38.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.38.0.tgz",
++      "integrity": "sha512-pWrTcoFNWuwHlA9CvlfSsGWs14JxfN1TH25zM5L7o0pRLhsoZkDnTsXfQRJBEWJoV5DL0jf+Z+sxiud+K0mq1g==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/types": "8.37.0",
++        "@typescript-eslint/types": "8.38.0",
+         "eslint-visitor-keys": "^4.2.1"
+       },
+       "engines": {
+@@ -2183,26 +2182,6 @@
+       "dev": true,
+       "license": "MIT"
+     },
+-    "node_modules/base64-js": {
+-      "version": "1.5.1",
+-      "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz",
+-      "integrity": "sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==",
+-      "funding": [
+-        {
+-          "type": "github",
+-          "url": "https://github.com/sponsors/feross"
+-        },
+-        {
+-          "type": "patreon",
+-          "url": "https://www.patreon.com/feross"
+-        },
+-        {
+-          "type": "consulting",
+-          "url": "https://feross.org/support"
+-        }
+-      ],
+-      "license": "MIT"
+-    },
+     "node_modules/brace-expansion": {
+       "version": "1.1.12",
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
+@@ -2227,15 +2206,6 @@
+         "node": ">=8"
+       }
+     },
+-    "node_modules/brotli": {
+-      "version": "1.3.3",
+-      "resolved": "https://registry.npmjs.org/brotli/-/brotli-1.3.3.tgz",
+-      "integrity": "sha512-oTKjJdShmDuGW94SyyaoQvAjf30dZaHnjJ8uAF+u2/vGJkJbJPJAT1gDiOJP5v1Zb6f9KEyW/1HpuaWIXtGHPg==",
+-      "license": "MIT",
+-      "dependencies": {
+-        "base64-js": "^1.1.2"
+-      }
+-    },
+     "node_modules/call-bind": {
+       "version": "1.0.8",
+       "resolved": "https://registry.npmjs.org/call-bind/-/call-bind-1.0.8.tgz",
+@@ -2297,9 +2267,9 @@
+       }
+     },
+     "node_modules/caniuse-lite": {
+-      "version": "1.0.30001727",
+-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001727.tgz",
+-      "integrity": "sha512-pB68nIHmbN6L/4C6MH1DokyR3bYqFwjaSs/sWDHGj4CTcFtQUQMuJftVwWkXq7mNWOybD3KhUv3oWHoGxgP14Q==",
++      "version": "1.0.30001731",
++      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001731.tgz",
++      "integrity": "sha512-lDdp2/wrOmTRWuoB5DpfNkC0rJDU8DqRa6nYL6HK6sytw70QMopt/NIc/9SM7ylItlBWfACXk0tEn37UWM/+mg==",
+       "funding": [
+         {
+           "type": "opencollective",
+@@ -2349,15 +2319,6 @@
+       "integrity": "sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==",
+       "license": "MIT"
+     },
+-    "node_modules/clone": {
+-      "version": "2.1.2",
+-      "resolved": "https://registry.npmjs.org/clone/-/clone-2.1.2.tgz",
+-      "integrity": "sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==",
+-      "license": "MIT",
+-      "engines": {
+-        "node": ">=0.8"
+-      }
+-    },
+     "node_modules/clsx": {
+       "version": "2.1.1",
+       "resolved": "https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz",
+@@ -2434,12 +2395,6 @@
+         "node": ">= 8"
+       }
+     },
+-    "node_modules/crypto-js": {
+-      "version": "4.2.0",
+-      "resolved": "https://registry.npmjs.org/crypto-js/-/crypto-js-4.2.0.tgz",
+-      "integrity": "sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==",
+-      "license": "MIT"
+-    },
+     "node_modules/csstype": {
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz",
+@@ -2579,12 +2534,6 @@
+         "node": ">=8"
+       }
+     },
+-    "node_modules/dfa": {
+-      "version": "1.2.0",
+-      "resolved": "https://registry.npmjs.org/dfa/-/dfa-1.2.0.tgz",
+-      "integrity": "sha512-ED3jP8saaweFTjeGX8HQPjeC1YYyZs98jGNZx6IiBvxW7JG5v492kamAQB3m2wop07CvU/RQmzcKr6bgcC5D/Q==",
+-      "license": "MIT"
+-    },
+     "node_modules/doctrine": {
+       "version": "2.1.0",
+       "resolved": "https://registry.npmjs.org/doctrine/-/doctrine-2.1.0.tgz",
+@@ -2825,9 +2774,9 @@
+       }
+     },
+     "node_modules/eslint": {
+-      "version": "9.31.0",
+-      "resolved": "https://registry.npmjs.org/eslint/-/eslint-9.31.0.tgz",
+-      "integrity": "sha512-QldCVh/ztyKJJZLr4jXNUByx3gR+TDYZCRXEktiZoUR3PGy4qCmSbkxcIle8GEwGpb5JBZazlaJ/CxLidXdEbQ==",
++      "version": "9.32.0",
++      "resolved": "https://registry.npmjs.org/eslint/-/eslint-9.32.0.tgz",
++      "integrity": "sha512-LSehfdpgMeWcTZkWZVIJl+tkZ2nuSkyyB9C27MZqFWXuph7DvaowgcTvKqxvpLW1JZIk8PN7hFY3Rj9LQ7m7lg==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -2837,8 +2786,8 @@
+         "@eslint/config-helpers": "^0.3.0",
+         "@eslint/core": "^0.15.0",
+         "@eslint/eslintrc": "^3.3.1",
+-        "@eslint/js": "9.31.0",
+-        "@eslint/plugin-kit": "^0.3.1",
++        "@eslint/js": "9.32.0",
++        "@eslint/plugin-kit": "^0.3.4",
+         "@humanfs/node": "^0.16.6",
+         "@humanwhocodes/module-importer": "^1.0.1",
+         "@humanwhocodes/retry": "^0.4.2",
+@@ -3254,6 +3203,7 @@
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz",
+       "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==",
++      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/fast-glob": {
+@@ -3374,23 +3324,6 @@
+       "dev": true,
+       "license": "ISC"
+     },
+-    "node_modules/fontkit": {
+-      "version": "2.0.4",
+-      "resolved": "https://registry.npmjs.org/fontkit/-/fontkit-2.0.4.tgz",
+-      "integrity": "sha512-syetQadaUEDNdxdugga9CpEYVaQIxOwk7GlwZWWZ19//qW4zE5bknOKeMBDYAASwnpaSHKJITRLMF9m1fp3s6g==",
+-      "license": "MIT",
+-      "dependencies": {
+-        "@swc/helpers": "^0.5.12",
+-        "brotli": "^1.3.2",
+-        "clone": "^2.1.2",
+-        "dfa": "^1.2.0",
+-        "fast-deep-equal": "^3.1.3",
+-        "restructure": "^3.0.0",
+-        "tiny-inflate": "^1.0.3",
+-        "unicode-properties": "^1.4.0",
+-        "unicode-trie": "^2.0.0"
+-      }
+-    },
+     "node_modules/for-each": {
+       "version": "0.3.5",
+       "resolved": "https://registry.npmjs.org/for-each/-/for-each-0.3.5.tgz",
+@@ -4175,21 +4108,15 @@
+       }
+     },
+     "node_modules/jiti": {
+-      "version": "2.4.2",
+-      "resolved": "https://registry.npmjs.org/jiti/-/jiti-2.4.2.tgz",
+-      "integrity": "sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==",
++      "version": "2.5.1",
++      "resolved": "https://registry.npmjs.org/jiti/-/jiti-2.5.1.tgz",
++      "integrity": "sha512-twQoecYPiVA5K/h6SxtORw/Bs3ar+mLUtoPSc7iMXzQzK8d7eJ/R09wmTwAjiamETn1cXYPGfNnu7DMoHgu12w==",
+       "dev": true,
+       "license": "MIT",
+       "bin": {
+         "jiti": "lib/jiti-cli.mjs"
+       }
+     },
+-    "node_modules/jpeg-exif": {
+-      "version": "1.1.4",
+-      "resolved": "https://registry.npmjs.org/jpeg-exif/-/jpeg-exif-1.1.4.tgz",
+-      "integrity": "sha512-a+bKEcCjtuW5WTdgeXFzswSrdqi0jk4XlEtZlx5A94wCoBpFjfFTbo/Tra5SpNCl/YFZPvcV1dJc+TAYeg6ROQ==",
+-      "license": "MIT"
+-    },
+     "node_modules/js-tokens": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz",
+@@ -4543,25 +4470,6 @@
+         "url": "https://opencollective.com/parcel"
+       }
+     },
+-    "node_modules/linebreak": {
+-      "version": "1.1.0",
+-      "resolved": "https://registry.npmjs.org/linebreak/-/linebreak-1.1.0.tgz",
+-      "integrity": "sha512-MHp03UImeVhB7XZtjd0E4n6+3xr5Dq/9xI/5FptGk5FrbDR3zagPa2DS6U8ks/3HjbKWG9Q1M2ufOzxV2qLYSQ==",
+-      "license": "MIT",
+-      "dependencies": {
+-        "base64-js": "0.0.8",
+-        "unicode-trie": "^2.0.0"
+-      }
+-    },
+-    "node_modules/linebreak/node_modules/base64-js": {
+-      "version": "0.0.8",
+-      "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-0.0.8.tgz",
+-      "integrity": "sha512-3XSA2cR/h/73EzlXXdU6YNycmYI7+kicTxks4eJg2g39biHR84slg2+des+p7iHYhbRg/udIS4TD53WabcOUkw==",
+-      "license": "MIT",
+-      "engines": {
+-        "node": ">= 0.4"
+-      }
+-    },
+     "node_modules/locate-path": {
+       "version": "6.0.0",
+       "resolved": "https://registry.npmjs.org/locate-path/-/locate-path-6.0.0.tgz",
+@@ -4739,9 +4647,9 @@
+       }
+     },
+     "node_modules/napi-postinstall": {
+-      "version": "0.3.0",
+-      "resolved": "https://registry.npmjs.org/napi-postinstall/-/napi-postinstall-0.3.0.tgz",
+-      "integrity": "sha512-M7NqKyhODKV1gRLdkwE7pDsZP2/SC2a2vHkOYh9MCpKMbWVfyVfUw5MaH83Fv6XMjxr5jryUp3IDDL9rlxsTeA==",
++      "version": "0.3.2",
++      "resolved": "https://registry.npmjs.org/napi-postinstall/-/napi-postinstall-0.3.2.tgz",
++      "integrity": "sha512-tWVJxJHmBWLy69PvO96TZMZDrzmw5KeiZBz3RHmiM2XZ9grBJ2WgMAFVVg25nqp3ZjTFUs2Ftw1JhscL3Teliw==",
+       "dev": true,
+       "license": "MIT",
+       "bin": {
+@@ -5032,12 +4940,6 @@
+         "url": "https://github.com/sponsors/sindresorhus"
+       }
+     },
+-    "node_modules/pako": {
+-      "version": "0.2.9",
+-      "resolved": "https://registry.npmjs.org/pako/-/pako-0.2.9.tgz",
+-      "integrity": "sha512-NUcwaKxUxWrZLpDG+z/xZaCgQITkA/Dv4V/T6bw7VON6l1Xz/VnrBqrYjZQ12TamKHzITTfOEIYUj48y2KXImA==",
+-      "license": "MIT"
+-    },
+     "node_modules/parent-module": {
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/parent-module/-/parent-module-1.0.1.tgz",
+@@ -5078,19 +4980,6 @@
+       "dev": true,
+       "license": "MIT"
+     },
+-    "node_modules/pdfkit": {
+-      "version": "0.17.1",
+-      "resolved": "https://registry.npmjs.org/pdfkit/-/pdfkit-0.17.1.tgz",
+-      "integrity": "sha512-Kkf1I9no14O/uo593DYph5u3QwiMfby7JsBSErN1WqeyTgCBNJE3K4pXBn3TgkdKUIVu+buSl4bYUNC+8Up4xg==",
+-      "license": "MIT",
+-      "dependencies": {
+-        "crypto-js": "^4.2.0",
+-        "fontkit": "^2.0.4",
+-        "jpeg-exif": "^1.1.4",
+-        "linebreak": "^1.1.0",
+-        "png-js": "^1.0.0"
+-      }
+-    },
+     "node_modules/picocolors": {
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
+@@ -5110,11 +4999,6 @@
+         "url": "https://github.com/sponsors/jonschlinkert"
+       }
+     },
+-    "node_modules/png-js": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/png-js/-/png-js-1.0.0.tgz",
+-      "integrity": "sha512-k+YsbhpA9e+EFfKjTCH3VW6aoKlyNYI6NYdTfDL4CIvFnvsuO84ttonmZE7rc+v23SLTH8XX+5w/Ak9v0xGY4g=="
+-    },
+     "node_modules/possible-typed-array-names": {
+       "version": "1.1.0",
+       "resolved": "https://registry.npmjs.org/possible-typed-array-names/-/possible-typed-array-names-1.1.0.tgz",
+@@ -5345,12 +5229,6 @@
+         "url": "https://github.com/privatenumber/resolve-pkg-maps?sponsor=1"
+       }
+     },
+-    "node_modules/restructure": {
+-      "version": "3.0.2",
+-      "resolved": "https://registry.npmjs.org/restructure/-/restructure-3.0.2.tgz",
+-      "integrity": "sha512-gSfoiOEA0VPE6Tukkrr7I0RBdE0s7H1eFCDBk05l1KIQT1UIKNc5JZy6jdyW6eYH3aR3g5b3PuL77rq0hvwtAw==",
+-      "license": "MIT"
+-    },
+     "node_modules/reusify": {
+       "version": "1.1.0",
+       "resolved": "https://registry.npmjs.org/reusify/-/reusify-1.1.0.tgz",
+@@ -5911,12 +5789,6 @@
+         "node": ">=18"
+       }
+     },
+-    "node_modules/tiny-inflate": {
+-      "version": "1.0.3",
+-      "resolved": "https://registry.npmjs.org/tiny-inflate/-/tiny-inflate-1.0.3.tgz",
+-      "integrity": "sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==",
+-      "license": "MIT"
+-    },
+     "node_modules/tinyglobby": {
+       "version": "0.2.14",
+       "resolved": "https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.14.tgz",
+@@ -6138,26 +6010,6 @@
+       "dev": true,
+       "license": "MIT"
+     },
+-    "node_modules/unicode-properties": {
+-      "version": "1.4.1",
+-      "resolved": "https://registry.npmjs.org/unicode-properties/-/unicode-properties-1.4.1.tgz",
+-      "integrity": "sha512-CLjCCLQ6UuMxWnbIylkisbRj31qxHPAurvena/0iwSVbQ2G1VY5/HjV0IRabOEbDHlzZlRdCrD4NhB0JtU40Pg==",
+-      "license": "MIT",
+-      "dependencies": {
+-        "base64-js": "^1.3.0",
+-        "unicode-trie": "^2.0.0"
+-      }
+-    },
+-    "node_modules/unicode-trie": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/unicode-trie/-/unicode-trie-2.0.0.tgz",
+-      "integrity": "sha512-x7bc76x0bm4prf1VLg79uhAzKw8DVboClSN5VxJuQ+LKDOVEW9CdH+VY7SP+vX7xCYQqzzgQpFqz15zeLvAtZQ==",
+-      "license": "MIT",
+-      "dependencies": {
+-        "pako": "^0.2.5",
+-        "tiny-inflate": "^1.0.0"
+-      }
+-    },
+     "node_modules/unrs-resolver": {
+       "version": "1.11.1",
+       "resolved": "https://registry.npmjs.org/unrs-resolver/-/unrs-resolver-1.11.1.tgz",
+diff --git a/sugery_status_board/package.json b/sugery_status_board/package.json
+index a066fa9..d531597 100644
+--- a/sugery_status_board/package.json
++++ b/sugery_status_board/package.json
+@@ -10,14 +10,13 @@
+   },
+   "dependencies": {
+     "clsx": "^2.1.1",
++    "lucide-react": "^0.526.0",
+     "next": "15.4.1",
+-    "pdfkit": "^0.17.1",
+     "react": "19.1.0",
+     "react-dom": "19.1.0",
+     "react-hook-form": "^7.62.0",
+     "react-icons": "^5.5.0",
+-    "zustand": "^5.0.6",
+-    "lucide-react": "^0.526.0"
++    "zustand": "^5.0.6"
+   },
+   "devDependencies": {
+     "@eslint/eslintrc": "^3",
+diff --git a/sugery_status_board/public/assets/logo.svg b/sugery_status_board/public/assets/logo.svg
+index ec2719d..587b333 100644
+--- a/sugery_status_board/public/assets/logo.svg
++++ b/sugery_status_board/public/assets/logo.svg
+@@ -1,5 +1,20 @@
+-<svg width="160" height="80" viewBox="0 0 160 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+-<path d="M80 0L0 40L80 80L160 40L80 0Z" fill="#48CAE4"/>
+-<path d="M80 10L10 40L80 70L150 40L80 10Z" fill="#ADE8F4"/>
+-<path d="M80 20L20 40L80 60L140 40L80 20Z" fill="#00B4D8"/>
++<svg width="103" height="33" viewBox="0 0 103 33" fill="none" xmlns="http://www.w3.org/2000/svg">
++<path d="M51.1123 28.361C57.4636 28.361 62.6123 23.2122 62.6123 16.861C62.6123 10.5097 57.4636 5.36096 51.1123 5.36096C44.761 5.36096 39.6123 10.5097 39.6123 16.861C39.6123 23.2122 44.761 28.361 51.1123 28.361Z" fill="#D4D700"/>
++<path d="M40.9183 30.942C39.6663 30.942 38.6943 30.606 38.0303 29.942C36.3033 28.215 36.8813 24.275 39.4663 19.716C39.4873 19.805 39.5103 19.893 39.5333 19.981L40.2893 22.016C40.4403 22.333 40.5923 22.62 40.7533 22.897C39.4963 25.306 39.2943 26.961 40.1523 27.819C40.4973 28.164 40.9823 28.339 41.5933 28.339C44.2263 28.339 49.3293 25.005 54.2933 20.041C57.1563 17.178 59.5543 14.184 61.0443 11.609C62.6603 8.81696 63.0163 6.84196 62.0713 5.89896C61.7263 5.55396 61.2413 5.37896 60.6303 5.37896C59.7403 5.37896 58.5683 5.75596 57.1433 6.49996C56.7863 6.29796 56.3363 6.06696 56.3363 6.06696L54.2263 5.28296C54.1393 5.25996 54.0533 5.23796 53.9683 5.21696C56.7463 3.63796 59.3193 2.77896 61.3063 2.77896C62.5583 2.77896 63.5303 3.11496 64.1943 3.77896C65.5343 5.11896 65.5173 7.81296 64.1493 11.172C62.7053 14.718 59.9593 18.622 56.4163 22.164C51.0833 27.497 45.0003 30.942 40.9183 30.942Z" fill="#48CAE4"/>
++<path d="M70.5083 14.937C70.5083 15.577 70.3163 16.109 69.9323 16.533C69.5483 16.957 68.9363 17.241 68.0963 17.385L70.7483 20.577C70.9643 20.841 71.2003 21.033 71.4563 21.153C71.7203 21.265 72.0323 21.349 72.3923 21.405V21.861H70.0763L67.1363 18.093C67.0323 17.957 66.9323 17.849 66.8363 17.769C66.7483 17.689 66.6523 17.629 66.5483 17.589C66.4523 17.541 66.3363 17.513 66.2003 17.505C66.0723 17.489 65.9163 17.481 65.7323 17.481V19.977C65.7323 20.273 65.7483 20.517 65.7803 20.709C65.8203 20.893 65.8963 21.037 66.0083 21.141C66.1283 21.245 66.2963 21.317 66.5123 21.357C66.7363 21.389 67.0283 21.405 67.3883 21.405V21.861H63.1523V21.405C63.4323 21.397 63.6563 21.373 63.8243 21.333C64.0003 21.293 64.1363 21.225 64.2323 21.129C64.3283 21.033 64.3923 20.897 64.4243 20.721C64.4563 20.545 64.4723 20.317 64.4723 20.037V14.445C64.4723 14.165 64.4563 13.941 64.4243 13.773C64.4003 13.597 64.3443 13.461 64.2563 13.365C64.1763 13.261 64.0563 13.193 63.8963 13.161C63.7363 13.121 63.5283 13.093 63.2723 13.077V12.621H67.0403C68.1443 12.621 68.9963 12.825 69.5963 13.233C70.2043 13.641 70.5083 14.209 70.5083 14.937ZM65.7323 16.881H66.5843C67.3843 16.881 67.9763 16.737 68.3603 16.449C68.7523 16.153 68.9483 15.669 68.9483 14.997C68.9483 14.349 68.7923 13.885 68.4803 13.605C68.1763 13.325 67.6963 13.185 67.0403 13.185H65.9363C65.8003 13.185 65.7323 13.253 65.7323 13.389V16.881ZM72.5253 21.861V21.405C72.8373 21.397 73.0853 21.373 73.2693 21.333C73.4613 21.293 73.6053 21.225 73.7013 21.129C73.8053 21.033 73.8733 20.897 73.9053 20.721C73.9453 20.545 73.9653 20.317 73.9653 20.037V14.445C73.9653 14.165 73.9493 13.941 73.9173 13.773C73.8933 13.597 73.8373 13.461 73.7493 13.365C73.6693 13.261 73.5493 13.193 73.3893 13.161C73.2293 13.121 73.0213 13.093 72.7653 13.077V12.621H76.3533C77.4333 12.621 78.2733 12.813 78.8733 13.197C79.4733 13.581 79.7733 14.121 79.7733 14.817C79.7733 15.345 79.6053 15.777 79.2693 16.113C78.9413 16.449 78.4173 16.725 77.6973 16.941V16.989C77.9453 17.013 78.1613 17.041 78.3453 17.073C78.5293 17.105 78.6933 17.145 78.8373 17.193C78.9813 17.233 79.1133 17.285 79.2333 17.349C79.3613 17.413 79.4853 17.485 79.6053 17.565C80.3173 18.069 80.6733 18.701 80.6733 19.461C80.6733 19.885 80.5533 20.281 80.3133 20.649C80.0813 21.009 79.7533 21.293 79.3293 21.501C79.1933 21.573 79.0533 21.633 78.9093 21.681C78.7653 21.721 78.5973 21.757 78.4053 21.789C78.2133 21.813 77.9893 21.833 77.7333 21.849C77.4853 21.857 77.1893 21.861 76.8453 21.861H72.5253ZM76.8813 21.345C78.3293 21.345 79.0533 20.725 79.0533 19.485C79.0533 18.581 78.6813 17.949 77.9373 17.589C77.8093 17.533 77.6853 17.485 77.5653 17.445C77.4453 17.405 77.3053 17.377 77.1453 17.361C76.9853 17.337 76.7933 17.321 76.5693 17.313C76.3533 17.305 76.0853 17.301 75.7653 17.301H75.2253V19.977C75.2253 20.465 75.3533 20.817 75.6093 21.033C75.8653 21.241 76.2893 21.345 76.8813 21.345ZM75.8973 16.701C76.1453 16.701 76.3533 16.697 76.5213 16.689C76.6893 16.681 76.8333 16.669 76.9533 16.653C77.0733 16.629 77.1773 16.601 77.2653 16.569C77.3613 16.529 77.4573 16.477 77.5533 16.413C77.8093 16.253 77.9893 16.061 78.0933 15.837C78.2053 15.613 78.2613 15.321 78.2613 14.961C78.2613 14.329 78.1053 13.877 77.7933 13.605C77.4893 13.325 77.0093 13.185 76.3533 13.185H75.4293C75.2933 13.185 75.2253 13.253 75.2253 13.389V16.701H75.8973ZM84.3182 19.593C84.3182 19.993 84.3342 20.309 84.3662 20.541C84.3982 20.773 84.4582 20.953 84.5462 21.081C84.6422 21.209 84.7742 21.293 84.9422 21.333C85.1182 21.373 85.3462 21.397 85.6262 21.405V21.861H81.7382V21.405C82.0182 21.397 82.2422 21.373 82.4102 21.333C82.5862 21.285 82.7222 21.201 82.8182 21.081C82.9142 20.961 82.9782 20.793 83.0102 20.577C83.0422 20.353 83.0582 20.053 83.0582 19.677V14.805C83.0582 14.469 83.0422 14.193 83.0102 13.977C82.9862 13.753 82.9302 13.577 82.8422 13.449C82.7622 13.321 82.6422 13.233 82.4822 13.185C82.3222 13.129 82.1142 13.093 81.8582 13.077V12.621H85.5062V13.077C85.2502 13.085 85.0422 13.117 84.8822 13.173C84.7302 13.229 84.6102 13.325 84.5222 13.461C84.4422 13.589 84.3862 13.769 84.3542 14.001C84.3302 14.233 84.3182 14.529 84.3182 14.889V19.593ZM95.6107 14.913H95.1187C95.0947 14.569 95.0387 14.281 94.9507 14.049C94.8627 13.817 94.7347 13.637 94.5667 13.509C94.4067 13.373 94.2027 13.277 93.9547 13.221C93.7067 13.165 93.4107 13.137 93.0667 13.137C92.7707 13.137 92.5307 13.145 92.3467 13.161C92.1707 13.169 92.0347 13.189 91.9387 13.221C91.8427 13.253 91.7787 13.293 91.7467 13.341C91.7227 13.381 91.7107 13.437 91.7107 13.509V19.929C91.7107 20.185 91.7267 20.405 91.7587 20.589C91.7987 20.773 91.8707 20.925 91.9747 21.045C92.0867 21.157 92.2427 21.245 92.4427 21.309C92.6507 21.365 92.9227 21.397 93.2587 21.405V21.861H88.7227V21.405C89.0587 21.397 89.3307 21.365 89.5387 21.309C89.7467 21.245 89.9027 21.157 90.0067 21.045C90.1187 20.925 90.1907 20.773 90.2227 20.589C90.2627 20.405 90.2827 20.185 90.2827 19.929V13.509C90.2827 13.437 90.2667 13.381 90.2347 13.341C90.2107 13.293 90.1547 13.253 90.0667 13.221C89.9867 13.189 89.8707 13.169 89.7187 13.161C89.5667 13.145 89.3627 13.137 89.1067 13.137C88.7947 13.137 88.5027 13.149 88.2307 13.173C87.9667 13.197 87.7347 13.269 87.5347 13.389C87.3427 13.501 87.1867 13.677 87.0667 13.917C86.9467 14.157 86.8827 14.489 86.8747 14.913H86.4307V12.621H95.4907L95.6107 14.913Z" fill="black"/>
++<g filter="url(#filter0_d_11_46)">
++<path d="M12.4043 20.861H4.6523V20.405C4.9323 20.397 5.1563 20.373 5.3243 20.333C5.5003 20.293 5.6363 20.225 5.7323 20.129C5.8283 20.033 5.8923 19.897 5.9243 19.721C5.9563 19.545 5.9723 19.317 5.9723 19.037V13.445C5.9723 13.165 5.9563 12.941 5.9243 12.773C5.9003 12.597 5.8443 12.461 5.7563 12.365C5.6763 12.261 5.5563 12.193 5.3963 12.161C5.2363 12.121 5.0283 12.093 4.7723 12.077V11.621H8.42031V12.077C8.1643 12.085 7.9563 12.109 7.7963 12.149C7.6443 12.189 7.5243 12.261 7.4363 12.365C7.3563 12.469 7.3003 12.613 7.2683 12.797C7.2443 12.981 7.2323 13.225 7.2323 13.529V18.701C7.2323 19.037 7.2643 19.313 7.3283 19.529C7.4003 19.737 7.5163 19.901 7.6763 20.021C7.8443 20.133 8.0643 20.213 8.33631 20.261C8.6083 20.301 8.9523 20.321 9.3683 20.321C9.82431 20.321 10.2083 20.297 10.5203 20.249C10.8323 20.193 11.0923 20.101 11.3003 19.973C11.5163 19.837 11.6843 19.653 11.8043 19.421C11.9323 19.181 12.0403 18.873 12.1283 18.497H12.5843L12.4043 20.861ZM15.9511 18.593C15.9511 18.993 15.9671 19.309 15.9991 19.541C16.0311 19.773 16.0911 19.953 16.1791 20.081C16.2751 20.209 16.4071 20.293 16.5751 20.333C16.7511 20.373 16.9791 20.397 17.2591 20.405V20.861H13.3711V20.405C13.6511 20.397 13.8751 20.373 14.0431 20.333C14.2191 20.285 14.3551 20.201 14.4511 20.081C14.5471 19.961 14.6111 19.793 14.6431 19.577C14.6751 19.353 14.6911 19.053 14.6911 18.677V13.805C14.6911 13.469 14.6751 13.193 14.6431 12.977C14.6191 12.753 14.5631 12.577 14.4751 12.449C14.3951 12.321 14.2751 12.233 14.1151 12.185C13.9551 12.129 13.7471 12.093 13.4911 12.077V11.621H17.1391V12.077C16.8831 12.085 16.6751 12.117 16.5151 12.173C16.3631 12.229 16.2431 12.325 16.1551 12.461C16.0751 12.589 16.0191 12.769 15.9871 13.001C15.9631 13.233 15.9511 13.529 15.9511 13.889V18.593ZM22.8995 19.025L25.0115 13.817C25.1315 13.521 25.2155 13.289 25.2635 13.121C25.3115 12.953 25.3355 12.801 25.3355 12.665C25.3355 12.449 25.2675 12.297 25.1315 12.209C25.0035 12.121 24.7595 12.077 24.3995 12.077V11.621H27.3155V12.077C27.1315 12.101 26.9715 12.133 26.8355 12.173C26.7075 12.213 26.5915 12.269 26.4875 12.341C26.3915 12.413 26.3035 12.509 26.2235 12.629C26.1515 12.741 26.0795 12.881 26.0075 13.049L22.7555 20.981H22.3355L19.2395 13.505C19.1355 13.265 19.0315 13.057 18.9275 12.881C18.8315 12.705 18.7235 12.561 18.6035 12.449C18.4835 12.337 18.3475 12.253 18.1955 12.197C18.0435 12.141 17.8635 12.105 17.6555 12.089V11.621H21.5675V12.089C21.3435 12.089 21.1595 12.101 21.0155 12.125C20.8795 12.141 20.7715 12.173 20.6915 12.221C20.6115 12.261 20.5555 12.313 20.5235 12.377C20.4915 12.441 20.4755 12.513 20.4755 12.593C20.4755 12.705 20.4955 12.837 20.5355 12.989C20.5755 13.133 20.6515 13.345 20.7635 13.625L22.8995 19.025ZM30.3417 15.785C30.7737 15.785 31.1337 15.761 31.4217 15.713C31.7177 15.657 31.9497 15.573 32.1177 15.461C32.2937 15.349 32.4177 15.205 32.4897 15.029C32.5697 14.853 32.6097 14.645 32.6097 14.405H33.0297V17.681H32.6097C32.6097 17.441 32.5737 17.233 32.5017 17.057C32.4377 16.881 32.3177 16.737 32.1417 16.625C31.9737 16.505 31.7417 16.417 31.4457 16.361C31.1577 16.297 30.7897 16.265 30.3417 16.265V18.977C30.3417 19.241 30.3737 19.461 30.4377 19.637C30.5017 19.805 30.6097 19.945 30.7617 20.057C30.9217 20.161 31.1297 20.237 31.3857 20.285C31.6417 20.325 31.9577 20.345 32.3337 20.345C32.7577 20.345 33.1177 20.317 33.4137 20.261C33.7097 20.197 33.9577 20.093 34.1577 19.949C34.3577 19.805 34.5177 19.617 34.6377 19.385C34.7577 19.145 34.8577 18.849 34.9377 18.497H35.3937L35.2137 20.861H27.7617V20.405C28.0417 20.397 28.2657 20.373 28.4337 20.333C28.6097 20.293 28.7457 20.225 28.8417 20.129C28.9377 20.033 29.0017 19.897 29.0337 19.721C29.0657 19.545 29.0817 19.317 29.0817 19.037V13.445C29.0817 13.165 29.0657 12.941 29.0337 12.773C29.0097 12.597 28.9537 12.461 28.8657 12.365C28.7857 12.261 28.6657 12.193 28.5057 12.161C28.3457 12.121 28.1377 12.093 27.8817 12.077V11.621H34.8177L34.9257 13.733H34.5057C34.4577 13.413 34.3777 13.153 34.2657 12.953C34.1617 12.745 34.0137 12.581 33.8217 12.461C33.6377 12.341 33.4017 12.257 33.1137 12.209C32.8257 12.161 32.4777 12.137 32.0697 12.137H30.5457C30.4097 12.137 30.3417 12.205 30.3417 12.341V15.785Z" fill="black"/>
++</g>
++<defs>
++<filter id="filter0_d_11_46" x="0.652313" y="11.621" width="38.7414" height="17.36" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
++<feFlood flood-opacity="0" result="BackgroundImageFix"/>
++<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
++<feOffset dy="4"/>
++<feGaussianBlur stdDeviation="2"/>
++<feComposite in2="hardAlpha" operator="out"/>
++<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
++<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_11_46"/>
++<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_11_46" result="shape"/>
++</filter>
++</defs>
+ </svg>
+diff --git a/sugery_status_board/src/Features/admin/dashboard/hooks/.gitkeep b/sugery_status_board/src/Features/admin/dashboard/hooks/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/admin/inviteDoctor/api/.gitkeep b/sugery_status_board/src/Features/admin/inviteDoctor/api/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/admin/inviteDoctor/components/.gitkeep b/sugery_status_board/src/Features/admin/inviteDoctor/components/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/admin/inviteDoctor/types/.gitkeep b/sugery_status_board/src/Features/admin/inviteDoctor/types/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/admin/inviteDoctor/utils/.gitkeep b/sugery_status_board/src/Features/admin/inviteDoctor/utils/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/auth/api/.gitkeep b/sugery_status_board/src/Features/auth/api/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/auth/components/.gitkeep b/sugery_status_board/src/Features/auth/components/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/auth/hooks/.gitkeep b/sugery_status_board/src/Features/auth/hooks/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/doctor/component/PatientInfo.tsx b/sugery_status_board/src/Features/doctor/component/PatientInfo.tsx
+index 1e75a80..8a59c55 100644
+--- a/sugery_status_board/src/Features/doctor/component/PatientInfo.tsx
++++ b/sugery_status_board/src/Features/doctor/component/PatientInfo.tsx
+@@ -1,92 +1,73 @@
+-"use client";
++'use client';
+ 
+-import { usePatientStore } from "@/store/patientStore";
++import { usePatientStore } from '@/store/patientStore';
++import { MapPin, Phone, Mail, User } from 'lucide-react';
+ 
+-import { statusColors } from "@/utils/statusColors";
+-import {
+-  SvgFileText,
+-  SvgMail,
+-  SvgMapPin,
+-  SvgPhone,
+-  SvgUser,
+-} from "@/components/icons";
++const statusStyles: Record<string, string> = {
++  'Checked In': 'bg-blue-500 text-white',
++  'Pre-Procedure': 'bg-yellow-500 text-white',
++  'In Progress':'bg-orange-500 text white',
++  'Closing':'bg-violet-500 text white',
++  'Recovery':'bg-sky-500 text white',
++  'Complete':'bg-green-500 text white',
++  'Dismissal': 'bg-gray-500 text-white',
++};
+ 
+ const statusDescriptions: Record<string, string> = {
+-  "Checked In": "In the facility awaiting their procedure",
+-  "Pre-Procedure": "Undergoing surgical preparation",
+-  "In Progress": "Surgical produre is underway",
+-  Closing: "Surgery completed",
+-  Recovery: "Patient transferred to post-surgery recovery room",
+-  Complete: "Recovery completed Patient awaiting dismissal",
+-  Dismissal: "Transferred to hospital room or patient has left",
+-};
++  'Checked In': 'In the facility awaiting their procedure',
++  'Pre-Procedure': 'Undergoing surgical preparation',
++  'In Progress':'Surgical produre is underway',
++  'Closing':'Surgery completed',
++  'Recovery':'Patient transferred to post-surgery recovery room',
++  'Complete':'Recovery completed Patient awaiting dismissal',
++  'Dismissal': 'Transferred to hospital room or patient has left',
++}
+ 
+ export default function PatientDetailsCard() {
+   const selectedPatient = usePatientStore((s) => s.selectedPatient);
+-  
+ 
+   if (!selectedPatient) return null;
+ 
+   const badgeClass =
+-    statusColors[selectedPatient.status] || "bg-slate-400 text-white";
++    statusStyles[selectedPatient.status] || 'bg-slate-400 text-white';
+ 
+   const description =
+-    statusDescriptions[selectedPatient.status] || "Status unknown";
+-
+-  
++    statusDescriptions[selectedPatient.status] || 'Status unknown';
+ 
+   return (
+-    <div className="bg-viking-50 border border-viking-100 rounded-2xl shadow-sm p-6 max-w-2xl mx-auto mt-4">
+-      <div className="flex justify-between items-center mb-4">
+-        <h2 className="text-xl font-bold text-gray-900 text-center">
+-          Patient Details
+-        </h2>
+-        <button
+-          onClick={() => alert("Export functionality is not yet implemented.")}
+-          className="flex items-center gap-1 px-3 py-1 bg-viking-400 text-white rounded-md text-sm hover:bg-viking-700 transition-colors shadow-sm cursor-pointer"
+-        >
+-          <SvgFileText className="size-4" />
+-          Export
+-        </button>
+-      </div>
++    <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 max-w-2xl mx-auto mt-4">
++      <h2 className="text-xl font-bold text-gray-900 mb-4">Patient Details</h2>
+ 
+-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-viking-800">
++      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+         <div className="flex items-center gap-2">
+-          <SvgUser className="w-4 h-4 text-viking-600" />
+-          <span className="font-medium">Name:</span> {selectedPatient.firstName}
+-          {selectedPatient.lastName}
++          <User className="w-4 h-4 text-gray-500" />
++          <span className="font-medium">Name:</span> {selectedPatient.firstName} {selectedPatient.lastName}
+         </div>
+ 
+         <div className="flex items-center gap-2">
+-          <SvgMail className="w-4 h-4 text-viking-600" />
+-          <span className="font-medium">Email:</span>
+-          {selectedPatient.contactEmail}
++          <Mail className="w-4 h-4 text-gray-500" />
++          <span className="font-medium">Email:</span> {selectedPatient.contactEmail}
+         </div>
+ 
+         <div className="flex items-center gap-2">
+-          <SvgPhone className="w-4 h-4 text-viking-600" />
+-          <span className="font-medium">Phone:</span>
+-          {selectedPatient.phoneNumber}
++          <Phone className="w-4 h-4 text-gray-500" />
++          <span className="font-medium">Phone:</span> {selectedPatient.phoneNumber}
+         </div>
+ 
+         <div className="flex items-center gap-2">
+-          <SvgMapPin className="w-4 h-4 text-viking-600" />
+-          <span className="font-medium">Address:</span>
+-          {selectedPatient.streetAddress}, {selectedPatient.city},
+-          {selectedPatient.state}, {selectedPatient.country}
++          <MapPin className="w-4 h-4 text-gray-500" />
++          <span className="font-medium">Address:</span> {selectedPatient.streetAddress}, {selectedPatient.city}, {selectedPatient.state}, {selectedPatient.country}
+         </div>
+       </div>
+ 
+-      <div className="mt-6 bg-viking-100 p-4 rounded-lg">
+-        <p className="text-sm text-viking-700 font-medium">Current Status</p>
++      <div className="mt-6 bg-gray-50 p-4 rounded-lg">
++        <p className="text-sm text-gray-500 font-medium">Current Status</p>
+ 
+         <div className="flex items-center gap-3 mt-2">
+-          <span
+-            className={`px-3 py-1 rounded-full text-sm font-semibold shadow ${badgeClass}`}
+-          >
++          <span className={`px-3 py-1 rounded-full text-sm font-semibold shadow ${badgeClass}`}>
+             {selectedPatient.status}
+           </span>
+-          <p className="text-sm text-viking-700">{description}</p>
++          <p className="text-sm text-gray-500">{description}</p>
+         </div>
+       </div>
+     </div>
+diff --git a/sugery_status_board/src/Features/doctor/component/SearchPatient.tsx b/sugery_status_board/src/Features/doctor/component/SearchPatient.tsx
+index 0673b8c..50aec83 100644
+--- a/sugery_status_board/src/Features/doctor/component/SearchPatient.tsx
++++ b/sugery_status_board/src/Features/doctor/component/SearchPatient.tsx
+@@ -1,68 +1,71 @@
+-"use client";
++'use client';
+ 
+-import { useState, useEffect } from "react";
+-import { usePatientStore } from "@/store/patientStore";
++import { useState } from 'react';
++import { usePatientStore } from '@/store/patientStore';
+ 
+ export default function SearchPatient() {
+-  const [inputId, setInputId] = useState("");
+-  const findPatientByPatientNumber = usePatientStore(
+-    (s) => s.findPatientByPatientNumber
+-  );
++  const [inputId, setInputId] = useState('');
++  const findPatientByPatientNumber = usePatientStore((s) => s.findPatientByPatientNumber);
++  const selectedPatient = usePatientStore((s) => s.selectedPatient);
+   const clearSelectedPatient = usePatientStore((s) => s.clearSelectedPatient);
+-  const fetchPatients = usePatientStore((s) => s.fetchPatients);
+-
+-  useEffect(() => {
+-    fetchPatients();
+-  }, [fetchPatients]);
+ 
+-  const handleSearch = async () => {
++  const handleSearch = () => {
+     const trimmedId = inputId.trim();
+     if (trimmedId.length === 6) {
+-      await findPatientByPatientNumber(trimmedId);
++      findPatientByPatientNumber(trimmedId);
+     } else {
+-      alert("Please enter a valid 6-character Patient ID.");
++      alert('Please enter a valid 6-character Patient ID.');
+     }
+   };
+ 
+   const handleClear = () => {
+-    setInputId("");
++    setInputId('');
+     clearSelectedPatient();
+   };
+ 
+   return (
+-    <div className="bg-viking-50 border border-viking-100 shadow-sm rounded-2xl p-6 max-w-2xl mx-auto">
+-      <h2 className="text-lg font-semibold text-viking-950 mb-1 text-center">
+-        Find Patient
+-      </h2>
+-      <p className="text-sm text-viking-700 mb-4 text-center">
+-        Enter the patient number to look up current information and update
+-        status
++    <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-6 max-w-2xl mx-auto">
++      <h2 className="text-lg font-semibold text-gray-900 mb-1">Find Patient</h2>
++      <p className="text-sm text-gray-500 mb-4">
++        Enter the patient number to look up current information and update status
+       </p>
+ 
+-      <div className="flex flex-col sm:flex-row items-center gap-3 justify-center">
++      <div className="flex flex-col sm:flex-row items-center gap-3">
+         <input
+           type="text"
+           value={inputId}
+           onChange={(e) => setInputId(e.target.value)}
+-          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
++          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+           placeholder="Enter 6-character Patient ID"
+-          className="w-full sm:w-auto flex-1 px-4 py-2 text-sm border border-viking-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-viking-500"
++          className="w-full sm:w-auto flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+         />
+         <div className="flex gap-2">
+           <button
+             onClick={handleSearch}
+-            className="px-4 py-2 text-sm font-medium bg-viking-400 text-white rounded-lg hover:bg-viking-200 transition cursor-pointer"
++            className="px-4 py-2 text-sm font-medium bg-accentMain text-white rounded-lg hover:bg-accentSub transition"
+           >
+             Look Up
+           </button>
+           <button
+             onClick={handleClear}
+-            className="px-4 py-2 text-sm font-medium text-viking-800 border border-viking-300 rounded-lg hover:bg-viking-100 transition cursor-pointer"
++            className="px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+           >
+             Clear
+           </button>
+         </div>
+       </div>
++
++      {selectedPatient && (
++        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
++          <h3 className="text-md font-semibold text-gray-800 mb-2">Patient Information</h3>
++          <p className="text-sm text-gray-700"><strong>Name:</strong> {selectedPatient.firstName} {selectedPatient.lastName}</p>
++          <p className="text-sm text-gray-700"><strong>Patient ID:</strong> {selectedPatient.patientNumber}</p>
++          <p className="text-sm text-gray-700"><strong>Address:</strong> {selectedPatient.streetAddress}, {selectedPatient.city}, {selectedPatient.state}, {selectedPatient.country}</p>
++          <p className="text-sm text-gray-700"><strong>Phone:</strong> {selectedPatient.phoneNumber}</p>
++          <p className="text-sm text-gray-700"><strong>Email:</strong> {selectedPatient.contactEmail}</p>
++          <p className="text-sm text-gray-700"><strong>Current Status:</strong> {selectedPatient.status}</p>
++        </div>
++      )}
+     </div>
+   );
+-}
++}
+\ No newline at end of file
+diff --git a/sugery_status_board/src/Features/doctor/component/StatusUpdate.tsx b/sugery_status_board/src/Features/doctor/component/StatusUpdate.tsx
+index 56f5c5c..a698de3 100644
+--- a/sugery_status_board/src/Features/doctor/component/StatusUpdate.tsx
++++ b/sugery_status_board/src/Features/doctor/component/StatusUpdate.tsx
+@@ -16,7 +16,7 @@ export default function StatusUpdateForm() {
+   const selectedPatient = usePatientStore((s) => s.selectedPatient);
+   const updatePatientStatus = usePatientStore((s) => s.updatePatientStatus);
+ 
+-  const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
++  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+     const newStatus = e.target.value;
+ 
+     if (!selectedPatient || newStatus === selectedPatient.status) return;
+@@ -45,43 +45,32 @@ export default function StatusUpdateForm() {
+       if (!confirmSkip) return;
+     }
+ 
+-    await updatePatientStatus(selectedPatient.patientNumber, newStatusTyped);
++    updatePatientStatus(selectedPatient.patientNumber, newStatusTyped);
+   };
+ 
+   if (!selectedPatient) return null;
+ 
+   return (
+-    <div className="bg-viking-50 border border-viking-100 rounded-2xl shadow-sm p-6 max-w-2xl mx-auto mt-4 space-y-4">
+-      <h2 className="text-lg font-semibold text-viking-950 text-center">
++    <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 max-w-2xl mx-auto mt-4 space-y-4">
++      <h2 className="text-lg font-semibold text-gray-800">
+         Update Surgery Status
+       </h2>
+-      <label htmlFor="status" className="text-sm text-viking-700 sr-only">
++      <label htmlFor="status" className="text-sm text-gray-600">
+         Select new status
+       </label>
+-      <div className="relative">
+-        <select
+-          id="status"
+-          value={selectedPatient.status}
+-          onChange={handleChange}
+-          className="block w-full appearance-none bg-viking-50 border border-viking-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-viking-500 focus:border-viking-500 text-viking-950 text-base cursor-pointer pr-10"
+-        >
+-          <option value="">Choose a status...</option>
+-          {workflowSteps.map((step) => (
+-            <option key={step} value={step}>
+-              {step}
+-            </option>
+-          ))}
+-        </select>
+-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-viking-800">
+-          <svg
+-            className="fill-current h-4 w-4"
+-            xmlns="http://www.w3.org/2000/svg"
+-            viewBox="0 0 20 20"
+-          >
+-            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+-          </svg>
+-        </div>
+-      </div>
++      <select
++        id="status"
++        value={selectedPatient.status}
++        onChange={handleChange}
++        className="w-full text-sm border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
++      >
++        <option value="">Choose a status...</option>
++        {workflowSteps.map((step) => (
++          <option key={step} value={step}>
++            {step}
++          </option>
++        ))}
++      </select>
+     </div>
+   );
+ }
+diff --git a/sugery_status_board/src/Features/doctor/dashboard/.gitkeep b/sugery_status_board/src/Features/doctor/dashboard/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/Features/statusBoard/components/activePatientCard.tsx b/sugery_status_board/src/Features/statusBoard/components/activePatientCard.tsx
+index dae0f67..59bb109 100644
+--- a/sugery_status_board/src/Features/statusBoard/components/activePatientCard.tsx
++++ b/sugery_status_board/src/Features/statusBoard/components/activePatientCard.tsx
+@@ -1,44 +1,24 @@
+-import { Patient } from "@/store/patientStore";
+-import { statusColors } from "@/utils/statusColors";
+-import { User, Tag, Clock } from "lucide-react"; // Importing icons
++import { usePatientStore } from "@/store/patientStore";
+ 
+-interface ActivePatientCardProps {
+-  patients: Patient[];
+-}
++export default function ActivePatientCard() {
++  const patients = usePatientStore((state) => state.patients);
+ 
+-export default function ActivePatientCard({ patients }: ActivePatientCardProps) {
+   return (
+-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
++    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+       {patients.map((patient) => (
+         <article
+           key={patient.patientNumber}
+-          className="relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 border border-gray-200"
++          className="border-l-4 border-accentMain p-4 flex flex-col justify-center items-center rounded-2xl shadow-md bg-white"
+         >
+-          {/* Status Badge */}
+-          <div
+-            className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold ${statusColors[patient.status]}`}>
++          <p className="font-semibold text-lg sm:text-xl text-center">
++            {patient.patientNumber}
++          </p>
++          <p className="text-gray-600 text-sm sm:text-base text-center">
++            {patient.lastName} {patient.firstName}
++          </p>
++          <div className="mt-2 rounded-xl bg-accentMain text-white px-3 py-1 text-xs sm:text-sm">
+             {patient.status}
+           </div>
+-
+-          <div className="p-5 pt-10 space-y-3">
+-            {/* Patient Name */}
+-            <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+-              <User className="w-5 h-5 text-gray-500" />
+-              {patient.firstName} {patient.lastName}
+-            </h3>
+-
+-            {/* Patient ID */}
+-            <p className="text-sm text-gray-600 flex items-center gap-2">
+-              <Tag className="w-4 h-4 text-gray-400" />
+-              <span className="font-medium">ID:</span> {patient.patientNumber}
+-            </p>
+-
+-            {/* Last Updated (Placeholder for now) */}
+-            <p className="text-xs text-gray-500 flex items-center gap-2">
+-              <Clock className="w-4 h-4 text-gray-400" />
+-              Last Updated: Just now
+-            </p>
+-          </div>
+         </article>
+       ))}
+     </div>
+diff --git a/sugery_status_board/src/Features/statusBoard/components/statusCard.tsx b/sugery_status_board/src/Features/statusBoard/components/statusCard.tsx
+index eff3c8e..c335774 100644
+--- a/sugery_status_board/src/Features/statusBoard/components/statusCard.tsx
++++ b/sugery_status_board/src/Features/statusBoard/components/statusCard.tsx
+@@ -6,12 +6,12 @@ export default function StatusCard() {
+       {StatusCardData.map((card) => (
+         <article
+           key={card.status}
+-          className="flex flex-col items-center justify-center space-y-2 border border-viking-100 bg-viking-50 p-4 rounded-2xl shadow-sm min-w-[150px] text-center"
++          className="flex items-start space-x-3 border border-gray-200 bg-white p-3 rounded-2xl shadow-sm w-64 min-w-64"
+         >
+-          <div className={`h-6 w-6 rounded-full ${card.indicator}`} />
++          <div className={`h-4 w-4 rounded-full mt-1 ${card.indicator}`} />
+           <div>
+-            <h3 className="font-semibold text-sm text-viking-950">{card.status}</h3>
+-            <p className="text-xs text-viking-700">{card.desc}</p>
++            <h3 className="font-semibold text-sm text-gray-800">{card.status}</h3>
++            <p className="text-xs text-gray-500">{card.desc}</p>
+           </div>
+         </article>
+       ))}
+diff --git a/sugery_status_board/src/Features/statusBoard/utils/utils.ts b/sugery_status_board/src/Features/statusBoard/utils/utils.ts
+index fde175c..bb2d764 100644
+--- a/sugery_status_board/src/Features/statusBoard/utils/utils.ts
++++ b/sugery_status_board/src/Features/statusBoard/utils/utils.ts
+@@ -1,39 +1,37 @@
+-import { statusColors } from "@/utils/statusColors";
+-
+ export const StatusCardData = [
+   {
+     status: "Checked In",
+-    desc: "In the facility waiting their processing",
+-    indicator: statusColors["Checked In"],
++    desc: "In the facility waiting thier processing",
++    indicator: "bg-blue-500",
+   },
+   {
+     status: "Pre-Procedure",
+     desc: "Undergoing surgical preparation",
+-    indicator: statusColors["Pre-Procedure"],
++    indicator: "bg-yellow-500",
+   },
+    {
+     status: "In Progress",
+     desc: "Surgical produre is underway",
+-    indicator: statusColors["In Progress"],
++    indicator: "bg-orange-500",
+   },
+    {
+     status: "Closing",
+     desc: "Surgery completed",
+-    indicator: statusColors["Closing"],
++    indicator: "bg-violet-500",
+   },
+    {
+     status: "Recovery",
+     desc: "Patient transferred to post-surgery recovery room",
+-    indicator: statusColors["Recovery"],
++    indicator: "bg-sky-500",
+   },
+   {
+     status: "Complete",
+     desc: "Recovery completed Patient awaiting dismissal",
+-    indicator: statusColors["Complete"],
++    indicator: "bg-green-500",
+   },
+   {
+     status: "Dismissal",
+     desc: "Transferred to hospital room or patient has left",
+-    indicator: statusColors["Dismissal"],
++    indicator: "bg-gray-500",
+   },
+ ];
+diff --git a/sugery_status_board/src/Features/visitor/dashboard/.gitkeep b/sugery_status_board/src/Features/visitor/dashboard/.gitkeep
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/sugery_status_board/src/app/Auth/page.tsx b/sugery_status_board/src/app/Auth/page.tsx
+index 85515f5..89ef94e 100644
+--- a/sugery_status_board/src/app/Auth/page.tsx
++++ b/sugery_status_board/src/app/Auth/page.tsx
+@@ -1,7 +1,8 @@
+ "use client";
+-import { SvgMonitor, SvgUser } from "@/components/icons";
+ import Link from "next/link";
+-import { handleLogin } from "../../Features/auth/utils/authHandler";
++import { MdOutlineMonitorHeart } from "react-icons/md";
++import { LuLogIn } from "react-icons/lu";
++import { handleLogin } from "@/Features/auth/utils/authHandler";
+ import { useRouter } from "next/navigation";
+ import { useState } from "react";
+ 
+@@ -40,7 +41,7 @@ export default function AuthModule() {
+             onChange={(e) => setEmail(e.target.value)}
+             id="email"
+             type="email"
+-            className="w-[100%] p-2 border rounded border-gray-300 outline-viking-200"
++            className="w-[100%] p-2 border rounded border-gray-300 outline-accentSub"
+             placeholder="eg johndoe@gmail.com"
+           />
+         </div>
+@@ -53,17 +54,17 @@ export default function AuthModule() {
+             value={password}
+             onChange={(e) => setPassword(e.target.value)}
+             type="password"
+-            className="w-[100%] p-2 rounded border border-gray-300 outline-viking-200"
++            className="w-[100%] p-2 rounded border border-gray-300 outline-accentSub"
+             placeholder="*****"
+           />
+         </div>
+ 
+         <button
+           type="submit"
+-          className="bg-viking-400 w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-white hover:bg-viking-200"
++          className="bg-accentMain w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-white hover:bg-accentSub"
+         >
+           <p>Sign In</p>
+-          <SvgUser />
++          <LuLogIn />
+         </button>
+         <p className="text-sm text-center text-red-400"> {error}</p>
+ 
+@@ -74,12 +75,12 @@ export default function AuthModule() {
+ 
+       <Link
+         href={"/"}
+-        className="bg-gray-100 w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-viking-950 hover:bg-gray-400"
++        className="bg-gray-100 w-[80%] flex justify-center items-center space-x-3 py-2 mx-[10%] mt-2 rounded-lg text-dark hover:bg-gray-400"
+       >
+         <button type="submit" className=" ">
+           Continue as visitor
+         </button>
+-        <SvgMonitor className="size-4" />
++        <MdOutlineMonitorHeart size="16" />
+       </Link>
+     </article>
+   );
+diff --git a/sugery_status_board/src/app/Dashboard/admin/layout.tsx b/sugery_status_board/src/app/Dashboard/admin/layout.tsx
+new file mode 100644
+index 0000000..54b3e93
+--- /dev/null
++++ b/sugery_status_board/src/app/Dashboard/admin/layout.tsx
+@@ -0,0 +1,7 @@
++import React from "react";
++
++function DashboardLayout({ children }: { children: React.ReactNode }) {
++  return <div>{children}</div>;
++}
++
++export default DashboardLayout;
+diff --git a/sugery_status_board/src/app/Dashboard/admin/page.tsx b/sugery_status_board/src/app/Dashboard/admin/page.tsx
+index 75bd37c..daf94b2 100644
+--- a/sugery_status_board/src/app/Dashboard/admin/page.tsx
++++ b/sugery_status_board/src/app/Dashboard/admin/page.tsx
+@@ -4,16 +4,10 @@ import React, { useState, useEffect } from "react";
+ import { useForm, SubmitHandler } from "react-hook-form";
+ import { usePatientStore, Patient } from "@/store/patientStore";
+ 
+-
+-
++import { LuUserPlus, LuClipboardPlus } from "react-icons/lu";
++import { CiSearch, CiSquareRemove } from "react-icons/ci";
++import { MdCancel } from "react-icons/md";
+ import ProtectedRoute from "@/components/guards/withAuthRedirect";
+-import {
+-  SvgCancel,
+-  SvgClipboard,
+-  SvgSearch,
+-  SvgUserplus,
+-  SvgUsers,
+-} from "@/components/icons";
+ 
+ interface IFormInput {
+   firstName: string;
+@@ -39,43 +33,24 @@ function PatientInformation() {
+     text: string;
+   } | null>(null);
+ 
+-  
+-
+   const {
+     register,
+     handleSubmit,
+     reset,
+-    formState: { errors, isSubmitting, isValid },
++    formState: { errors },
+   } = useForm<IFormInput>({
+-    mode: "all",
++    mode: "onChange",
+   });
+ 
+-  const fetchPatients = usePatientStore((state) => state.fetchPatients);
+-
+-  useEffect(() => {
+-    fetchPatients();
+-  }, [fetchPatients]);
+-
+-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+-    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+-    const [result] = await Promise.all([addPatient(data), delay(2000)]);
+-    setFormMessage({
+-      type: result.success ? "success" : "error",
+-      text: result.message,
+-    });
+-  };
+-
+-  useEffect(() => {
+-    if (formMessage) {
+-      if (formMessage.type === "success") {
+-        reset();
+-      }
+-      const timer = setTimeout(() => {
+-        setFormMessage(null);
+-      }, 5000);
+-      return () => clearTimeout(timer);
++  const onSubmit: SubmitHandler<IFormInput> = (data) => {
++    const result = addPatient(data);
++    if (result.success) {
++      setFormMessage({ type: "success", text: result.message });
++      reset();
++    } else {
++      setFormMessage({ type: "error", text: result.message });
+     }
+-  }, [formMessage, reset]);
++  };
+ 
+   const [showMobileSearch, setShowMobileSearch] = useState(false);
+   const {
+@@ -86,14 +61,18 @@ function PatientInformation() {
+   const searchQuery = watch("searchQuery");
+ 
+   useEffect(() => {
+-    if (searchQuery) {
+-      const filtered = patients.filter((patient) =>
+-        patient.lastName.toLowerCase().includes(searchQuery.toLowerCase())
+-      );
+-      setSearchResults(filtered);
+-    } else {
+-      setSearchResults([]);
+-    }
++    const handler = setTimeout(() => {
++      if (searchQuery) {
++        const filteredPatients = patients.filter((patient) =>
++          patient.lastName.toLowerCase().includes(searchQuery.toLowerCase())
++        );
++        setSearchResults(filteredPatients);
++      } else {
++        setSearchResults([]);
++      }
++    }, 300);
++
++    return () => clearTimeout(handler);
+   }, [searchQuery, patients]);
+ 
+   const handleClearSearch = () => {
+@@ -106,7 +85,7 @@ function PatientInformation() {
+       <div className="container mx-auto lg:px-4 px-2 py-8">
+         <div className="flex items-center justify-between mb-6">
+           <div className="flex items-center gap-3">
+-            <SvgUserplus className="size-5 lg:size-6 text-viking-400" />
++            <LuUserPlus className="size-5 lg:size-6 text-accentMain" />
+             <h1 className="md:text-2xl font-bold text-viking-950">
+               Patient Information Management
+             </h1>
+@@ -115,7 +94,7 @@ function PatientInformation() {
+             className="bg-viking-700 p-2 rounded-lg lg:hidden text-viking-50 shadow-md hover:bg-viking-800 transition-colors flex justify-center items-center"
+             onClick={() => setShowMobileSearch(true)}
+           >
+-            <SvgSearch className="stroke-2" />
++            <CiSearch className="stroke-2" />
+           </button>
+         </div>
+ 
+@@ -156,7 +135,7 @@ function PatientInformation() {
+                   </label>
+                   <input
+                     id="firstName"
+-                                      className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
++                    className="border border-gray-400 rounded-md px-4 py-1 transition-all duration-200"
+                     {...register("firstName", {
+                       required: "First name is required",
+                     })}
+@@ -178,7 +157,7 @@ function PatientInformation() {
+                   </label>
+                   <input
+                     id="lastName"
+-                                      className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
++                    className="border border-gray-400 rounded-md px-4 py-1 transition-all duration-200"
+                     {...register("lastName", {
+                       required: "Last name is required",
+                     })}
+@@ -201,7 +180,7 @@ function PatientInformation() {
+                 </label>
+                 <input
+                   id="streetAddress"
+-                                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
++                  className="border border-gray-400 rounded-md px-4 py-1 transition-all duration-200"
+                   {...register("streetAddress", {
+                     required: "Street address is required",
+                   })}
+@@ -226,7 +205,7 @@ function PatientInformation() {
+                     </label>
+                     <input
+                       id={id}
+-                                        className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
++                      className="border border-gray-400 rounded-md px-4 py-1 transition-all duration-200"
+                       {...register(id as keyof IFormInput, {
+                         required: `${label} is required`,
+                       })}
+@@ -251,7 +230,7 @@ function PatientInformation() {
+                 <input
+                   id="phoneNumber"
+                   placeholder="+XXX XXXXXXXXXX"
+-                                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
++                  className="border border-gray-400 rounded-md px-4 py-1 transition-all duration-200"
+                   {...register("phoneNumber", {
+                     required: "Phone number is required",
+                     pattern: {
+@@ -279,7 +258,7 @@ function PatientInformation() {
+                 <input
+                   id="contactEmail"
+                   placeholder="family@kfc.com"
+-                                    className="border border-viking-300 rounded-md px-4 py-1 transition-all duration-200"
++                  className="border border-gray-400 rounded-md px-4 py-1 transition-all duration-200"
+                   {...register("contactEmail", {
+                     required: "Contact email is required",
+                     pattern: {
+@@ -298,39 +277,10 @@ function PatientInformation() {
+               {/* Submit Button */}
+               <button
+                 type="submit"
+-                disabled={isSubmitting || !isValid}
+-                className="bg-viking-400 text-white py-2 rounded-md flex justify-center items-center gap-2 hover:bg-viking-800 transition-colors w-full font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
++                className="bg-accentMain text-white py-2 rounded-md flex justify-center items-center gap-2 hover:bg-viking-800 transition-colors w-full font-semibold"
+               >
+-                {isSubmitting ? (
+-                  <>
+-                    <svg
+-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+-                      xmlns="http://www.w3.org/2000/svg"
+-                      fill="none"
+-                      viewBox="0 0 24 24"
+-                    >
+-                      <circle
+-                        className="opacity-25"
+-                        cx="12"
+-                        cy="12"
+-                        r="10"
+-                        stroke="currentColor"
+-                        strokeWidth="4"
+-                      ></circle>
+-                      <path
+-                        className="opacity-75"
+-                        fill="currentColor"
+-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+-                      ></path>
+-                    </svg>
+-                    <span>Adding Patient...</span>
+-                  </>
+-                ) : (
+-                  <>
+-                    <SvgClipboard className="size-6" />
+-                    <span>Add Patient</span>
+-                  </>
+-                )}
++                <LuClipboardPlus className="size-6" />
++                <span>Add Patient</span>
+               </button>
+             </form>
+           </main>
+@@ -345,34 +295,31 @@ function PatientInformation() {
+                 Find existing patients by last name.
+               </p>
+             </div>
+-            <form className="flex flex-col gap-4">
++            <form className="flex items-center gap-2">
+               <input
+                 className="outline flex-1 rounded-sm px-2 py-1 border border-viking-300 focus:ring-2 focus:ring-viking-500 focus:border-transparent transition-all duration-200"
+                 placeholder="Enter last name to search"
+                 {...registerSearch("searchQuery")}
+               />
+-              
+-              <div className="flex items-center gap-2">
+-                <button
+-                  type="button"
+-                  className="bg-viking-200 rounded-full p-2 hover:bg-viking-500 transition-colors"
+-                >
+-                  <SvgSearch className="size-6 text-viking-400" />
+-                </button>
+-                <button
+-                  type="button"
+-                  onClick={handleClearSearch}
+-                  className="bg-viking-200 hover:bg-viking-400 text-sm font-semibold text-viking-950 px-2 py-1.5 rounded-sm"
+-                >
+-                  Clear
+-                </button>
+-              </div>
++              <button
++                type="button"
++                className="bg-accentSub rounded-full p-2 hover:bg-viking-500 transition-colors"
++              >
++                <CiSearch className="size-6 text-accentMain" />
++              </button>
++              <button
++                type="button"
++                onClick={handleClearSearch}
++                className="bg-accentSub hover:bg-viking-400 text-sm font-semibold text-viking-950 px-2 py-1.5 rounded-sm"
++              >
++                Clear
++              </button>
+             </form>
+ 
+             {searchResults.length > 0 ? (
+               <div className="mt-6">
+                 <div className="flex items-center gap-2 mb-4">
+-                  <SvgUsers className="size-5 text-viking-400" />
++                  <LuUserPlus className="size-5 text-accentMain" />
+                   <p className="text-viking-950 font-semibold">
+                     Found {searchResults.length} patient(s)
+                   </p>
+@@ -408,8 +355,6 @@ function PatientInformation() {
+               )
+             )}
+           </div>
+-
+-          
+         </div>
+ 
+         {/* Mobile Overlay */}
+@@ -419,7 +364,7 @@ function PatientInformation() {
+               className="absolute top-4 right-4 text-viking-50 text-3xl"
+               onClick={() => setShowMobileSearch(false)}
+             >
+-              
++              <CiSquareRemove />
+             </button>
+             <h2 className="text-2xl font-bold text-viking-50 mb-6">
+               Search Patients
+@@ -438,7 +383,7 @@ function PatientInformation() {
+                     onClick={handleClearSearch}
+                     className="absolute right-3 rounded-full text-viking-50 hover:text-viking-900"
+                   >
+-                    <SvgCancel className="text-viking-400 size-7" />
++                    <MdCancel className="text-accentMain size-7" />
+                   </button>
+                 )}
+               </div>
+@@ -447,7 +392,7 @@ function PatientInformation() {
+             {searchResults.length > 0 ? (
+               <div className="mt-6 w-full max-w-md">
+                 <div className="flex items-center gap-2 mb-4 text-viking-50">
+-                  <SvgUsers className="size-6" />
++                  <LuUserPlus className="size-6" />
+                   <p className="font-semibold">
+                     Found {searchResults.length} patient(s)
+                   </p>
+diff --git a/sugery_status_board/src/app/Dashboard/doctor/PatientStatusUpdate/page.tsx b/sugery_status_board/src/app/Dashboard/doctor/PatientStatusUpdate/page.tsx
+index edf5e65..c708183 100644
+--- a/sugery_status_board/src/app/Dashboard/doctor/PatientStatusUpdate/page.tsx
++++ b/sugery_status_board/src/app/Dashboard/doctor/PatientStatusUpdate/page.tsx
+@@ -7,19 +7,19 @@ import PatientInfo from "@/Features/doctor/component/PatientInfo";
+ import StatusUpdateForm from "@/Features/doctor/component/StatusUpdate";
+ import StatusWorkflow from "@/Features/doctor/component/StatusWorkflo";
+ 
++import { HiRefresh } from "react-icons/hi";
+ import ProtectedRoute from "@/components/guards/withAuthRedirect";
+-import { SvgActivity } from "@/components/icons";
+ 
+ export default function PatientStatusUpdatePage() {
+   const { selectedPatient } = usePatientStore();
+ 
+   return (
+     <ProtectedRoute>
+-      <main className="min-h-screen bg-viking-50 py-10 px-6 sm:px-6 lg:px-8">
++      <main className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+         <div className="max-w-5xl mx-auto space-y-8">
+           {/* Page Heading */}
+-          <h1 className="text-3xl font-bold text-center text-viking-950 flex justify-center items-center gap-2">
+-            <SvgActivity className="size-8 text-viking-400" />
++          <h1 className="text-3xl font-bold text-center text-gray-900 flex justify-center items-center gap-2">
++            <HiRefresh className="size-8 text-accentMain" />
+             <span>Patient Status Update</span>
+           </h1>
+ 
+@@ -28,9 +28,9 @@ export default function PatientStatusUpdatePage() {
+ 
+           {/* Conditional Display */}
+           {selectedPatient?.patientNumber ? (
+-            <section className="bg-viking-50 rounded-2xl shadow-md px-6 space-y-6 transition-all duration-200">
++            <section className="bg-white rounded-2xl shadow-md p-6 space-y-6 transition-all duration-200">
+               <PatientInfo />
+-              <hr className="border-viking-200" />
++              <hr className="border-gray-200" />
+               <StatusUpdateForm />
+             </section>
+           ) : (
+diff --git a/sugery_status_board/src/app/Dashboard/doctor/layout.tsx b/sugery_status_board/src/app/Dashboard/doctor/layout.tsx
+new file mode 100644
+index 0000000..4a25669
+--- /dev/null
++++ b/sugery_status_board/src/app/Dashboard/doctor/layout.tsx
+@@ -0,0 +1,10 @@
++import React from 'react'
++
++export default function DoctorLayout({ children }: { children: React.ReactNode }) {
++  return (
++    <div className="bg-gray-50 min-h-screen">
++      {/* You can add a Sidebar or Topbar here */}
++      {children}
++    </div>
++  )
++}
+\ No newline at end of file
+diff --git a/sugery_status_board/src/app/Dashboard/statusboard/layout.tsx b/sugery_status_board/src/app/Dashboard/statusboard/layout.tsx
+deleted file mode 100644
+index cc6d5a0..0000000
+--- a/sugery_status_board/src/app/Dashboard/statusboard/layout.tsx
++++ /dev/null
+@@ -1,9 +0,0 @@
+-import React from 'react';
+-
+-export default function StatusBoardLayout({
+-  children,
+-}: {
+-  children: React.ReactNode;
+-}) {
+-  return <>{children}</>;
+-}
+diff --git a/sugery_status_board/src/app/Dashboard/statusboard/page.tsx b/sugery_status_board/src/app/Dashboard/statusboard/page.tsx
+index cc246e7..d592b31 100644
+--- a/sugery_status_board/src/app/Dashboard/statusboard/page.tsx
++++ b/sugery_status_board/src/app/Dashboard/statusboard/page.tsx
+@@ -1,103 +1,44 @@
+ "use client";
+-import { useEffect, useState } from "react";
++import { MdMonitor } from "react-icons/md";
++import { LuUsers } from "react-icons/lu";
+ import { usePatientStore } from "@/store/patientStore";
+ import StatusCard from "@/Features/statusBoard/components/statusCard";
+ import ActivePatientCard from "@/Features/statusBoard/components/activePatientCard";
+-import { SvgActivity, SvgMonitor, SvgUsers } from "@/components/icons";
+-
+-
+-const PATIENTS_PER_PAGE = 8; // Define how many patients per page
+-const PAGE_CYCLE_INTERVAL = 20000; // 20 seconds
+-const AUTO_REFRESH_INTERVAL = 15000; // 15 seconds
+ 
+ export default function StatusBoardPage() {
+   const patients = usePatientStore((state) => state.patients);
+-  const fetchPatients = usePatientStore((state) => state.fetchPatients);
+-
+-  const [currentPage, setCurrentPage] = useState(1);
+-
+-  // Auto-refresh patient data
+-  useEffect(() => {
+-    fetchPatients(); // Fetch immediately on mount
+-    const refreshInterval = setInterval(() => {
+-      fetchPatients();
+-    }, AUTO_REFRESH_INTERVAL);
+-    return () => clearInterval(refreshInterval);
+-  }, [fetchPatients]);
+-
+-  // Auto-cycle through pages
+-  useEffect(() => {
+-    const totalPages = Math.ceil(patients.length / PATIENTS_PER_PAGE);
+-    if (totalPages > 1) {
+-      const pageCycleInterval = setInterval(() => {
+-        setCurrentPage((prevPage) => (prevPage % totalPages) + 1);
+-      }, PAGE_CYCLE_INTERVAL);
+-      return () => clearInterval(pageCycleInterval);
+-    } else {
+-      setCurrentPage(1); // Reset to first page if only one page exists
+-    }
+-  }, [patients.length]); // Re-run if patient count changes
+-
+-  // Calculate patients for the current page
+-  const startIndex = (currentPage - 1) * PATIENTS_PER_PAGE;
+-  const endIndex = startIndex + PATIENTS_PER_PAGE;
+-  const currentPatients = patients.slice(startIndex, endIndex);
+-  const totalPages = Math.ceil(patients.length / PATIENTS_PER_PAGE);
+-
+-  const handleManualRefresh = () => {
+-    fetchPatients();
+-    setCurrentPage(1); // Reset to first page on manual refresh
+-  };
+ 
+   return (
+     <main className="p-4 space-y-6">
+       {/* Header Section */}
+-      <section className="flex flex-wrap justify-between px-4 py-2 items-center">
++      <section className="flex flex-wrap justify-between px-4 items-center">
+         <div className="flex items-center space-x-2">
+-          <SvgMonitor className="text-viking-400 size-6" />
+-          <h2 className="text-xl font-bold text-viking-950">Live Updates</h2>
++          <MdMonitor className="text-accentMain size-6" />
++          <h2 className="text-xl font-bold text-gray-800">Live Updates</h2>
+         </div>
+-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+-          <button
+-            onClick={handleManualRefresh}
+-            className="flex items-center gap-1 px-3 py-1 bg-viking-400 text-white rounded-md text-sm hover:bg-viking-400/80 transition-colors cursor-pointer shadow-sm"
+-          >
+-            <SvgActivity className="size-4" />
+-            Refresh
+-          </button>
+-          <div className="flex items-center space-x-2 text-viking-700">
+-            <SvgUsers className="size-5" />
+-            <p className="text-sm font-medium">
+-              {patients.length} Active Patient(s)
+-            </p>
+-          </div>
+-          {totalPages > 1 && (
+-            <p className="text-sm text-viking-700 font-medium">
+-              Page {currentPage} of {totalPages}
+-            </p>
+-          )}
++        <div className="flex items-center space-x-2 text-gray-500">
++          <LuUsers className="size-5" />
++          <p className="text-sm">{patients.length} Active Patient(s)</p>
+         </div>
+       </section>
+ 
+       {/* Legend Section */}
+       <section className="space-y-2">
+-        <h3 className="text-sm font-medium text-viking-800">Status Legend</h3>
++        <h3 className="text-sm font-medium text-gray-600">Status Legend</h3>
+         <div className="flex gap-4 overflow-x-auto pb-2">
+           <StatusCard />
+         </div>
+       </section>
+ 
+-      {/* Patients Display */}
++      {/* Patients Display (To be implemented) */}
+       <section className="mt-6">
+         <div className="w-full max-w-7xl mt-4 min-h-[40dvh] mx-auto px-4">
+-          {currentPatients.length ? (
+-            <ActivePatientCard patients={currentPatients} />
+-          ) : (
+-            <p className="text-center text-viking-700 py-8">
+-              No active patients yet
+-            </p>
+-          )}
+-        </div>
++      {patients.length ? (
++        <ActivePatientCard />
++      ) : (
++        <p className="text-center text-gray-500 py-8">No active patients yet</p>
++      )}
++    </div>
+       </section>
+     </main>
+   );
+diff --git a/sugery_status_board/src/app/api/patients/[id]/route.ts b/sugery_status_board/src/app/api/patients/[id]/route.ts
+deleted file mode 100644
+index 5a61960..0000000
+--- a/sugery_status_board/src/app/api/patients/[id]/route.ts
++++ /dev/null
+@@ -1,49 +0,0 @@
+-
+-import { NextResponse } from "next/server";
+-import fs from "fs";
+-import path from "path";
+-
+-const dbPath = path.resolve(process.cwd(), "src/db/db.json");
+-
+-export async function GET(
+-  request: Request,
+-  { params }: { params: Promise<{ id: string }> }
+-) {
+-  const { id } = await params;
+-  const dbData = fs.readFileSync(dbPath, "utf-8");
+-  const data = JSON.parse(dbData);
+-  const patient = data.patients.find(
+-    (p: { id: string }) => p.id === id
+-  );
+-  return NextResponse.json(patient);
+-}
+-
+-export async function PUT(
+-  request: Request,
+-  { params }: { params: Promise<{ id: string }> }
+-) {
+-  const { id } = await params;
+-  const body = await request.json();
+-  const dbData = fs.readFileSync(dbPath, "utf-8");
+-  const data = JSON.parse(dbData);
+-  const patientIndex = data.patients.findIndex(
+-    (p: { id: string }) => p.id === id
+-  );
+-  data.patients[patientIndex] = body;
+-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+-  return NextResponse.json({ message: "Patient updated successfully" });
+-}
+-
+-export async function DELETE(
+-  request: Request,
+-  { params }: { params: Promise<{ id: string }> }
+-) {
+-  const { id } = await params;
+-  const dbData = fs.readFileSync(dbPath, "utf-8");
+-  const data = JSON.parse(dbData);
+-  data.patients = data.patients.filter(
+-    (p: { id: string }) => p.id !== id
+-  );
+-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+-  return NextResponse.json({ message: "Patient deleted successfully" });
+-}
+diff --git a/sugery_status_board/src/app/api/patients/route.ts b/sugery_status_board/src/app/api/patients/route.ts
+deleted file mode 100644
+index 6c580fc..0000000
+--- a/sugery_status_board/src/app/api/patients/route.ts
++++ /dev/null
+@@ -1,21 +0,0 @@
+-
+-import { NextResponse } from "next/server";
+-import fs from "fs";
+-import path from "path";
+-
+-const dbPath = path.resolve(process.cwd(), "src/db/db.json");
+-
+-export async function GET() {
+-  const dbData = fs.readFileSync(dbPath, "utf-8");
+-  const data = JSON.parse(dbData);
+-  return NextResponse.json(data.patients);
+-}
+-
+-export async function POST(request: Request) {
+-  const body = await request.json();
+-  const dbData = fs.readFileSync(dbPath, "utf-8");
+-  const data = JSON.parse(dbData);
+-  data.patients.push(body);
+-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+-  return NextResponse.json({ message: "Patient added successfully" });
+-}
+diff --git a/sugery_status_board/src/app/components/footer.tsx b/sugery_status_board/src/app/components/footer.tsx
+index 7bb586e..62a42af 100644
+--- a/sugery_status_board/src/app/components/footer.tsx
++++ b/sugery_status_board/src/app/components/footer.tsx
+@@ -1,5 +1,7 @@
+-import { SvgGithub, SvgUsers } from "@/components/icons";
+ import Link from "next/link";
++import { FiGithub } from "react-icons/fi";
++import { LuUsers } from "react-icons/lu";
++import { BsDot } from "react-icons/bs";
+ 
+ export default function Footer() {
+   const developers = [
+@@ -11,36 +13,35 @@ export default function Footer() {
+   const year = new Date().getFullYear();
+ 
+   return (
+-    <footer className="w-full bg-viking-950 text-viking-100 px-6 py-8 text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
++    <footer className="w-full bg-accentSub brightness-75 shadow  text-gray-800 px-4 py-4 text-sm md:text-base flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+       {/* GitHub Link */}
+       <Link
+         href="https://github.com/chingu-voyages/V56-tier2-team-23"
+-        className="flex items-center space-x-2 hover:text-viking-400 transition-colors cursor-pointer"
++        className="flex items-center space-x-2 hover:underline transition"
+       >
+-        <SvgGithub className="text-xl" />
+-        <span>View Project on GitHub</span>
++        <FiGithub className="text-lg" />
++        <span>View on GitHub</span>
+       </Link>
+ 
+       {/* Developer Team */}
+-      <div className="flex flex-col items-center space-y-2 md:space-y-0 md:flex-row md:space-x-4 flex-wrap justify-center">
+-        <span className="flex items-center space-x-2 text-viking-300">
+-          <SvgUsers className="text-xl" />
+-          <span className="font-semibold">Development Team:</span>
++      <div className="flex items-center space-x-3 flex-wrap justify-center">
++        <span className="flex items-center space-x-1">
++          <LuUsers className="text-lg" />
++          <span>Development Team:</span>
+         </span>
+-        <span className="flex items-center space-x-2 flex-wrap justify-center">
++        <span className="flex items-center space-x-1 flex-wrap">
+           {developers.map((dev, i) => (
+-            <span key={dev.git} className="flex items-center">
++            <span key={dev.git} className="flex items-center space-x-1">
+               <Link
+                 href={dev.git}
+                 target="_blank"
+                 rel="noopener noreferrer"
+-                className="flex items-center space-x-1 hover:text-viking-400 transition-colors cursor-pointer"
++                className="hover:underline"
+               >
+-                <SvgGithub className="text-lg" />
+-                <span>{dev.name}</span>
++                {dev.name}
+               </Link>
+               {i < developers.length - 1 && (
+-                <span className="mx-2 text-viking-400">•</span>
++                <BsDot className="text-lg stroke-2 text-gray-400" />
+               )}
+             </span>
+           ))}
+@@ -48,9 +49,9 @@ export default function Footer() {
+       </div>
+ 
+       {/* Copyright */}
+-      <div className="text-xs sm:text-sm text-viking-300">
++      <div className="text-xs sm:text-sm text-gray-800">
+         &copy; {year} Surgery Status Board. All rights reserved.
+       </div>
+     </footer>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/sugery_status_board/src/app/components/homeCard.tsx b/sugery_status_board/src/app/components/homeCard.tsx
+index 13d82ed..506c1fa 100644
+--- a/sugery_status_board/src/app/components/homeCard.tsx
++++ b/sugery_status_board/src/app/components/homeCard.tsx
+@@ -6,17 +6,20 @@ export default function HomeCard({
+   Icon: React.ComponentType<{ className?: string }>;
+   header: string;
+   desc: string;
++  key: string;
+ }) {
+   return (
+-    <article className="flex mx-auto flex-col rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 bg-viking-50 border border-viking-100 sm:w-[20vw] w-[45vw] items-center text-center space-y-4 cursor-pointer">
+-      <div className="bg-viking-200/20 w-16 h-16 flex justify-center items-center rounded-full shadow-inner">
+-        <Icon className="text-viking-400 size-8 sm:size-10 stroke-2" />
++    <article className="flex mx-auto flex-col rounded-lg space-y-1 shadow justify-center sm:w-[20vw] w-[45vw] px-4 sm:px-6 py-2 items-center">
++      <div className="bg-accentSub w-8 h-8  flex justify-center items-center rounded-full">
++        <Icon className="p-2 text-accentMain sm:size-16 size-12 stroke-accentMain stroke-2 " />
+       </div>
+-      <div className="space-y-2">
+-        <h2 className="text-xl sm:text-2xl font-bold text-viking-950 capitalize">
++      <div className="grid grid-cols-1 gap-y-2">
++        <h2 className="sm:font-semibold font-medium capitalise text-center">
++          {/* Real-time status tracking */}
+           {header}
+         </h2>
+-        <p className="text-sm sm:text-base text-viking-700 leading-relaxed">
++        <p className=" text-center text-gray-600">
++          {/* Monitor ptient status through each surgical state with live updates{" "} */}
+           {desc}
+         </p>
+       </div>
+diff --git a/sugery_status_board/src/app/components/navbar.tsx b/sugery_status_board/src/app/components/navbar.tsx
+index c4d4f35..282c434 100644
+--- a/sugery_status_board/src/app/components/navbar.tsx
++++ b/sugery_status_board/src/app/components/navbar.tsx
+@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
+ import { useState } from "react";
+ import { FaRegCalendar, FaBars, FaTimes } from "react-icons/fa";
+ import { IoLogOutOutline } from "react-icons/io5";
++import { FiUser } from "react-icons/fi";
+ import { RxDividerVertical } from "react-icons/rx";
+ import clsx from "clsx";
++import Image from "next/image";
+ import { useAuthStore } from "@/Features/auth/store/useAuthStore";
+ import { navConfig } from "@/Features/auth/config/navconfig";
+ import { useAuth } from "@/Features/auth/hooks/useAuth";
+-import { SvgLogo, SvgUserplus } from "@/components/icons";
+ 
+ export default function Navbar() {
+   const [isOpen, setIsOpen] = useState(false);
+@@ -31,19 +32,25 @@ export default function Navbar() {
+   const logout = useAuthStore((state) => state.logout);
+   return (
+     <>
+-      <nav className="w-full px-4 shadow-md bg-viking-900 flex justify-between items-center relative z-30">
++      <nav className="w-full py-4 px-4 shadow-md bg-white flex justify-between items-center relative z-30">
+         {/* Logo and Title */}
+-        <Link href="/" className="flex items-center space-x-2 cursor-pointer">
+-          <SvgLogo
+-            className="w-32 h-20"
+-            textColor="#edfcfe" // viking-50
+-            circleColor="#48cae4" // viking-400
+-            arcColor="#ade8f4" // viking-200
+-          />
++        <Link href="/" className="flex space-x-3">
++          <section>
++            <Image
++              src="/assets/logo.svg"
++              alt="App Logo"
++              width={160}
++              height={80}
++              className="object-contain p-1"
++            />
++            <p className="text-gray-600 text-sm mt-[-2dvh]">
++              Patient Progress Tracking
++            </p>
++          </section>
+         </Link>
+ 
+         {/* Date Display (Desktop Only) */}
+-        <div className="hidden sm:flex items-center space-x-2 text-viking-100">
++        <div className="hidden sm:flex items-center space-x-2 text-gray-700">
+           <FaRegCalendar />
+           <p className="text-sm md:text-base">{date}</p>
+         </div>
+@@ -55,10 +62,10 @@ export default function Navbar() {
+               key={path}
+               href={path}
+               className={clsx(
+-                "rounded px-3 py-1 text-sm transition cursor-pointer",
++                "rounded px-3 py-1 text-sm transition",
+                 pathname === path
+-                  ? "bg-viking-400 text-white font-semibold"
+-                  : "bg-viking-800 text-viking-100 hover:bg-viking-700"
++                  ? "bg-accentMain text-white font-semibold"
++                  : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+               )}
+             >
+               {label}
+@@ -66,22 +73,19 @@ export default function Navbar() {
+           ))}
+           {isLoggedIn && (
+             <section className="flex justify-center items-center space-x-2">
+-              <RxDividerVertical className="size-6 text-viking-400" />
+-              <SvgUserplus className="text-viking-100" />
+-              <p className="text-viking-400 ">
++              <RxDividerVertical className="size-6" />
++              <FiUser />
++              <p className="text-accentMain ">
+                 {fullName} ({role}){" "}
+               </p>
+-              <IoLogOutOutline
+-                className="size-6 cursor-pointer text-viking-100"
+-                onClick={() => logout()}
+-              />
++              <IoLogOutOutline className="size-6" onClick={() => logout()} />
+             </section>
+           )}
+         </div>
+ 
+         {/* Hamburger for Mobile */}
+         <FaBars
+-          className="sm:hidden text-2xl text-viking-100 cursor-pointer"
++          className="sm:hidden text-2xl text-gray-800 cursor-pointer"
+           onClick={() => setIsOpen(true)}
+         />
+       </nav>
+@@ -93,20 +97,18 @@ export default function Navbar() {
+             className="fixed inset-0 bg-opacity-40 z-20"
+             onClick={() => setIsOpen(false)}
+           />
+-          <div className="fixed top-0 right-0 w-3/4 sm:hidden h-full bg-viking-950 text-viking-100 p-6 z-30 shadow-lg flex flex-col justify-between">
++          <div className="fixed top-0 right-0 w-3/4 sm:hidden h-full bg-[#253237] text-white p-6 z-30 shadow-lg flex flex-col justify-between">
+             {/* Top: Date and Menu */}
+             <div>
+-              <p className="text-sm text-center mb-4 md:text-base text-viking-100">
+-                {date}
+-              </p>
++              <p className="text-sm text-center mb-4 md:text-base">{date}</p>
+ 
+               {/* menu header */}
+               <div className="flex justify-between items-center mb-8">
+-                <h2 className="text-lg text-viking-400 font-bold tracking-wide">
++                <h2 className="text-lg text-accentMain font-bold tracking-wide">
+                   Menu
+                 </h2>
+                 <FaTimes
+-                  className="text-2xl text-viking-100 cursor-pointer"
++                  className="text-2xl text-accentMain cursor-pointer"
+                   onClick={() => setIsOpen(false)}
+                 />
+               </div>
+@@ -121,8 +123,8 @@ export default function Navbar() {
+                     className={clsx(
+                       "transition duration-150 pb-1",
+                       pathname === path
+-                        ? "text-viking-50 font-semibold border-b-2 border-viking-400"
+-                        : "text-viking-200 hover:text-viking-50"
++                        ? "text-white font-semibold border-b-2 border-accentMain"
++                        : "text-white hover:text-accentMain"
+                     )}
+                   >
+                     {label}
+@@ -132,13 +134,13 @@ export default function Navbar() {
+             </div>
+ 
+             {/* Bottom: User Info & Logout */}
+-            <div className="border-t border-viking-700 pt-4 mt-6 text-sm text-viking-100">
++            <div className="border-t border-gray-600 pt-4 mt-6 text-sm ">
+               <p className="mb-1">{fullName}</p>
+-              <p className="text-viking-400 font-medium mb-3">{userRole}</p>
++              <p className="text-accentMain font-medium mb-3">{userRole}</p>
+               {isLoggedIn && (
+                 <button
+                   onClick={() => logout()}
+-                  className="bg-viking-400 text-white px-4 py-2 rounded hover:bg-viking-700 transition"
++                  className="bg-accentMain text-white px-4 py-2 rounded hover:bg-opacity-80 transition"
+                 >
+                   Logout
+                 </button>
+diff --git a/sugery_status_board/src/app/globals.css b/sugery_status_board/src/app/globals.css
+index cca1a8f..41429c6 100644
+--- a/sugery_status_board/src/app/globals.css
++++ b/sugery_status_board/src/app/globals.css
+@@ -3,7 +3,10 @@
+ 
+ @theme {
+   --font-header: "Poppins", sans-serif;
+-  
++  --color-accentMain: #48cae4;
++  --color-accentMain2: #d4d700;
++  --color-accentSub: #ade8f4;
++  --color-dark: #0f0e0e;
+ 
+   --color-viking-50: #edfcfe;
+   --color-viking-100: #d2f6fb;
+diff --git a/sugery_status_board/src/app/layout.tsx b/sugery_status_board/src/app/layout.tsx
+index 42d807d..3aaae32 100644
+--- a/sugery_status_board/src/app/layout.tsx
++++ b/sugery_status_board/src/app/layout.tsx
+@@ -27,7 +27,7 @@ export default function RootLayout({
+   return (
+     <html lang="en">
+       <body
+-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-viking-50`}
++        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+       >
+         <header>
+           <Navbar />
+diff --git a/sugery_status_board/src/app/page.tsx b/sugery_status_board/src/app/page.tsx
+index 3215129..0d459e3 100644
+--- a/sugery_status_board/src/app/page.tsx
++++ b/sugery_status_board/src/app/page.tsx
+@@ -2,34 +2,36 @@
+ import { cardData } from "@/utils/cardData";
+ import AuthModule from "./Auth/page";
+ import HomeCard from "./components/homeCard";
++import Image from "next/image";
++import logo from "../../public/assets/logo.svg";
+ import { useAuth } from "@/Features/auth/hooks/useAuth";
++import { FiUser } from "react-icons/fi";
+ import { useAuthStore } from "@/Features/auth/store/useAuthStore";
+-import { SvgLogo, SvgUser } from "@/components/icons";
+ 
+ export default function HomePage() {
+   const { isLoggedIn, fullName, role } = useAuth();
+   const logout = useAuthStore((state) => state.logout);
+   return (
+     <main>
+-      <section className="flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8">
+-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
+-          <SvgLogo
+-            className="w-64 h-32"
+-            textColor="#0c2f40" // viking-950
+-            circleColor="#48cae4" // accentMain
+-            arcColor="#ade8f4" // accentSub
++      {/* intro capture head */}
++      <section className="flex flex-col justify-center items-center mt-6">
++        <div className="flex flex-col sm:w-[40%] w-[80%] justify-center items-center">
++          <Image
++            src={logo}
++            alt="App Logo"
++            width={180}
++            height={90}
++            className="object-contain p-1"
+           />
+-          <h1 className="text-4xl sm:text-5xl font-extrabold text-viking-950 leading-tight mb-4">
+-            Live Orbit: Patient Progress Tracking
+-          </h1>
+-          <h3 className="text-lg sm:text-xl text-viking-800 leading-relaxed">
++          {/* <h1 className="text-2xl font-black font-sans">Live Orbit</h1> */}
++          <h3 className="text-gray-600 text-center">
+             Keeping families, loved ones informed and surgical teams coordinated
+-            with real-time patient progress tracking.
++            with real time patient progress tracking{" "}
+           </h3>
+         </div>
+       </section>
+       {/* card section  */}
+-      <section className="grid mt-12 gap-6 sm:gap-8 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
++      <section className="grid mt-4  gap-y-4 sm:gap-x-4 gap-x-2 grid-cols-2 sm:grid-cols-4">
+         {cardData.map((card) => {
+           return (
+             <HomeCard
+@@ -46,20 +48,15 @@ export default function HomePage() {
+         {!isLoggedIn ? (
+           <AuthModule />
+         ) : (
+-          <section className="flex flex-col mx-auto mb-8 py-6 justify-center items-center shadow-lg rounded-lg bg-viking-50 p-6 w-[90%] sm:w-[50%] lg:w-[30%] space-y-4 border border-viking-100">
+-            <section className="flex justify-center items-center space-x-3 text-viking-950">
+-              <SvgUser className="size-6" />
+-              <p className="text-xl font-semibold">Welcome, {fullName}!</p>
++          <section className="flex flex-col mx-auto mb-4 py-2 justify-center items-center shadow w-[80%] sm:w-[40%] space-y-2">
++            <section className="flex justify-center items-center space-x-2">
++              <FiUser className="size-9" />({role})
+             </section>
+-            <p className="text-viking-700 text-lg">
+-              You are logged in as:{" "}
+-              <span className="font-bold text-viking-400 capitalize">
+-                {role}
+-              </span>
+-            </p>
++            <p>Logged in as</p>
++            <p>{fullName} </p>
+             <button
+               onClick={() => logout()}
+-              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 shadow-md w-full max-w-xs cursor-pointer"
++              className="bg-red-400 p-2 w-[80%] mx-[10%] text-white rounded"
+             >
+               Log Out
+             </button>
+diff --git a/sugery_status_board/src/components/icons/Activity.tsx b/sugery_status_board/src/components/icons/Activity.tsx
+deleted file mode 100644
+index 14bfec9..0000000
+--- a/sugery_status_board/src/components/icons/Activity.tsx
++++ /dev/null
+@@ -1,21 +0,0 @@
+-import React from 'react';
+-
+-const SvgActivity = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-activity"
+-    {...props}
+-  >
+-    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+-  </svg>
+-);
+-
+-export { SvgActivity };
+diff --git a/sugery_status_board/src/components/icons/Cancel.tsx b/sugery_status_board/src/components/icons/Cancel.tsx
+deleted file mode 100644
+index 00d3715..0000000
+--- a/sugery_status_board/src/components/icons/Cancel.tsx
++++ /dev/null
+@@ -1,23 +0,0 @@
+-import React from 'react';
+-
+-const SvgCancel = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-x-circle"
+-    {...props}
+-  >
+-    <circle cx="12" cy="12" r="10"/>
+-    <path d="m15 9-6 6"/>
+-    <path d="m9 9 6 6"/>
+-  </svg>
+-);
+-
+-export { SvgCancel };
+diff --git a/sugery_status_board/src/components/icons/Clipboard.tsx b/sugery_status_board/src/components/icons/Clipboard.tsx
+deleted file mode 100644
+index 0a97d8f..0000000
+--- a/sugery_status_board/src/components/icons/Clipboard.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgClipboard = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-clipboard"
+-    {...props}
+-  >
+-    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+-    <path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+-  </svg>
+-);
+-
+-export { SvgClipboard };
+diff --git a/sugery_status_board/src/components/icons/Copyright.tsx b/sugery_status_board/src/components/icons/Copyright.tsx
+deleted file mode 100644
+index c85c5c4..0000000
+--- a/sugery_status_board/src/components/icons/Copyright.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgCopyright = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-copyright"
+-    {...props}
+-  >
+-    <circle cx="12" cy="12" r="10"/>
+-    <path d="M14.5 9a3.5 3.5 0 1 0 0 6h1"/>
+-  </svg>
+-);
+-
+-export { SvgCopyright };
+diff --git a/sugery_status_board/src/components/icons/FileSpreadsheet.tsx b/sugery_status_board/src/components/icons/FileSpreadsheet.tsx
+deleted file mode 100644
+index 906ff9a..0000000
+--- a/sugery_status_board/src/components/icons/FileSpreadsheet.tsx
++++ /dev/null
+@@ -1,25 +0,0 @@
+-import React from 'react';
+-
+-const SvgFileSpreadsheet = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-file-spreadsheet"
+-    {...props}
+-  >
+-    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+-    <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+-    <path d="M8 12h8"/>
+-    <path d="M8 16h8"/>
+-    <path d="M8 20h8"/>
+-  </svg>
+-);
+-
+-export { SvgFileSpreadsheet };
+diff --git a/sugery_status_board/src/components/icons/FileText.tsx b/sugery_status_board/src/components/icons/FileText.tsx
+deleted file mode 100644
+index ccad087..0000000
+--- a/sugery_status_board/src/components/icons/FileText.tsx
++++ /dev/null
+@@ -1,25 +0,0 @@
+-import React from 'react';
+-
+-const SvgFileText = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-file-text"
+-    {...props}
+-  >
+-    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+-    <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+-    <path d="M10 9H8"/>
+-    <path d="M16 13H8"/>
+-    <path d="M16 17H8"/>
+-  </svg>
+-);
+-
+-export { SvgFileText };
+diff --git a/sugery_status_board/src/components/icons/FileWord.tsx b/sugery_status_board/src/components/icons/FileWord.tsx
+deleted file mode 100644
+index 13e2416..0000000
+--- a/sugery_status_board/src/components/icons/FileWord.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgFileWord = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-file"
+-    {...props}
+-  >
+-    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+-    <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+-  </svg>
+-);
+-
+-export { SvgFileWord };
+diff --git a/sugery_status_board/src/components/icons/Github.tsx b/sugery_status_board/src/components/icons/Github.tsx
+deleted file mode 100644
+index 1f51616..0000000
+--- a/sugery_status_board/src/components/icons/Github.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgGithub = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-github"
+-    {...props}
+-  >
+-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3-1 3-4 3-5.5.08-1.2-.27-2.4-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.73 1.15-.28 2.35 0 3.5-.73 1.1-1.08 2.3-1 3.5 0 1.5 0 4.5 3 5.5-1 .5-1.5 1.2-1.5 3.5v4"/>
+-    <path d="M9 18c-4.51 2-5-2-7-2"/>
+-  </svg>
+-);
+-
+-export { SvgGithub };
+diff --git a/sugery_status_board/src/components/icons/Logo.tsx b/sugery_status_board/src/components/icons/Logo.tsx
+deleted file mode 100644
+index 63f40fd..0000000
+--- a/sugery_status_board/src/components/icons/Logo.tsx
++++ /dev/null
+@@ -1,72 +0,0 @@
+-import * as React from "react";
+-
+-interface LogoProps extends React.SVGProps<SVGSVGElement> {
+-  circleColor?: string;
+-  arcColor?: string;
+-  textColor?: string;
+-}
+-
+-const SvgLogo = ({
+-  circleColor = "#D4D700",
+-  arcColor = "#48CAE4",
+-  textColor = "#fff",
+-  ...props
+-}: LogoProps) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="1em"
+-    height="1em"
+-    fill="none"
+-    viewBox="0 -10 103 50"
+-    {...props}
+-  >
+-    <path
+-      fill={circleColor}
+-      d="M51.112 28.361c6.352 0 11.5-5.149 11.5-11.5s-5.148-11.5-11.5-11.5c-6.351 0-11.5 5.149-11.5 11.5s5.149 11.5 11.5 11.5"
+-    />
+-    <path
+-      fill={arcColor}
+-      d="M40.918 30.942c-1.252 0-2.224-.336-2.888-1-1.727-1.727-1.149-5.667 1.436-10.226q.032.133.067.265l.756 2.035c.151.317.303.604.464.881-1.257 2.409-1.459 4.064-.6 4.922.344.345.83.52 1.44.52 2.633 0 7.736-3.334 12.7-8.298 2.863-2.863 5.261-5.857 6.751-8.432 1.616-2.792 1.972-4.767 1.027-5.71-.345-.345-.83-.52-1.44-.52-.89 0-2.063.377-3.488 1.121-.357-.202-.807-.433-.807-.433l-2.11-.784-.258-.066c2.778-1.579 5.351-2.438 7.338-2.438 1.252 0 2.224.336 2.888 1 1.34 1.34 1.323 4.034-.045 7.393-1.444 3.546-4.19 7.45-7.733 10.992-5.333 5.333-11.416 8.778-15.498 8.778"
+-    />
+-    <path
+-      fill={textColor}
+-      d="M70.508 14.937q0 .96-.576 1.596t-1.836.852l2.652 3.192q.324.396.708.576.396.168.936.252v.456h-2.316l-2.94-3.768a2 2 0 0 0-.3-.324.9.9 0 0 0-.288-.18.9.9 0 0 0-.348-.084 4 4 0 0 0-.468-.024v2.496q0 .444.048.732.06.276.228.432.18.156.504.216.336.048.876.048v.456h-4.236v-.456q.42-.012.672-.072a.8.8 0 0 0 .408-.204.75.75 0 0 0 .192-.408q.048-.264.048-.684v-5.592q0-.42-.048-.672a.74.74 0 0 0-.168-.408.58.58 0 0 0-.36-.204 3.6 3.6 0 0 0-.624-.084v-.456h3.768q1.656 0 2.556.612.912.612.912 1.704m-4.776 1.944h.852q1.2 0 1.776-.432.588-.444.588-1.452 0-.972-.468-1.392-.456-.42-1.44-.42h-1.104q-.204 0-.204.204zm6.793 4.98v-.456q.468-.012.744-.072.288-.06.432-.204a.7.7 0 0 0 .204-.408q.06-.264.06-.684v-5.592q0-.42-.048-.672a.74.74 0 0 0-.168-.408.58.58 0 0 0-.36-.204 3.6 3.6 0 0 0-.624-.084v-.456h3.588q1.62 0 2.52.576t.9 1.62q0 .792-.504 1.296-.492.504-1.572.828v.048q.372.036.648.084t.492.12q.216.06.396.156.192.096.372.216 1.068.756 1.068 1.896 0 .636-.36 1.188a2.4 2.4 0 0 1-.984.852 3 3 0 0 1-.42.18q-.216.06-.504.108-.288.036-.672.06-.372.012-.888.012zm4.356-.516q2.172 0 2.172-1.86 0-1.356-1.116-1.896a4 4 0 0 0-.372-.144q-.18-.06-.42-.084a5 5 0 0 0-.576-.048 22 22 0 0 0-.804-.012h-.54v2.676q0 .732.384 1.056.384.312 1.272.312m-.984-4.644q.372 0 .624-.012t.432-.036q.18-.036.312-.084.144-.06.288-.156.384-.24.54-.576.168-.336.168-.876 0-.948-.468-1.356-.456-.42-1.44-.42h-.924q-.204 0-.204.204v3.312zm8.421 2.892q0 .6.048.948t.18.54a.67.67 0 0 0 .396.252q.264.06.684.072v.456h-3.888v-.456q.42-.012.672-.072a.76.76 0 0 0 .408-.252q.144-.18.192-.504.048-.336.048-.9v-4.872q0-.504-.048-.828-.036-.336-.168-.528a.62.62 0 0 0-.36-.264 2.4 2.4 0 0 0-.624-.108v-.456h3.648v.456a2.1 2.1 0 0 0-.624.096.7.7 0 0 0-.36.288q-.12.192-.168.54a9 9 0 0 0-.036.888zm11.293-4.68h-.492a3 3 0 0 0-.168-.864 1.2 1.2 0 0 0-.384-.54 1.4 1.4 0 0 0-.612-.288 4 4 0 0 0-.888-.084q-.444 0-.72.024a1.6 1.6 0 0 0-.408.06q-.144.048-.192.12a.33.33 0 0 0-.036.168v6.42q0 .384.048.66.06.276.216.456.168.168.468.264.312.084.816.096v.456h-4.536v-.456a3.6 3.6 0 0 0 .816-.096q.312-.096.468-.264a.87.87 0 0 0 .216-.456q.06-.276.06-.66v-6.42a.26.26 0 0 0-.048-.168q-.036-.072-.168-.12a1.1 1.1 0 0 0-.348-.06 6 6 0 0 0-.612-.024q-.468 0-.876.036a1.6 1.6 0 0 0-.696.216 1.2 1.2 0 0 0-.468.528q-.18.36-.192.996h-.444v-2.292h9.06z"
+-    />
+-    <g filter="url(#logo_svg__a)">
+-      <path
+-        fill={textColor}
+-        d="M12.404 20.861H4.652v-.456q.42-.012.672-.072a.8.8 0 0 0 .408-.204.75.75 0 0 0 .192-.408q.048-.264.048-.684v-5.592q0-.42-.048-.672a.74.74 0 0 0-.168-.408.58.58 0 0 0-.36-.204 3.6 3.6 0 0 0-.624-.084v-.456H8.42v.456a3 3 0 0 0-.624.072.7.7 0 0 0-.36.216 1 1 0 0 0-.168.432 6 6 0 0 0-.036.732v5.172q0 .504.096.828.108.312.348.492.252.168.66.24.408.06 1.032.06.684 0 1.152-.072.468-.084.78-.276.324-.204.504-.552.192-.36.324-.924h.456zm3.547-2.268q0 .6.048.948t.18.54a.67.67 0 0 0 .396.252q.264.06.684.072v.456h-3.888v-.456q.42-.012.672-.072a.76.76 0 0 0 .408-.252q.144-.18.192-.504.048-.336.048-.9v-4.872q0-.504-.048-.828-.036-.336-.168-.528a.62.62 0 0 0-.36-.264 2.4 2.4 0 0 0-.624-.108v-.456h3.648v.456a2.1 2.1 0 0 0-.624.096.7.7 0 0 0-.36.288q-.12.192-.168.54a9 9 0 0 0-.036.888zm6.948.432 2.113-5.208q.18-.444.252-.696.071-.252.072-.456 0-.324-.204-.456-.193-.132-.733-.132v-.456h2.916v.456a3 3 0 0 0-.48.096q-.192.06-.348.168a1.2 1.2 0 0 0-.263.288 3 3 0 0 0-.216.42l-3.252 7.932h-.42l-3.096-7.476a6 6 0 0 0-.312-.624 1.7 1.7 0 0 0-.325-.432 1.2 1.2 0 0 0-.408-.252 2 2 0 0 0-.54-.108v-.468h3.912v.468q-.335 0-.552.036a.8.8 0 0 0-.323.096.36.36 0 0 0-.169.156.5.5 0 0 0-.047.216q0 .168.06.396.06.216.227.636zm7.443-3.24q.648 0 1.08-.072.444-.084.696-.252a.92.92 0 0 0 .372-.432q.12-.264.12-.624h.42v3.276h-.42q0-.36-.108-.624a.85.85 0 0 0-.36-.432q-.252-.18-.696-.264a5.2 5.2 0 0 0-1.104-.096v2.712q0 .396.096.66a.9.9 0 0 0 .324.42q.24.156.624.228.384.06.948.06.636 0 1.08-.084.444-.096.744-.312t.48-.564q.18-.36.3-.888h.456l-.18 2.364h-7.452v-.456q.42-.012.672-.072a.8.8 0 0 0 .408-.204.75.75 0 0 0 .192-.408q.048-.264.048-.684v-5.592q0-.42-.048-.672a.74.74 0 0 0-.168-.408.58.58 0 0 0-.36-.204 3.6 3.6 0 0 0-.624-.084v-.456h6.936l.108 2.112h-.42a2.3 2.3 0 0 0-.24-.78 1.2 1.2 0 0 0-.444-.492 1.8 1.8 0 0 0-.708-.252 6.5 6.5 0 0 0-1.044-.072h-1.524q-.204 0-.204.204z"
+-      />
+-    </g>
+-    <defs>
+-      <filter
+-        id="logo_svg__a"
+-        width={38.741}
+-        height={17.36}
+-        x={0.652}
+-        y={11.621}
+-        colorInterpolationFilters="sRGB"
+-        filterUnits="userSpaceOnUse"
+-      >
+-        <feFlood floodOpacity={0} result="BackgroundImageFix" />
+-        <feColorMatrix
+-          in="SourceAlpha"
+-          result="hardAlpha"
+-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+-        />
+-        <feOffset dy={4} />
+-        <feGaussianBlur stdDeviation={2} />
+-        <feComposite in2="hardAlpha" operator="out" />
+-        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+-        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_11_46" />
+-        <feBlend
+-          in="SourceGraphic"
+-          in2="effect1_dropShadow_11_46"
+-          result="shape"
+-        />
+-      </filter>
+-    </defs>
+-  </svg>
+-);
+-SvgLogo.displayName = "SvgLogo";
+-export { SvgLogo };
+diff --git a/sugery_status_board/src/components/icons/Mail.tsx b/sugery_status_board/src/components/icons/Mail.tsx
+deleted file mode 100644
+index 50c5cdd..0000000
+--- a/sugery_status_board/src/components/icons/Mail.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgMail = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-mail"
+-    {...props}
+-  >
+-    <rect width="20" height="16" x="2" y="4" rx="2"/>
+-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+-  </svg>
+-);
+-
+-export { SvgMail };
+diff --git a/sugery_status_board/src/components/icons/MapPin.tsx b/sugery_status_board/src/components/icons/MapPin.tsx
+deleted file mode 100644
+index bf0ce40..0000000
+--- a/sugery_status_board/src/components/icons/MapPin.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgMapPin = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-map-pin"
+-    {...props}
+-  >
+-    <path d="M12 12.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
+-    <path d="M12 22.5c-4.97 0-9-4.03-9-9a9 9 0 0 1 18 0c0 4.97-4.03 9-9 9Z"/>
+-  </svg>
+-);
+-
+-export { SvgMapPin };
+diff --git a/sugery_status_board/src/components/icons/Monitor.tsx b/sugery_status_board/src/components/icons/Monitor.tsx
+deleted file mode 100644
+index 304a5c1..0000000
+--- a/sugery_status_board/src/components/icons/Monitor.tsx
++++ /dev/null
+@@ -1,23 +0,0 @@
+-import React from 'react';
+-
+-const SvgMonitor = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-monitor"
+-    {...props}
+-  >
+-    <rect width="20" height="14" x="2" y="3" rx="2" ry="2"/>
+-    <line x1="12" y1="17" x2="12" y2="21"/>
+-    <line x1="8" y1="21" x2="16" y2="21"/>
+-  </svg>
+-);
+-
+-export { SvgMonitor };
+diff --git a/sugery_status_board/src/components/icons/Phone.tsx b/sugery_status_board/src/components/icons/Phone.tsx
+deleted file mode 100644
+index 1538d1c..0000000
+--- a/sugery_status_board/src/components/icons/Phone.tsx
++++ /dev/null
+@@ -1,21 +0,0 @@
+-import React from 'react';
+-
+-const SvgPhone = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-phone"
+-    {...props}
+-  >
+-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+-  </svg>
+-);
+-
+-export { SvgPhone };
+diff --git a/sugery_status_board/src/components/icons/Search.tsx b/sugery_status_board/src/components/icons/Search.tsx
+deleted file mode 100644
+index 65d059a..0000000
+--- a/sugery_status_board/src/components/icons/Search.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgSearch = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-search"
+-    {...props}
+-  >
+-    <circle cx="11" cy="11" r="8"/>
+-    <path d="m21 21-4.3-4.3"/>
+-  </svg>
+-);
+-
+-export { SvgSearch };
+diff --git a/sugery_status_board/src/components/icons/Shield.tsx b/sugery_status_board/src/components/icons/Shield.tsx
+deleted file mode 100644
+index f8c699e..0000000
+--- a/sugery_status_board/src/components/icons/Shield.tsx
++++ /dev/null
+@@ -1,21 +0,0 @@
+-import React from 'react';
+-
+-const SvgShield = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-shield"
+-    {...props}
+-  >
+-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+-  </svg>
+-);
+-
+-export { SvgShield };
+diff --git a/sugery_status_board/src/components/icons/User.tsx b/sugery_status_board/src/components/icons/User.tsx
+deleted file mode 100644
+index bd43b88..0000000
+--- a/sugery_status_board/src/components/icons/User.tsx
++++ /dev/null
+@@ -1,22 +0,0 @@
+-import React from 'react';
+-
+-const SvgUser = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-user"
+-    {...props}
+-  >
+-    <circle cx="12" cy="8" r="5"/>
+-    <path d="M20 21a8 8 0 0 0-16 0"/>
+-  </svg>
+-);
+-
+-export { SvgUser };
+diff --git a/sugery_status_board/src/components/icons/Userplus.tsx b/sugery_status_board/src/components/icons/Userplus.tsx
+deleted file mode 100644
+index 9c73a59..0000000
+--- a/sugery_status_board/src/components/icons/Userplus.tsx
++++ /dev/null
+@@ -1,24 +0,0 @@
+-import React from 'react';
+-
+-const SvgUserplus = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-user-plus"
+-    {...props}
+-  >
+-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+-    <circle cx="9" cy="7" r="4"/>
+-    <line x1="19" y1="8" x2="19" y2="14"/>
+-    <line x1="22" y1="11" x2="16" y2="11"/>
+-  </svg>
+-);
+-
+-export { SvgUserplus };
+diff --git a/sugery_status_board/src/components/icons/Users.tsx b/sugery_status_board/src/components/icons/Users.tsx
+deleted file mode 100644
+index aa4da98..0000000
+--- a/sugery_status_board/src/components/icons/Users.tsx
++++ /dev/null
+@@ -1,24 +0,0 @@
+-import React from 'react';
+-
+-const SvgUsers = (props: React.SVGProps<SVGSVGElement>) => (
+-  <svg
+-    xmlns="http://www.w3.org/2000/svg"
+-    width="24"
+-    height="24"
+-    viewBox="0 0 24 24"
+-    fill="none"
+-    stroke="currentColor"
+-    strokeWidth="2"
+-    strokeLinecap="round"
+-    strokeLinejoin="round"
+-    className="lucide lucide-users"
+-    {...props}
+-  >
+-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+-    <circle cx="9" cy="7" r="4"/>
+-    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+-    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+-  </svg>
+-);
+-
+-export { SvgUsers };
+diff --git a/sugery_status_board/src/components/icons/index.ts b/sugery_status_board/src/components/icons/index.ts
+deleted file mode 100644
+index 31bb4cc..0000000
+--- a/sugery_status_board/src/components/icons/index.ts
++++ /dev/null
+@@ -1,18 +0,0 @@
+-export * from "./Activity";
+-export * from "./Cancel";
+-export * from "./Clipboard";
+-export * from "./Copyright";
+-export * from "./Github";
+-export * from "./Logo";
+-export * from "./Monitor";
+-export * from "./Search";
+-export * from "./Shield";
+-export * from "./Userplus";
+-export * from "./Users";
+-export * from "./FileSpreadsheet";
+-export * from "./FileText";
+-export * from "./FileWord";
+-export * from "./Mail";
+-export * from "./MapPin";
+-export * from "./Phone";
+-export * from "./User";
+\ No newline at end of file
+diff --git a/sugery_status_board/src/db/db.json b/sugery_status_board/src/db/db.json
+deleted file mode 100644
+index 09a9e69..0000000
+--- a/sugery_status_board/src/db/db.json
++++ /dev/null
+@@ -1,329 +0,0 @@
+-{
+-  "patients": [
+-    {
+-      "id": "1",
+-      "patientNumber": "AB12CD",
+-      "firstName": "John",
+-      "lastName": "Doe",
+-      "streetAddress": "123 Main St",
+-      "city": "Anytown",
+-      "state": "CA",
+-      "country": "USA",
+-      "phoneNumber": "+1 123-456-7890",
+-      "contactEmail": "john.doe@example.com",
+-      "status": "Checked In"
+-    },
+-    {
+-      "id": "2",
+-      "patientNumber": "EF34GH",
+-      "firstName": "Jane",
+-      "lastName": "Smith",
+-      "streetAddress": "456 Oak Ave",
+-      "city": "Someville",
+-      "state": "NY",
+-      "country": "USA",
+-      "phoneNumber": "+1 987-654-3210",
+-      "contactEmail": "jane.smith@example.com",
+-      "status": "In Progress"
+-    },
+-    {
+-      "id": "3",
+-      "patientNumber": "IJ56KL",
+-      "firstName": "Peter",
+-      "lastName": "Jones",
+-      "streetAddress": "789 Pine Ln",
+-      "city": "Otherplace",
+-      "state": "TX",
+-      "country": "USA",
+-      "phoneNumber": "+1 555-555-5555",
+-      "contactEmail": "peter.jones@example.com",
+-      "status": "Closing"
+-    },
+-    {
+-      "id": "4",
+-      "patientNumber": "MN78OP",
+-      "firstName": "Emily",
+-      "lastName": "Davis",
+-      "streetAddress": "101 Maple Dr",
+-      "city": "Springfield",
+-      "state": "IL",
+-      "country": "USA",
+-      "phoneNumber": "+1 222-333-4444",
+-      "contactEmail": "emily.davis@example.com",
+-      "status": "Closing"
+-    },
+-    {
+-      "id": "5",
+-      "patientNumber": "QR90ST",
+-      "firstName": "Michael",
+-      "lastName": "Wilson",
+-      "streetAddress": "212 Birch Rd",
+-      "city": "Metropolis",
+-      "state": "CA",
+-      "country": "USA",
+-      "phoneNumber": "+1 444-555-6666",
+-      "contactEmail": "michael.wilson@example.com",
+-      "status": "Recovery"
+-    },
+-    {
+-      "id": "6",
+-      "patientNumber": "UV12WX",
+-      "firstName": "Sarah",
+-      "lastName": "Brown",
+-      "streetAddress": "333 Cedar Blvd",
+-      "city": "Gotham",
+-      "state": "NJ",
+-      "country": "USA",
+-      "phoneNumber": "+1 666-777-8888",
+-      "contactEmail": "sarah.brown@example.com",
+-      "status": "Complete"
+-    },
+-    {
+-      "id": "7",
+-      "patientNumber": "YZ34AB",
+-      "firstName": "David",
+-      "lastName": "Miller",
+-      "streetAddress": "444 Spruce Ave",
+-      "city": "Star City",
+-      "state": "WA",
+-      "country": "USA",
+-      "phoneNumber": "+1 888-999-0000",
+-      "contactEmail": "david.miller@example.com",
+-      "status": "Dismissal"
+-    },
+-    {
+-      "id": "8",
+-      "patientNumber": "CD56EF",
+-      "firstName": "Jessica",
+-      "lastName": "Garcia",
+-      "streetAddress": "555 Redwood Pkwy",
+-      "city": "Central City",
+-      "state": "CO",
+-      "country": "USA",
+-      "phoneNumber": "+1 111-222-3333",
+-      "contactEmail": "jessica.garcia@example.com",
+-      "status": "Checked In"
+-    },
+-    {
+-      "id": "9",
+-      "patientNumber": "GH78IJ",
+-      "firstName": "Chris",
+-      "lastName": "Rodriguez",
+-      "streetAddress": "666 Willow Way",
+-      "city": "Coast City",
+-      "state": "FL",
+-      "country": "USA",
+-      "phoneNumber": "+1 333-444-5555",
+-      "contactEmail": "chris.rodriguez@example.com",
+-      "status": "Pre-Procedure"
+-    },
+-    {
+-      "id": "10",
+-      "patientNumber": "KL90MN",
+-      "firstName": "Amanda",
+-      "lastName": "Martinez",
+-      "streetAddress": "777 Sequoia St",
+-      "city": "Keystone City",
+-      "state": "KS",
+-      "country": "USA",
+-      "phoneNumber": "+1 555-666-7777",
+-      "contactEmail": "amanda.martinez@example.com",
+-      "status": "In Progress"
+-    },
+-    {
+-      "id": "11",
+-      "patientNumber": "OP12QR",
+-      "firstName": "James",
+-      "lastName": "Hernandez",
+-      "streetAddress": "888 Cypress Ct",
+-      "city": "Fawcett City",
+-      "state": "OH",
+-      "country": "USA",
+-      "phoneNumber": "+1 777-888-9999",
+-      "contactEmail": "james.hernandez@example.com",
+-      "status": "Closing"
+-    },
+-    {
+-      "id": "12",
+-      "patientNumber": "ST34UV",
+-      "firstName": "Linda",
+-      "lastName": "Lopez",
+-      "streetAddress": "999 Juniper Ave",
+-      "city": "Bludhaven",
+-      "state": "MI",
+-      "country": "USA",
+-      "phoneNumber": "+1 999-000-1111",
+-      "contactEmail": "linda.lopez@example.com",
+-      "status": "Recovery"
+-    },
+-    {
+-      "id": "13",
+-      "patientNumber": "WX56YZ",
+-      "firstName": "Robert",
+-      "lastName": "Gonzalez",
+-      "streetAddress": "111 Elm St",
+-      "city": "Rivertown",
+-      "state": "OR",
+-      "country": "USA",
+-      "phoneNumber": "+1 123-123-1234",
+-      "contactEmail": "robert.gonzalez@example.com",
+-      "status": "Complete"
+-    },
+-    {
+-      "id": "14",
+-      "patientNumber": "AB78CD",
+-      "firstName": "Patricia",
+-      "lastName": "Perez",
+-      "streetAddress": "222 Oak Dr",
+-      "city": "Hill Valley",
+-      "state": "CA",
+-      "country": "USA",
+-      "phoneNumber": "+1 234-234-2345",
+-      "contactEmail": "patricia.perez@example.com",
+-      "status": "Dismissal"
+-    },
+-    {
+-      "id": "15",
+-      "patientNumber": "EF90GH",
+-      "firstName": "Daniel",
+-      "lastName": "Sanchez",
+-      "streetAddress": "333 Pine Ave",
+-      "city": "Sunnydale",
+-      "state": "AZ",
+-      "country": "USA",
+-      "phoneNumber": "+1 345-345-3456",
+-      "contactEmail": "daniel.sanchez@example.com",
+-      "status": "Checked In"
+-    },
+-    {
+-      "id": "16",
+-      "patientNumber": "IJ12KL",
+-      "firstName": "Mary",
+-      "lastName": "Ramirez",
+-      "streetAddress": "444 Maple Blvd",
+-      "city": "Neptune",
+-      "state": "NV",
+-      "country": "USA",
+-      "phoneNumber": "+1 456-456-4567",
+-      "contactEmail": "mary.ramirez@example.com",
+-      "status": "Pre-Procedure"
+-    },
+-    {
+-      "id": "17",
+-      "patientNumber": "MN34OP",
+-      "firstName": "William",
+-      "lastName": "Torres",
+-      "streetAddress": "555 Birch Ln",
+-      "city": "Smallville",
+-      "state": "KS",
+-      "country": "USA",
+-      "phoneNumber": "+1 567-567-5678",
+-      "contactEmail": "william.torres@example.com",
+-      "status": "In Progress"
+-    },
+-    {
+-      "id": "18",
+-      "patientNumber": "QR56ST",
+-      "firstName": "Jennifer",
+-      "lastName": "Flores",
+-      "streetAddress": "666 Cedar Rd",
+-      "city": "Midway City",
+-      "state": "MI",
+-      "country": "USA",
+-      "phoneNumber": "+1 678-678-6789",
+-      "contactEmail": "jennifer.flores@example.com",
+-      "status": "Closing"
+-    },
+-    {
+-      "id": "19",
+-      "patientNumber": "UV78WX",
+-      "firstName": "Richard",
+-      "lastName": "Gomez",
+-      "streetAddress": "777 Spruce Way",
+-      "city": "Opal City",
+-      "state": "MD",
+-      "country": "USA",
+-      "phoneNumber": "+1 789-789-7890",
+-      "contactEmail": "richard.gomez@example.com",
+-      "status": "Recovery"
+-    },
+-    {
+-      "id": "20",
+-      "patientNumber": "YZ90AB",
+-      "firstName": "Elizabeth",
+-      "lastName": "Diaz",
+-      "streetAddress": "888 Redwood Ave",
+-      "city": "Hub City",
+-      "state": "IL",
+-      "country": "USA",
+-      "phoneNumber": "+1 890-890-8901",
+-      "contactEmail": "elizabeth.diaz@example.com",
+-      "status": "Complete"
+-    },
+-    {
+-      "id": "21",
+-      "patientNumber": "CD12EF",
+-      "firstName": "Joseph",
+-      "lastName": "Reyes",
+-      "streetAddress": "999 Willow Pkwy",
+-      "city": "Ivy Town",
+-      "state": "CT",
+-      "country": "USA",
+-      "phoneNumber": "+1 901-901-9012",
+-      "contactEmail": "joseph.reyes@example.com",
+-      "status": "Dismissal"
+-    },
+-    {
+-      "id": "22",
+-      "patientNumber": "GH34IJ",
+-      "firstName": "Susan",
+-      "lastName": "Cruz",
+-      "streetAddress": "1010 Sequoia Ct",
+-      "city": "Gateway City",
+-      "state": "CA",
+-      "country": "USA",
+-      "phoneNumber": "+1 122-122-1223",
+-      "contactEmail": "susan.cruz@example.com",
+-      "status": "Checked In"
+-    },
+-    {
+-      "id": "23",
+-      "patientNumber": "KL56MN",
+-      "firstName": "Thomas",
+-      "lastName": "Morales",
+-      "streetAddress": "1212 Cypress Ave",
+-      "city": "Happy Harbor",
+-      "state": "RI",
+-      "country": "USA",
+-      "phoneNumber": "+1 233-233-2334",
+-      "contactEmail": "thomas.morales@example.com",
+-      "status": "Pre-Procedure"
+-    },
+-    {
+-      "id": "24",
+-      "patientNumber": "OP78QR",
+-      "firstName": "Karen",
+-      "lastName": "Gutierrez",
+-      "streetAddress": "1313 Juniper Ln",
+-      "city": "Jump City",
+-      "state": "CA",
+-      "country": "USA",
+-      "phoneNumber": "+1 344-344-3445",
+-      "contactEmail": "karen.gutierrez@example.com",
+-      "status": "In Progress"
+-    },
+-    {
+-      "firstName": "Anthony",
+-      "lastName": "Tibamwenda",
+-      "streetAddress": "Kawempe Tula",
+-      "city": "Kampala",
+-      "state": "Central",
+-      "country": "Uganda",
+-      "phoneNumber": "+256751251043",
+-      "contactEmail": "anthonyngisiro@gmail.com",
+-      "id": "2025-08-08T17:57:10.212Z",
+-      "patientNumber": "R2D87Z",
+-      "status": "Checked In"
+-    }
+-  ]
+-}
+\ No newline at end of file
+diff --git a/sugery_status_board/src/store/patientStore.ts b/sugery_status_board/src/store/patientStore.ts
+index 627ee61..252b140 100644
+--- a/sugery_status_board/src/store/patientStore.ts
++++ b/sugery_status_board/src/store/patientStore.ts
+@@ -1,4 +1,5 @@
+ import { create } from "zustand";
++import { persist } from "zustand/middleware";
+ 
+ // Define the status workflow
+ export const statusWorkflow = [
+@@ -15,7 +16,6 @@ export type Status = (typeof statusWorkflow)[number];
+ 
+ // Define the Patient interface
+ export interface Patient {
+-  id: string;
+   patientNumber: string;
+   firstName: string;
+   lastName: string;
+@@ -26,29 +26,25 @@ export interface Patient {
+   phoneNumber: string;
+   contactEmail: string;
+   status: Status;
+-  createdAt: string; // New field
+ }
+ 
+ interface PatientState {
+   patients: Patient[];
+   selectedPatient: Patient | null;
+-  fetchPatients: () => Promise<void>;
+   setPatients: (patients: Patient[]) => void;
+   setSelectedPatient: (patient: Patient | null) => void;
+-  addPatient: (
+-    patient: Omit<Patient, "id" | "patientNumber" | "status" | "createdAt">
+-  ) => Promise<{
++  addPatient: (patient: Omit<Patient, "patientNumber" | "status">) => {
+     success: boolean;
+     message: string;
+-  }>;
++  };
+   updatePatientStatus: (
+     patientNumber: string,
+     newStatus: Status
+-  ) => Promise<{
++  ) => {
+     success: boolean;
+     message: string;
+-  }>;
+-  findPatientByPatientNumber: (patientNumber: string) => Promise<void>;
++  };
++  findPatientByPatientNumber: (patientNumber: string) => void;
+   clearSelectedPatient: () => void;
+ }
+ 
+@@ -60,104 +56,105 @@ const generatePatientNumber = (): string => {
+     .join("");
+ };
+ 
+-export const usePatientStore = create<PatientState>()((set, get) => ({
+-  patients: [],
+-  selectedPatient: null,
+-  fetchPatients: async () => {
+-    const response = await fetch("/api/patients");
+-    const patients = await response.json();
+-    set({ patients });
+-  },
+-  setPatients: (patients) => set({ patients }),
+-  setSelectedPatient: (patient) => set({ selectedPatient: patient }),
+-  findPatientByPatientNumber: async (patientNumber) => {
+-    const { patients } = get();
+-    const patient = patients.find(
+-      (p) => p.patientNumber.toLowerCase() === patientNumber.toLowerCase()
+-    );
+-    set({ selectedPatient: patient || null });
+-  },
+-  clearSelectedPatient: () => set({ selectedPatient: null }),
+-  addPatient: async (patient) => {
+-    const { patients } = get();
+-    const emailExists = patients.some(
+-      (p) =>
+-        p.contactEmail.toLowerCase() === patient.contactEmail.toLowerCase()
+-    );
+-
+-    if (emailExists) {
+-      return {
+-        success: false,
+-        message: "A patient with this email already exists.",
+-      };
+-    }
+-
+-    const newPatient = {
+-      ...patient,
+-      id: new Date().toISOString(),
+-      patientNumber: generatePatientNumber(),
+-      status: "Checked In" as Status,
+-      createdAt: new Date().toISOString(), // Set creation timestamp
+-    };
+-
+-    const response = await fetch("/api/patients", {
+-      method: "POST",
+-      headers: {
+-        "Content-Type": "application/json",
++export const usePatientStore = create<PatientState>()(
++  persist(
++    (set, get) => ({
++      patients: [],
++      selectedPatient: null,
++      setPatients: (patients) => set({ patients }),
++      setSelectedPatient: (patient) => set({ selectedPatient: patient }),
++      findPatientByPatientNumber: (patientNumber) => {
++        const { patients } = get();
++        const patient = patients.find(
++          (p) => p.patientNumber.toLowerCase() === patientNumber.toLowerCase()
++        );
++        set({ selectedPatient: patient || null });
+       },
+-      body: JSON.stringify(newPatient),
+-    });
+-
+-    if (response.ok) {
+-      set({ patients: [...patients, newPatient] });
+-      return {
+-        success: true,
+-        message: `Successfully added patient ${newPatient.patientNumber}!`,
+-      };
+-    } else {
+-      return {
+-        success: false,
+-        message: "Failed to add patient.",
+-      };
+-    }
+-  },
+-  updatePatientStatus: async (patientNumber, newStatus) => {
+-    const { patients, selectedPatient } = get();
+-    const patientIndex = patients.findIndex(
+-      (p) => p.patientNumber === patientNumber
+-    );
+-
+-    if (patientIndex === -1) {
+-      return { success: false, message: "Patient not found." };
+-    }
+-
+-    const patient = patients[patientIndex];
+-    const updatedPatient = { ...patient, status: newStatus };
+-
+-    const response = await fetch(`/api/patients/${patient.id}`, {
+-      method: "PUT",
+-      headers: {
+-        "Content-Type": "application/json",
++      clearSelectedPatient: () => set({ selectedPatient: null }),
++      addPatient: (patient) => {
++        const { patients } = get();
++        const emailExists = patients.some(
++          (p) =>
++            p.contactEmail.toLowerCase() === patient.contactEmail.toLowerCase()
++        );
++
++        if (emailExists) {
++          return {
++            success: false,
++            message: "A patient with this email already exists.",
++          };
++        }
++
++        // Generate the random patient number
++        const newPatient: Patient = {
++          ...patient,
++          patientNumber: generatePatientNumber(),
++          status: "Checked In", // Default status
++        };
++
++        set({ patients: [...patients, newPatient] });
++        return {
++          success: true,
++          message: `Successfully added patient ${newPatient.patientNumber}!`,
++        };
++      },
++      updatePatientStatus: (patientNumber, newStatus, forceSkip = false) => {
++        const { patients, selectedPatient } = get();
++        const patientIndex = patients.findIndex(
++          (p) => p.patientNumber === patientNumber
++        );
++
++        if (patientIndex === -1) {
++          return { success: false, message: "Patient not found." };
++        }
++
++        const patient = patients[patientIndex];
++        const currentStatusIndex = statusWorkflow.indexOf(patient.status);
++        const newStatusIndex = statusWorkflow.indexOf(newStatus);
++
++        if (newStatusIndex < 0) {
++          return { success: false, message: "Invalid status." };
++        }
++
++        // Prevent skipping backward more than one step
++        if (
++          newStatusIndex < currentStatusIndex &&
++          newStatusIndex !== currentStatusIndex - 1
++        ) {
++          return {
++            success: false,
++            message: "Cannot move status back more than one step.",
++          };
++        }
++
++        // Prevent skipping forward more than one step unless forced
++        if (newStatusIndex > currentStatusIndex + 1 && forceSkip === false) {
++          return {
++            success: false,
++            requiresConfirmation: true,
++            message: "You're skipping ahead more than one step. Are you sure?",
++          };
++        }
++
++        const updatedPatient = { ...patient, status: newStatus };
++        const updatedPatients = [...patients];
++        updatedPatients[patientIndex] = updatedPatient;
++
++        const updatedSelectedPatient =
++          selectedPatient?.patientNumber === patientNumber
++            ? updatedPatient
++            : selectedPatient;
++
++        set({
++          patients: updatedPatients,
++          selectedPatient: updatedSelectedPatient,
++        });
++
++        return { success: true, message: "Patient status updated." };
+       },
+-      body: JSON.stringify(updatedPatient),
+-    });
+-
+-    if (response.ok) {
+-      const updatedPatients = [...patients];
+-      updatedPatients[patientIndex] = updatedPatient;
+-
+-      const updatedSelectedPatient =
+-        selectedPatient?.patientNumber === patientNumber
+-          ? updatedPatient
+-          : selectedPatient;
+-
+-      set({
+-        patients: updatedPatients,
+-        selectedPatient: updatedSelectedPatient,
+-      });
+-      return { success: true, message: "Patient status updated." };
+-    } else {
+-      return { success: false, message: "Failed to update patient status." };
++    }),
++    {
++      name: "patient-storage", // unique name for localStorage
+     }
+-  },
+-}));
++  )
++);
+diff --git a/sugery_status_board/src/Features/admin/dashboard/api/.gitkeep b/sugery_status_board/src/types/patientStore.ts
+similarity index 100%
+rename from sugery_status_board/src/Features/admin/dashboard/api/.gitkeep
+rename to sugery_status_board/src/types/patientStore.ts
+diff --git a/sugery_status_board/src/utils/cardData.ts b/sugery_status_board/src/utils/cardData.ts
+index 727f185..26a95ce 100644
+--- a/sugery_status_board/src/utils/cardData.ts
++++ b/sugery_status_board/src/utils/cardData.ts
+@@ -1,23 +1,26 @@
+-import { SvgActivity, SvgShield, SvgUsers, SvgMonitor } from "@/components/icons";
++import { TbWaveSawTool } from "react-icons/tb";
++import { FiShield } from "react-icons/fi";
++import { LuUsersRound } from "react-icons/lu";
++import { FaDisplay } from "react-icons/fa6";
+ 
+ export const cardData = [
+   {
+-    Icon: SvgActivity,
++    Icon: TbWaveSawTool,
+     header: "Real-time status tracking",
+     desc: "Monitor ptient status through each surgical state with live updates",
+   },
+   {
+-    Icon: SvgShield,
++    Icon: FiShield,
+     header: "Secure access control",
+     desc: "Role-based access ensures that information is in right hands",
+   },
+   {
+-    Icon: SvgUsers,
++    Icon: LuUsersRound,
+     header: "Muti-user support",
+     desc: "Designed for admins, surgical teams and waiting room displays.",
+   },
+   {
+-    Icon: SvgMonitor,
++    Icon: FaDisplay,
+     header: "Real-time status tracking",
+     desc: "Clean color-coded status board with live updates, perfect for waiting areas",
+   },
+diff --git a/sugery_status_board/src/utils/statusColors.ts b/sugery_status_board/src/utils/statusColors.ts
+deleted file mode 100644
+index 01ffdfb..0000000
+--- a/sugery_status_board/src/utils/statusColors.ts
++++ /dev/null
+@@ -1,11 +0,0 @@
+-import { Status } from "@/store/patientStore";
+-
+-export const statusColors: Record<Status, string> = {
+-  "Checked In": "bg-blue-500 text-white ring-blue-600/20",
+-  "Pre-Procedure": "bg-yellow-500 text-white ring-yellow-600/20",
+-  "In Progress": "bg-orange-500 text-white ring-orange-600/20",
+-  Closing: "bg-purple-500 text-white ring-purple-600/20",
+-  Recovery: "bg-teal-500 text-white ring-teal-600/20",
+-  Complete: "bg-green-500 text-white ring-green-600/20",
+-  Dismissal: "bg-red-500 text-white ring-red-600/20",
+-};
+diff --git a/sugery_status_board/src/Features/admin/dashboard/components/.gitkeep "b/sugery_status_board/\357\200\233[22m\357\200\233[39m\357\200\233[90m"
+similarity index 100%
+rename from sugery_status_board/src/Features/admin/dashboard/components/.gitkeep
+rename to "sugery_status_board/\357\200\233[22m\357\200\233[39m\357\200\233[90m"

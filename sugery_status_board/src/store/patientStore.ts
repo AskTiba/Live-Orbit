@@ -15,7 +15,7 @@ export type Status = (typeof statusWorkflow)[number];
 
 // Define the Patient interface
 export interface Patient {
-  id: string;
+  id: string; // This will now store the MongoDB _id as a string
   patientNumber: string;
   firstName: string;
   lastName: string;
@@ -65,7 +65,12 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
   selectedPatient: null,
   fetchPatients: async () => {
     const response = await fetch("/api/patients");
-    const patients = await response.json();
+    const patientsData = await response.json();
+    // Map _id from MongoDB to id for the frontend
+    const patients = patientsData.map((p: any) => ({
+      ...p,
+      id: p._id.toString(),
+    }));
     set({ patients });
   },
   setPatients: (patients) => set({ patients }),
@@ -94,7 +99,6 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
 
     const newPatient = {
       ...patient,
-      id: new Date().toISOString(),
       patientNumber: generatePatientNumber(),
       status: "Checked In" as Status,
       createdAt: new Date().toISOString(), // Set creation timestamp
@@ -109,7 +113,8 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
     });
 
     if (response.ok) {
-      set({ patients: [...patients, newPatient] });
+      // After successful addition, refetch patients to get the _id from MongoDB
+      await get().fetchPatients(); 
       return {
         success: true,
         message: `Successfully added patient ${newPatient.patientNumber}!`,
@@ -123,32 +128,33 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
   },
   updatePatientStatus: async (patientNumber, newStatus) => {
     const { patients, selectedPatient } = get();
-    const patientIndex = patients.findIndex(
+    const patientToUpdate = patients.find(
       (p) => p.patientNumber === patientNumber
     );
 
-    if (patientIndex === -1) {
+    if (!patientToUpdate) {
       return { success: false, message: "Patient not found." };
     }
 
-    const patient = patients[patientIndex];
-    const updatedPatient = { ...patient, status: newStatus };
-
-    const response = await fetch(`/api/patients/${patient.id}`, {
+    // Use the patient's id (which is now MongoDB's _id) for the PUT request
+    const response = await fetch(`/api/patients/${patientToUpdate.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedPatient),
+      // Only send the status, as the backend uses $set
+      body: JSON.stringify({ status: newStatus }),
     });
 
     if (response.ok) {
-      const updatedPatients = [...patients];
-      updatedPatients[patientIndex] = updatedPatient;
+      // Update local state after successful API call
+      const updatedPatients = patients.map((p) =>
+        p.patientNumber === patientNumber ? { ...p, status: newStatus } : p
+      );
 
       const updatedSelectedPatient =
         selectedPatient?.patientNumber === patientNumber
-          ? updatedPatient
+          ? { ...selectedPatient, status: newStatus }
           : selectedPatient;
 
       set({

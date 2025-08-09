@@ -102,7 +102,7 @@
       "country": "USA",
       "phoneNumber": "+1 111-222-3333",
       "contactEmail": "jessica.garcia@example.com",
-      "status": "Checked In"
+      "status": "Pre-Procedure"
     },
     {
       "id": "9",
@@ -321,9 +321,10 @@
       "country": "Uganda",
       "phoneNumber": "+256751251043",
       "contactEmail": "anthonyngisiro@gmail.com",
-      "id": "2025-08-08T17:57:10.212Z",
-      "patientNumber": "R2D87Z",
-      "status": "Checked In"
+      "id": "2025-08-09T12:48:53.707Z",
+      "patientNumber": "U1V5I7",
+      "status": "In Progress",
+      "createdAt": "2025-08-09T12:48:53.707Z"
     }
   ]
 }

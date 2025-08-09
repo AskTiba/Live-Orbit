@@ -1,49 +1,79 @@
-
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const dbPath = path.resolve(process.cwd(), "src/db/db.json");
+import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
-  const dbData = fs.readFileSync(dbPath, "utf-8");
-  const data = JSON.parse(dbData);
-  const patient = data.patients.find(
-    (p: { id: string }) => p.id === id
-  );
-  return NextResponse.json(patient);
+  const { id } = params;
+  try {
+    const client = await clientPromise;
+    const db = client.db("surgery_db"); // Replace with your database name
+    const collection = db.collection("patients"); // Replace with your collection name
+
+    const patient = await collection.findOne({ _id: new ObjectId(id) });
+
+    if (!patient) {
+      return NextResponse.json({ message: "Patient not found" }, { status: 404 });
+    }
+    return NextResponse.json(patient);
+  } catch (error) {
+    console.error("Error fetching patient:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
 }
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
+  const { id } = params;
   const body = await request.json();
-  const dbData = fs.readFileSync(dbPath, "utf-8");
-  const data = JSON.parse(dbData);
-  const patientIndex = data.patients.findIndex(
-    (p: { id: string }) => p.id === id
-  );
-  data.patients[patientIndex] = body;
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-  return NextResponse.json({ message: "Patient updated successfully" });
+
+  try {
+    const client = await clientPromise;
+    const db = client.db("surgery_db"); // Replace with your database name
+    const collection = db.collection("patients"); // Replace with your collection name
+
+    // Remove _id from body if present, as we don't update the _id
+    const { _id, ...updateData } = body;
+
+    const result = await collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updateData } // Use $set to update specific fields
+    );
+
+    if (result.matchedCount === 0) {
+      return NextResponse.json({ message: "Patient not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Patient updated successfully" });
+  } catch (error) {
+    console.error("Error updating patient:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
 }
 
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
-  const dbData = fs.readFileSync(dbPath, "utf-8");
-  const data = JSON.parse(dbData);
-  data.patients = data.patients.filter(
-    (p: { id: string }) => p.id !== id
-  );
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-  return NextResponse.json({ message: "Patient deleted successfully" });
+  const { id } = params;
+  try {
+    const client = await clientPromise;
+    const db = client.db("surgery_db"); // Replace with your database name
+    const collection = db.collection("patients"); // Replace with your collection name
+
+    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return NextResponse.json({ message: "Patient not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Patient deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting patient:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  }
 }
