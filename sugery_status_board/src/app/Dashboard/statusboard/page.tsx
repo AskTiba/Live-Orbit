@@ -5,7 +5,6 @@ import StatusCard from "@/Features/statusBoard/components/statusCard";
 import ActivePatientCard from "@/Features/statusBoard/components/activePatientCard";
 import { SvgActivity, SvgMonitor, SvgUsers } from "@/components/icons";
 
-
 const PATIENTS_PER_PAGE = 8; // Define how many patients per page
 const PAGE_CYCLE_INTERVAL = 20000; // 20 seconds
 const AUTO_REFRESH_INTERVAL = 15000; // 15 seconds
@@ -52,7 +51,7 @@ export default function StatusBoardPage() {
   return (
     <main className="p-4 space-y-6">
       {/* Header Section */}
-      <section className="flex flex-wrap justify-between px-4 py-2 items-center">
+      <section className="flex flex-wrap justify-between px-2 py-2 gap-3 items-center">
         <div className="flex items-center space-x-2">
           <SvgMonitor className="text-viking-400 size-6" />
           <h2 className="text-xl font-bold text-viking-950">Live Updates</h2>
@@ -80,15 +79,23 @@ export default function StatusBoardPage() {
       </section>
 
       {/* Legend Section */}
-      <section className="space-y-2">
-        <h3 className="text-sm font-medium text-viking-800">Status Legend</h3>
-        <div className="flex gap-4 overflow-x-auto pb-2">
-          <StatusCard />
+      <section className="gap-2 px-2">
+        <h3 className="text-xl font-medium pb-3 text-viking-800">
+          Status Legend
+        </h3>
+        <div className="relative">
+          <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
+            <StatusCard />
+          </div>
+          {/* Left gradient overlay */}
+          <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
+          {/* Right gradient overlay */}
+          <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
         </div>
       </section>
 
       {/* Patients Display */}
-      <section className="mt-6">
+      <section className="">
         <div className="w-full max-w-7xl mt-4 min-h-[40dvh] mx-auto px-4">
           {currentPatients.length ? (
             <ActivePatientCard patients={currentPatients} />

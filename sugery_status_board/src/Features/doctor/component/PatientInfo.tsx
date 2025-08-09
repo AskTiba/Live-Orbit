@@ -3,13 +3,8 @@
 import { usePatientStore } from "@/store/patientStore";
 
 import { statusColors } from "@/utils/statusColors";
-import {
-  SvgFileText,
-  SvgMail,
-  SvgMapPin,
-  SvgPhone,
-  SvgUser,
-} from "@/components/icons";
+import { SvgFileText, SvgMail, SvgPhone, SvgUser } from "@/components/icons";
+import { SvgMapPinHouse } from "@/components/icons";
 
 const statusDescriptions: Record<string, string> = {
   "Checked In": "In the facility awaiting their procedure",
@@ -23,7 +18,6 @@ const statusDescriptions: Record<string, string> = {
 
 export default function PatientDetailsCard() {
   const selectedPatient = usePatientStore((s) => s.selectedPatient);
-  
 
   if (!selectedPatient) return null;
 
@@ -32,8 +26,6 @@ export default function PatientDetailsCard() {
 
   const description =
     statusDescriptions[selectedPatient.status] || "Status unknown";
-
-  
 
   return (
     <div className="bg-viking-50 border border-viking-100 rounded-2xl shadow-sm p-6 max-w-2xl mx-auto mt-4">
@@ -70,7 +62,7 @@ export default function PatientDetailsCard() {
         </div>
 
         <div className="flex items-center gap-2">
-          <SvgMapPin className="w-4 h-4 text-viking-600" />
+          <SvgMapPinHouse className="w-6 h-6 text-viking-600" />
           <span className="font-medium">Address:</span>
           {selectedPatient.streetAddress}, {selectedPatient.city},
           {selectedPatient.state}, {selectedPatient.country}
@@ -78,11 +70,13 @@ export default function PatientDetailsCard() {
       </div>
 
       <div className="mt-6 bg-viking-100 p-4 rounded-lg">
-        <p className="text-sm text-viking-700 font-medium">Current Status</p>
+        <p className="text-sm text-viking-700 font-medium mb-2">
+          Current Status
+        </p>
 
-        <div className="flex items-center gap-3 mt-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
           <span
-            className={`px-3 py-1 rounded-full text-sm font-semibold shadow ${badgeClass}`}
+            className={`px-3 p-2 rounded-md text-sm font-semibold shadow w-full sm:w-auto text-center ${badgeClass}`}
           >
             {selectedPatient.status}
           </span>
