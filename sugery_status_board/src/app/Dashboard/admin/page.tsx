@@ -5,7 +5,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { usePatientStore, Patient } from "@/store/patientStore";
 
 import ProtectedRoute from "@/components/guards/withAuthRedirect";
-import { SvgCancel, SvgClipboard, SvgSearch, SvgUserplus, SvgUsers, SvgFileText } from "@/components/icons";
+import {
+  SvgCancel,
+  SvgClipboard,
+  SvgSearch,
+  SvgUsers,
+  SvgFileText,
+} from "@/components/icons";
 import Link from "next/link";
 
 interface IFormInput {
@@ -95,18 +101,15 @@ function PatientInformation() {
   return (
     <ProtectedRoute>
       <div className="container mx-auto lg:px-4 px-2 py-4">
-        <div className="flex items-center justify-between mx-4 md:mx-0 mb-6">
-                    <div className="flex items-center gap-3">
-            <SvgUserplus className="size-8 lg:size-6 text-viking-400" />
-            <h1 className="md:text-2xl text-2xl font-bold text-viking-950">
+        <div className="mx-4 md:mx-0 mb-3">
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 mb-4">
+            <h1 className="md:text-3xl text-3xl font-bold text-viking-950 text-center sm:text-left w-full">
               Patient Information Management
             </h1>
           </div>
-          <div className="flex items-center gap-3"> {/* New div to group buttons */}
+          <div className="flex flex-wrap justify-between sm:justify-end gap-3">
             <Link href="/Dashboard/reports" passHref>
-              <button
-                className="flex items-center gap-2 px-4 py-2 bg-viking-600 text-white rounded-md text-sm font-semibold shadow-md hover:bg-viking-700 transition-colors cursor-pointer"
-              >
+              <button className="flex items-center gap-2 px-4 py-2 bg-viking-600 text-white rounded-md text-sm font-semibold shadow-md hover:bg-viking-700 transition-colors cursor-pointer">
                 <SvgFileText className="size-5" />
                 View Reports
               </button>

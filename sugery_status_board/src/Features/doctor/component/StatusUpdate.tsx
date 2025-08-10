@@ -48,9 +48,6 @@ export default function StatusUpdateForm() {
   if (!selectedPatient) return null;
 
   const currentIndex = workflowSteps.indexOf(selectedPatient.status);
-  const newIndex = selectedOption
-    ? workflowSteps.indexOf(selectedOption)
-    : currentIndex;
 
   const handleOptionSelect = (step: Status) => {
     const clickedIndex = workflowSteps.indexOf(step);
@@ -105,8 +102,6 @@ export default function StatusUpdateForm() {
   };
 
   const isUpdateDisabled = isUpdating || selectedOption === selectedPatient.status;
-
-  const currentStatusBadgeClass = statusColors[selectedPatient.status] || "bg-slate-400 text-white";
 
   return (
     <div className="space-y-6">

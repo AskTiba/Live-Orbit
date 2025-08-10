@@ -12,11 +12,25 @@ import {
 } from "lucide-react";
 import db from "@/db/db.json";
 import Personal from "@/components/icons/Personal";
+import * as XLSX from 'xlsx';
+import type { jsPDF } from 'jspdf';
+import type { UserOptions } from 'jspdf-autotable';
+
 
 // Import client-side libraries for export (user needs to install these)
 // import jsPDF from 'jspdf';
 // import 'jspdf-autotable'; // This extends jsPDF
 // import * as XLSX from 'xlsx';
+
+interface CustomWindow extends Window {
+  jsPDF?: typeof import('jspdf').default;
+}
+
+declare module 'jspdf' {
+  interface jsPDF {
+    autoTable: (options: UserOptions) => jsPDF;
+  }
+}
 
 interface Patient {
   id: string;
@@ -44,6 +58,21 @@ export default function ReportsPage() {
 
   const [allPatients, setAllPatients] = useState<Patient[]>([]);
   const [filteredPatients, setFilteredPatients] = useState<Patient[]>([]);
+
+  const [JsPDF, setJsPDF] = useState<typeof jsPDF | null>(null); // State to hold jsPDF constructor
+
+  useEffect(() => {
+    const loadPdfLibraries = async () => {
+      const { default: jsPDF } = await import('jspdf');
+      // Temporarily attach jsPDF to window for jspdf-autotable
+            (window as CustomWindow).jsPDF = jsPDF;
+      await import('jspdf-autotable');
+      // Clean up
+            delete (window as CustomWindow).jsPDF;
+      setJsPDF(() => jsPDF); // Store the constructor
+    };
+    loadPdfLibraries();
+  }, []);
 
   useEffect(() => {
     setAllPatients(db.patients as Patient[]);
@@ -94,39 +123,45 @@ export default function ReportsPage() {
     setFiltersApplied(true);
   };
 
-  const handleExportPDF = () => {
-    // User needs to install jspdf and jspdf-autotable
-    // npm install jspdf jspdf-autotable
-    // import jsPDF from 'jspdf';
-    // import 'jspdf-autotable';
+  const handleExportPDF = async () => {
+    if (!JsPDF) {
+      alert("PDF export library is still loading. Please try again in a moment.");
+      return;
+    }
 
-    // if (typeof window !== 'undefined' && typeof (window as any).jsPDF !== 'undefined') {
-    //   const doc = new (window as any).jsPDF();
-    //   const tableColumn = ["Patient ID", "Name", "Status", "Email", "Phone"];
-    //   const tableRows: any[] = [];
+    if (typeof window !== 'undefined') {
+      const doc = new JsPDF();
+      const tableColumn = ["Patient ID", "Name", "Status", "Email", "Phone"];
+      const tableRows: string[][] = [];
 
-    //   filteredPatients.forEach(patient => {
-    //     const patientData = [
-    //       patient.id,
-    //       `${patient.firstName} ${patient.lastName}`,
-    //       patient.status,
-    //       patient.contactEmail,
-    //       patient.phoneNumber,
-    //     ];
-    //     tableRows.push(patientData);
-    //   });
+      filteredPatients.forEach(patient => {
+        const patientData = [
+          patient.id,
+          `${patient.firstName} ${patient.lastName}`,
+          patient.status,
+          patient.contactEmail,
+          patient.phoneNumber,
+        ];
+        tableRows.push(patientData);
+      });
 
-    //   doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    //   const date = new Date().toLocaleDateString();
-    //   const filename = `Patient_Report_${startDate || 'all'}_to_${endDate || 'all'}_${date}.pdf`;
-    //   doc.text("Patient Report", 14, 15);
-    //   doc.save(filename);
-    // } else {
-    //   alert("PDF export library not loaded. Please install jspdf and jspdf-autotable.");
-    // }
-    alert(
-      "PDF export functionality not fully implemented. Please install jspdf and jspdf-autotable and uncomment the code."
-    );
+      if (tableRows.length === 0) {
+        alert("No patient data to export. Please apply filters to get data.");
+        return;
+      }
+
+            doc.autoTable({
+        head: [tableColumn],
+        body: tableRows,
+        startY: 20
+      });
+      const date = new Date().toLocaleDateString();
+      const filename = `Patient_Report_${startDate || 'all'}_to_${endDate || 'all'}_${date}.pdf`;
+      doc.text("Patient Report", 14, 15);
+      doc.save(filename);
+    } else {
+      alert("PDF export functionality is only available in the browser.");
+    }
   };
 
   const handleExportExcel = () => {
@@ -134,19 +169,16 @@ export default function ReportsPage() {
     // npm install xlsx
     // import * as XLSX from 'xlsx';
 
-    // if (typeof window !== 'undefined' && typeof XLSX !== 'undefined') {
-    //   const ws = XLSX.utils.json_to_sheet(filteredPatients);
-    //   const wb = XLSX.utils.book_new();
-    //   XLSX.utils.book_append_sheet(wb, ws, "Patients");
-    //   const date = new Date().toLocaleDateString();
-    //   const filename = `Patient_Report_${startDate || 'all'}_to_${endDate || 'all'}_${date}.xlsx`;
-    //   XLSX.writeFile(wb, filename);
-    // } else {
-    //   alert("Excel export library not loaded. Please install xlsx.");
-    // }
-    alert(
-      "Excel export functionality not fully implemented. Please install xlsx and uncomment the code."
-    );
+    if (typeof window !== 'undefined' && typeof XLSX !== 'undefined') {
+      const ws = XLSX.utils.json_to_sheet(filteredPatients);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Patients");
+      const date = new Date().toLocaleDateString();
+      const filename = `Patient_Report_${startDate || 'all'}_to_${endDate || 'all'}_${date}.xlsx`;
+      XLSX.writeFile(wb, filename);
+    } else {
+      alert("Excel export library not loaded. Please install xlsx.");
+    }
   };
 
   const handleExportWord = () => {
