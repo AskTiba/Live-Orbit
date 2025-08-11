@@ -33,6 +33,8 @@ export interface Patient {
 interface PatientState {
   patients: Patient[];
   selectedPatient: Patient | null;
+  loading: boolean;
+  error: string | null;
   fetchPatients: () => Promise<void>;
   setPatients: (patients: Patient[]) => void;
   setSelectedPatient: (patient: Patient | null) => void;
@@ -64,10 +66,20 @@ const generatePatientNumber = (): string => {
 export const usePatientStore = create<PatientState>()((set, get) => ({
   patients: [],
   selectedPatient: null,
+  loading: false,
+  error: null,
   fetchPatients: async () => {
-    const response = await fetch("/api/patients");
-    const patients = await response.json();
-    set({ patients });
+    set({ loading: true, error: null });
+    try {
+      const response = await fetch("/api/patients");
+      if (!response.ok) {
+        throw new Error("Failed to fetch patients");
+      }
+      const patients = await response.json();
+      set({ patients, loading: false });
+    } catch (error) {
+      set({ error: (error as Error).message, loading: false });
+    }
   },
   setPatients: (patients) => set({ patients }),
   setSelectedPatient: (patient) => set({ selectedPatient: patient }),
@@ -135,7 +147,7 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
     const patient = patients[patientIndex];
     const updatedPatient = { ...patient, status: newStatus };
 
-    const response = await fetch(`/api/patients/${patient.id}`, {
+    const response = await fetch(`/api/patients/${patient.patientNumber}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

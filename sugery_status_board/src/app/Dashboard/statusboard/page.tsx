@@ -12,6 +12,8 @@ const AUTO_REFRESH_INTERVAL = 15000; // 15 seconds
 export default function StatusBoardPage() {
   const patients = usePatientStore((state) => state.patients);
   const fetchPatients = usePatientStore((state) => state.fetchPatients);
+  const loading = usePatientStore((state) => state.loading);
+  const error = usePatientStore((state) => state.error);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -97,7 +99,15 @@ export default function StatusBoardPage() {
       {/* Patients Display */}
       <section className="">
         <div className="w-full max-w-7xl mt-4 min-h-[40dvh] mx-auto px-4">
-          {currentPatients.length ? (
+          {loading ? (
+            <p className="text-center text-viking-700 py-8">
+              Loading patients...
+            </p>
+          ) : error ? (
+            <p className="text-center text-red-500 py-8">
+              Error fetching patients: {error}
+            </p>
+          ) : currentPatients.length > 0 ? (
             <ActivePatientCard patients={currentPatients} />
           ) : (
             <p className="text-center text-viking-700 py-8">

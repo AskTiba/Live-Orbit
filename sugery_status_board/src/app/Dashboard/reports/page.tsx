@@ -10,7 +10,7 @@ import {
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
-import db from "@/db/db.json";
+
 import Personal from "@/components/icons/Personal";
 import * as XLSX from 'xlsx';
 import type { jsPDF } from 'jspdf';
@@ -37,14 +37,15 @@ interface Patient {
   patientNumber: string;
   firstName: string;
   lastName: string;
-  streetAddress: string;
-  city: string;
-  state: string;
-  country: string;
-  phoneNumber: string;
-  contactEmail: string;
+  streetAddress: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  phoneNumber: string | null;
+  contactEmail: string | null;
   status: string;
-  createdAt?: string; // Optional, as some entries might not have it
+  createdAt: Date;
+  statusUpdatedAt: Date;
 }
 
 export default function ReportsPage() {
@@ -75,7 +76,19 @@ export default function ReportsPage() {
   }, []);
 
   useEffect(() => {
-    setAllPatients(db.patients as Patient[]);
+    const fetchPatients = async () => {
+      try {
+        const response = await fetch("/api/patients");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const patients = await response.json();
+        setAllPatients(patients);
+      } catch (error) {
+        console.error("Failed to fetch patients:", error);
+      }
+    };
+    fetchPatients();
   }, []);
 
   const applyFilters = () => {

@@ -3,7 +3,8 @@
 import { usePatientStore } from "@/store/patientStore";
 
 import { statusColors } from "@/utils/statusColors";
-import { SvgFileText, SvgMail, SvgPhone, SvgUser } from "@/components/icons";
+import { SvgPhone, SvgUser } from "@/components/icons";
+import { SvgMail } from "@/components/icons/Mail";
 import { SvgMapPinHouse } from "@/components/icons";
 
 const statusDescriptions: Record<string, string> = {
@@ -33,13 +34,7 @@ export default function PatientDetailsCard() {
         <h2 className="text-xl font-bold text-gray-900 text-center">
           Patient Details
         </h2>
-        <button
-          onClick={() => alert("Export functionality is not yet implemented.")}
-          className="flex items-center gap-1 px-3 py-1 bg-viking-400 text-white rounded-md text-sm hover:bg-viking-700 transition-colors shadow-sm cursor-pointer"
-        >
-          <SvgFileText className="size-4" />
-          Export
-        </button>
+        
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-viking-800">

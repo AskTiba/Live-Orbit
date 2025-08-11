@@ -9,7 +9,6 @@ import {
   SvgCancel,
   SvgClipboard,
   SvgSearch,
-  SvgUserplus,
   SvgUsers,
   SvgFileText,
 } from "@/components/icons";
