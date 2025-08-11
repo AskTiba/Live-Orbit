@@ -86,8 +86,8 @@ curl -X PUT https://yourdomain.com/api/patients/R2D87Z \
 - TypeScript validation prevents common errors
 
 ## 🐛 Known Issues
-- Minor ESLint warnings for intentionally unused destructured variables (non-critical)
 - Build skips TypeScript validation (intentionally configured)
+- ~~Prisma Client generation issue~~ **FIXED** - Added to build process
 
 ## 📊 Performance Metrics
 - **Lighthouse Score**: Should achieve 90+ performance
