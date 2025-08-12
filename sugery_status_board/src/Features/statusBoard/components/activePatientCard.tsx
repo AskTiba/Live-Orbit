@@ -1,5 +1,6 @@
 import { Patient } from "@/store/patientStore";
 import { statusColors } from "@/utils/statusColors";
+import { formatDate } from "@/utils/dateFormatter"; // Import formatDate
 import { User, Tag, Clock } from "lucide-react"; // Importing icons
 
 interface ActivePatientCardProps {
@@ -33,10 +34,10 @@ export default function ActivePatientCard({ patients }: ActivePatientCardProps) 
               <span className="font-medium">ID:</span> {patient.patientNumber}
             </p>
 
-            {/* Last Updated (Placeholder for now) */}
+            {/* Last Updated */}
             <p className="text-xs text-gray-500 flex items-center gap-2">
               <Clock className="w-4 h-4 text-gray-400" />
-              Last Updated: Just now
+              Last Updated: {formatDate(patient.statusUpdatedAt)}
             </p>
           </div>
         </article>

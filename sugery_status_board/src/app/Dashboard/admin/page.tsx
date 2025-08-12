@@ -111,7 +111,7 @@ function PatientInformation() {
             <Link href="/Dashboard/reports" passHref>
               <button className="flex items-center gap-2 px-4 py-2 bg-viking-600 text-white rounded-md text-sm font-semibold shadow-md hover:bg-viking-700 transition-colors cursor-pointer">
                 <SvgFileText className="size-5" />
-                View Reports
+                View Report
               </button>
             </Link>
             <button

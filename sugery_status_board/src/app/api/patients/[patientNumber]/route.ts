@@ -24,10 +24,28 @@ export async function PUT(request: Request, { params }: { params: { patientNumbe
   const body = await request.json();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id: _id, patientNumber: _bodyPatientNumber, createdAt: _createdAt, statusUpdatedAt: _statusUpdatedAt, ...dataToUpdate } = body;
+
   try {
+    const existingPatient = await prisma.patient.findUnique({
+      where: { patientNumber: patientNumber },
+      select: { status: true } // Only fetch status to compare
+    });
+
+    if (!existingPatient) {
+      return NextResponse.json({ message: "Patient not found" }, { status: 404 });
+    }
+
+    const updateData: { status?: string; statusUpdatedAt?: string } = { ...dataToUpdate };
+
+    // If status is being updated and it's different from the existing status
+    if (body.status && body.status !== existingPatient.status) {
+      updateData.status = body.status;
+      updateData.statusUpdatedAt = new Date().toISOString();
+    }
+
     const updatedPatient = await prisma.patient.update({
       where: { patientNumber: patientNumber },
-      data: dataToUpdate,
+      data: updateData,
     });
     return NextResponse.json(updatedPatient);
   } catch (error: unknown) {

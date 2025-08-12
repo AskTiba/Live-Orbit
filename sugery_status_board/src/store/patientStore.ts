@@ -35,7 +35,8 @@ interface PatientState {
   selectedPatient: Patient | null;
   loading: boolean;
   error: string | null;
-  fetchPatients: () => Promise<void>;
+  isRefreshing: boolean; // New state
+  fetchPatients: (isBackgroundRefresh?: boolean) => Promise<void>; // Modified function
   setPatients: (patients: Patient[]) => void;
   setSelectedPatient: (patient: Patient | null) => void;
   addPatient: (
@@ -68,17 +69,22 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
   selectedPatient: null,
   loading: false,
   error: null,
-  fetchPatients: async () => {
-    set({ loading: true, error: null });
+  isRefreshing: false,
+  fetchPatients: async (isBackgroundRefresh = false) => {
+    if (isBackgroundRefresh) {
+      set({ isRefreshing: true });
+    } else {
+      set({ loading: true, error: null });
+    }
     try {
       const response = await fetch("/api/patients");
       if (!response.ok) {
         throw new Error("Failed to fetch patients");
       }
       const patients = await response.json();
-      set({ patients, loading: false });
+      set({ patients, loading: false, isRefreshing: false });
     } catch (error) {
-      set({ error: (error as Error).message, loading: false });
+      set({ error: (error as Error).message, loading: false, isRefreshing: false });
     }
   },
   setPatients: (patients) => set({ patients }),
@@ -145,23 +151,25 @@ export const usePatientStore = create<PatientState>()((set, get) => ({
     }
 
     const patient = patients[patientIndex];
-    const updatedPatient = { ...patient, status: newStatus };
+    const updatedPatientData = { ...patient, status: newStatus }; // Data to send to server
 
     const response = await fetch(`/api/patients/${patient.patientNumber}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedPatient),
+      body: JSON.stringify(updatedPatientData), // Send updatedPatientData
     });
 
     if (response.ok) {
+      const updatedPatientFromServer = await response.json(); // Get updated patient from server
+
       const updatedPatients = [...patients];
-      updatedPatients[patientIndex] = updatedPatient;
+      updatedPatients[patientIndex] = updatedPatientFromServer; // Use data from server
 
       const updatedSelectedPatient =
         selectedPatient?.patientNumber === patientNumber
-          ? updatedPatient
+          ? updatedPatientFromServer // Use data from server
           : selectedPatient;
 
       set({

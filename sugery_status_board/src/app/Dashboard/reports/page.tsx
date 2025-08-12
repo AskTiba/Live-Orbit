@@ -12,10 +12,9 @@ import {
 } from "lucide-react";
 
 import Personal from "@/components/icons/Personal";
-import * as XLSX from 'xlsx';
-import type { jsPDF } from 'jspdf';
-import type { UserOptions } from 'jspdf-autotable';
-
+import * as XLSX from "xlsx";
+import type { jsPDF } from "jspdf";
+import type { UserOptions } from "jspdf-autotable";
 
 // Import client-side libraries for export (user needs to install these)
 // import jsPDF from 'jspdf';
@@ -23,10 +22,10 @@ import type { UserOptions } from 'jspdf-autotable';
 // import * as XLSX from 'xlsx';
 
 interface CustomWindow extends Window {
-  jsPDF?: typeof import('jspdf').default;
+  jsPDF?: typeof import("jspdf").default;
 }
 
-declare module 'jspdf' {
+declare module "jspdf" {
   interface jsPDF {
     autoTable: (options: UserOptions) => jsPDF;
   }
@@ -64,12 +63,12 @@ export default function ReportsPage() {
 
   useEffect(() => {
     const loadPdfLibraries = async () => {
-      const { default: jsPDF } = await import('jspdf');
+      const { default: jsPDF } = await import("jspdf");
       // Temporarily attach jsPDF to window for jspdf-autotable
-            (window as CustomWindow).jsPDF = jsPDF;
-      await import('jspdf-autotable');
+      (window as CustomWindow).jsPDF = jsPDF;
+      await import("jspdf-autotable");
       // Clean up
-            delete (window as CustomWindow).jsPDF;
+      delete (window as CustomWindow).jsPDF;
       setJsPDF(() => jsPDF); // Store the constructor
     };
     loadPdfLibraries();
@@ -138,18 +137,26 @@ export default function ReportsPage() {
 
   const handleExportPDF = async () => {
     if (!JsPDF) {
-      alert("PDF export library is still loading. Please try again in a moment.");
+      alert(
+        "PDF export library is still loading. Please try again in a moment."
+      );
       return;
     }
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const doc = new JsPDF();
-      const tableColumn = ["Patient ID", "Name", "Status", "Email", "Phone"];
+      const tableColumn = [
+        "Patient Number",
+        "Name",
+        "Status",
+        "Email",
+        "Phone",
+      ];
       const tableRows: string[][] = [];
 
-      filteredPatients.forEach(patient => {
+      filteredPatients.forEach((patient) => {
         const patientData = [
-          patient.id,
+          patient.patientNumber,
           `${patient.firstName} ${patient.lastName}`,
           patient.status,
           patient.contactEmail,
@@ -163,13 +170,15 @@ export default function ReportsPage() {
         return;
       }
 
-            doc.autoTable({
+      doc.autoTable({
         head: [tableColumn],
         body: tableRows,
-        startY: 20
+        startY: 20,
       });
       const date = new Date().toLocaleDateString();
-      const filename = `Patient_Report_${startDate || 'all'}_to_${endDate || 'all'}_${date}.pdf`;
+      const filename = `Patient_Report_${startDate || "all"}_to_${
+        endDate || "all"
+      }_${date}.pdf`;
       doc.text("Patient Report", 14, 15);
       doc.save(filename);
     } else {
@@ -182,12 +191,14 @@ export default function ReportsPage() {
     // npm install xlsx
     // import * as XLSX from 'xlsx';
 
-    if (typeof window !== 'undefined' && typeof XLSX !== 'undefined') {
+    if (typeof window !== "undefined" && typeof XLSX !== "undefined") {
       const ws = XLSX.utils.json_to_sheet(filteredPatients);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Patients");
       const date = new Date().toLocaleDateString();
-      const filename = `Patient_Report_${startDate || 'all'}_to_${endDate || 'all'}_${date}.xlsx`;
+      const filename = `Patient_Report_${startDate || "all"}_to_${
+        endDate || "all"
+      }_${date}.xlsx`;
       XLSX.writeFile(wb, filename);
     } else {
       alert("Excel export library not loaded. Please install xlsx.");
